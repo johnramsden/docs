@@ -3,3 +3,7 @@ _site/
 .jekyll-metadata
 _pdf
 .DS_Store
+node_modules
+.bundle
+vendor
+**/*.sync-conflict*
