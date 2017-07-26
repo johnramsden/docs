@@ -1,0 +1,5 @@
+prose:
+  # Restricts authoring access to a directory
+  #rooturl: '_posts'
+  siteurl: 'https://docs.ramsdenj.com'
+  #metadata:
