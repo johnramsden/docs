@@ -37,7 +37,7 @@ gulp.task('jekyll-build', ['watch', 'browser-sync'], shell.task(['bundle exec je
  * Jekyll Build task
  * Watch for changes and rebuild if necessary
  */
-gulp.task('nix-build', ['watch', 'browser-sync'], shell.task(['nix-shell --run "jekyll build --watch --drafts"']));
+gulp.task('nix-build', ['watch', 'browser-sync'], shell.task(['nix-shell --run "bundle exec jekyll build --watch --drafts"']));
 
 /*
  * BrowserSync task

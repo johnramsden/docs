@@ -3,10 +3,10 @@ repository: johnramsden/docs
 output: web
 # this property is useful for conditional filtering of content that is separate from the PDF.
 
-topnav_title: John Ramsden's Documentation
+topnav_title: John Ramsden's Notes and Documentation
 # this appears on the top navigation bar next to the home button
 
-site_title: John Ramsden's Documentation
+site_title: John Ramsden's Notes and Documentation
 # this appears in the html browser tab for the site title (seen mostly by search engines, not users)
 
 company_name: John Ramsden
@@ -32,12 +32,12 @@ exclude:
   - .gitignore
   - default.nix
   - gemset.nix
-
+  - node_modules
 # these are the files and directories that jekyll will exclude from the build
 
-feedback_subject_line: John Ramsden's Notes
+feedback_subject_line: John Ramsden's Notes and Documentation
 
-feedback_email: contact.ramsdenj@gmail.com
+feedback_email: ramsdenj.contact@gmail.com
 # used as a contact email for the Feedback link in the top navigation bar
 
 # feedback_disable: true
