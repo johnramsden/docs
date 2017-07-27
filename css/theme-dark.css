@@ -62,8 +62,9 @@ a.navbar-brand:hover {
     color: #ffffff;
 }
 
+/* NOTE: Changes nav line! */
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
-    border-color: darken($grey-color, 15%) !important;
+    border-color: white !important;
 }
 
 .btn-primary {
