@@ -1,11 +1,13 @@
 ---
-title: "Single sourcing pages"
-tagName: single_sourcing
+title: "FreeBSD Posts"
+tagName: freebsd
 search: exclude
-permalink: tag_single_sourcing.html
+permalink: tag_freebsd.html
 sidebar: mydoc_sidebar
+hide_sidebar: true
 folder: tags
 ---
+
 {% include taglogic.html %}
 
 {% include links.html %}

@@ -1,9 +1,10 @@
 ---
-title: "Special layout pages"
-tagName: special_layouts
+title: "archlinux Posts"
+tagName: archlinux
 search: exclude
-permalink: tag_special_layouts.html
+permalink: tag_archlinux.html
 sidebar: mydoc_sidebar
+hide_sidebar: true
 folder: tags
 ---
 

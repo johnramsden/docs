@@ -1,11 +1,13 @@
 ---
-title: "Mobile Pages"
+title: "nixos Posts"
+tagName: nixos
 search: exclude
-tagName: mobile
-permalink: tag_mobile.html
+permalink: tag_nixos.html
 sidebar: mydoc_sidebar
+hide_sidebar: true
 folder: tags
 ---
+
 {% include taglogic.html %}
 
 {% include links.html %}

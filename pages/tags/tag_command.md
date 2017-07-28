@@ -1,11 +1,13 @@
 ---
-title: "Publishing pages"
-tagName: publishing
+title: "Shell Command Posts"
+tagName: command
 search: exclude
-permalink: tag_publishing.html
+permalink: tag_command.html
 sidebar: mydoc_sidebar
+hide_sidebar: true
 folder: tags
 ---
+
 {% include taglogic.html %}
 
 {% include links.html %}
