@@ -1,9 +1,9 @@
 ---
 title: Shell Scripting
 sidebar: home_sidebar
-hide_sidebar: true
+hide_sidebar: false
 keywords: shell
 permalink: shell.html
-toc: false
+toc: true
 folder: shell
 ---
