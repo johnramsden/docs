@@ -1,8 +1,8 @@
 ---
-title: "command Posts"
-tagName: command
+title: "find Posts"
+tagName: find
 search: exclude
-permalink: tag_command.html
+permalink: tag_find.html
 sidebar: mydoc_sidebar
 hide_sidebar: true
 folder: tags

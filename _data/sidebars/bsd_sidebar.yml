@@ -5,12 +5,16 @@ entries:
   levels: one
   folders:
 
-  - title: FreeBSD
+  - title: Virtualization
     output: web
     folderitems:
-    - title: FreeBSD
-      url: /freebsd.html
-      output: web
     - title: bhyve
       url: /freebsd_bhyve.html
+      output: web
+
+  - title: Jails
+    output: web
+    folderitems:
+    - title: iocage
+      url: /freebsd_iocage.html
       output: web

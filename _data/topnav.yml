@@ -3,12 +3,13 @@
 topnav:
 - title: Topnav
   items:
+    - title: John Ramsden's Blog
+      external_url: https://ramsdenj.com
     - title: GitHub
       external_url: https://github.com/johnramsden/docs
     - title: News
       url: /news.html
 
-#Topnav dropdowns
 topnav_dropdowns:
 - title: Topnav dropdowns
   folders:

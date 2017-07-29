@@ -7,3 +7,5 @@ permalink: shell.html
 toc: true
 folder: systemadministration/shell
 ---
+
+This section conatins a compilation of useful commands or small shell scripts.

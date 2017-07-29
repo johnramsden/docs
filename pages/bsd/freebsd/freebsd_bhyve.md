@@ -6,5 +6,5 @@ keywords: freebsd, bsd, bhyve, virtualization
 tags: [ freebsd, bsd, virtualization ]
 permalink: freebsd_bhyve.html
 toc: false
-folder: bsd/bhyve
+folder: bsd/freebsd
 ---

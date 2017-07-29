@@ -1,15 +1,15 @@
 ---
-title: Useful Commands and Scripts
+title: dd
 sidebar: systemadministration_sidebar
-hide_sidebar: true
-keywords: shellscript, dd, find
-tags: [ shell, dd, find ]
-permalink: shell_useful_commands.html
+hide_sidebar: false
+keywords: shellscript, dd, shell, command
+tags: [ shell, dd, command ]
+permalink: shell_dd.html
 toc: true
 folder: systemadministration/shell
 ---
 
-This is a compilation of useful commands find myself often using, and would like to remember.
+The following page contains uses for the ```dd``` command.
 
 ## Image a Disk
 
@@ -41,14 +41,4 @@ Or, if it's been split:
 
 ```
 cat /path/to/backup.img.gz* | gunzip -c | dd of=/dev/sdX
-```
-
-
-
-## Find
-
-Delete all based on an extension.
-
-```
-find . -type f -name '*.jpeg' -delete
 ```

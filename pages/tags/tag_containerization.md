@@ -1,8 +1,8 @@
 ---
-title: "command Posts"
-tagName: command
+title: "Containerization Posts"
+tagName: containerization
 search: exclude
-permalink: tag_command.html
+permalink: tag_containerization.html
 sidebar: mydoc_sidebar
 hide_sidebar: true
 folder: tags
