@@ -1,12 +1,12 @@
 ---
 title: Useful Commands and Scripts
-sidebar: home_sidebar
+sidebar: systemadministration_sidebar
 hide_sidebar: true
 keywords: shellscript, dd, find
 tags: [ shell, dd, find ]
 permalink: shell_useful_commands.html
 toc: true
-folder: shell
+folder: systemadministration/shell
 ---
 
 This is a compilation of useful commands find myself often using, and would like to remember.

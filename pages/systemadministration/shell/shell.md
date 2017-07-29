@@ -1,9 +1,9 @@
 ---
 title: Shell Scripting
-sidebar: home_sidebar
+sidebar: systemadministration_sidebar
 hide_sidebar: false
 keywords: shell
 permalink: shell.html
 toc: true
-folder: shell
+folder: systemadministration/shell
 ---

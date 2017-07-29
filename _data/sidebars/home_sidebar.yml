@@ -5,21 +5,36 @@ entries:
   levels: one
   folders:
 
-  - title: Categories
+  - title: Linux
     output: web
     folderitems:
-    - title: News
-      url: /news.html
-      output: web
     - title: Arch Linux
       url: /archlinux.html
       output: web
     - title: NixOS
       url: /nixos.html
       output: web
-    - title: Shell Scripting
-      url: /shell.html
+    - title: systemd
+      url: /systemd.html
       output: web
+
+  - title: BSD
+    output: web
+    folderitems:
     - title: FreeBSD
       url: /freebsd.html
       output: web
+
+  - title: General System Administration
+    output: web
+    folderitems:
+    - title: Shell Scripting
+      url: /shell.html
+      output: web
+
+  # - title: Programming
+  #   output: web
+  #   folderitems:
+  #   - title: c
+  #     url: /clanguage.html
+  #     output: web

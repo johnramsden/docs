@@ -14,9 +14,9 @@ topnav_dropdowns:
   folders:
     - title: Topics
       folderitems:
-        - title: Shell scripting
-          url: /shell.html
         - title: Linux
           url: /linux.html
         - title: BSD
-          url: /bsd.html
+          url: /linux.html
+        - title: System Administration
+          url: /systemadministration.html
