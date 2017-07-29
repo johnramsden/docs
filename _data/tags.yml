@@ -11,3 +11,5 @@ allowed-tags:
   - virtualization
   - dd
   - find
+  - media
+  - ffmpeg

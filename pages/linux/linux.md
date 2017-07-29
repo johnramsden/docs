@@ -7,3 +7,5 @@ permalink: linux.html
 toc: false
 folder: linux
 ---
+
+Linux specific section.

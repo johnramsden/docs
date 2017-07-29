@@ -1,0 +1,24 @@
+# This is your sidebar TOC. The sidebar code loops through sections here and provides the appropriate formatting.
+
+entries:
+- title: Desktop
+  levels: one
+  folders:
+
+  - title: Media
+    output: web
+    folderitems:
+    - title: Convert Text to Speech
+      url: /media_text_to_speech.html
+      output: web
+    - title: Convert Audio to Video
+      url: /media_audio_to_video.html
+      output: web
+
+
+  - title: Miscellaneous
+    output: web
+    folderitems:
+    - title: Re-authenticate IRC Nickname
+      url: /miscellaneous_irc_authenticate_nick.html
+      output: web

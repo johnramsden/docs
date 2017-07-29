@@ -21,3 +21,5 @@ topnav_dropdowns:
           url: /linux.html
         - title: System Administration
           url: /systemadministration.html
+        - title: Desktop
+          url: /desktop.html

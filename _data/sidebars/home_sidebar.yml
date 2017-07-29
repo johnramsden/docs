@@ -31,6 +31,19 @@ entries:
     - title: Shell Scripting
       url: /shell.html
       output: web
+    - title: Media
+      url: /media.html
+      output: web
+
+  - title: Desktop
+    output: web
+    folderitems:
+    - title: Media
+      url: /media.html
+      output: web
+    - title: Miscellaneous
+      url: /miscellaneous.html
+      output: web
 
   # - title: Programming
   #   output: web
