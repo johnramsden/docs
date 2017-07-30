@@ -8,6 +8,7 @@
 
 CMDLINEPARAM=1     #  Takes at least one param.
 TAGDIR="pages/tags"
+TAGFILE="_data/tags.yml"
 
 if [ $# -ge $CMDLINEPARAM ]
 then
@@ -18,8 +19,6 @@ else
 fi
 
 if [ -d "${TAGDIR}" ]; then
-
-  echo "Creating tag(s) for ${tags}"
 
   for tag in ${tags}; do
   # Cannot indent here string.
@@ -38,6 +37,15 @@ folder: tags
 
 {% include links.html %}
 EOF
+
+  echo "Created tag: ${tag}"
+
+  if [  -f ${TAGFILE} ]; then
+    echo "  - ${tag}" >> "${TAGFILE}"
+    echo "Added ${tag} to '${TAGFILE}' file"
+  else
+    echo "Tag file: ${TAGFILE} doesn't exist"
+  fi
 
   done
 
