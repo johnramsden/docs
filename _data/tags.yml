@@ -13,3 +13,6 @@ allowed-tags:
   - find
   - media
   - ffmpeg
+  - network
+  - ssh
+  - nixosconfig

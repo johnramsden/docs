@@ -2,7 +2,7 @@
 
 entries:
 - title: Sidebar
-  levels: one
+  product: Topics
   folders:
 
   - title: Linux
@@ -14,8 +14,8 @@ entries:
     - title: NixOS
       url: /nixos.html
       output: web
-    - title: systemd
-      url: /systemd.html
+    - title: General Linux
+      url: /linux.html
       output: web
 
   - title: BSD
@@ -25,29 +25,19 @@ entries:
       url: /freebsd.html
       output: web
 
-  - title: General System Administration
+  - title: System Administration
     output: web
     folderitems:
     - title: Shell Scripting
       url: /shell.html
       output: web
-    - title: Media
-      url: /media.html
-      output: web
 
-  - title: Desktop
+  - title: Desktop and Userspace
     output: web
     folderitems:
+    - title: Internet
+      url: /internet.html
+      output: web
     - title: Media
       url: /media.html
       output: web
-    - title: Miscellaneous
-      url: /miscellaneous.html
-      output: web
-
-  # - title: Programming
-  #   output: web
-  #   folderitems:
-  #   - title: c
-  #     url: /clanguage.html
-  #     output: web

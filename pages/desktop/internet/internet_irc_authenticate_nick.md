@@ -3,10 +3,10 @@ title: Re-authenticate IRC Nickname
 sidebar: desktop_sidebar
 hide_sidebar: false
 keywords: irc, nick, nickname, authenticate
-tags: [ irc ]
-permalink: miscellaneous_irc_authenticate_nick.html
+tags: [ network ]
+permalink: internet_irc_authenticate_nick.html
 toc: true
-folder: desktop/miscellaneous
+folder: desktop/internet
 ---
 
 If the password isn't entered in the allowed time in IRC, a user can be blocked from signing in, and have their name temporarily changed to guest.

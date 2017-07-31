@@ -1,6 +1,6 @@
 ---
 title: NixOS
-sidebar: linux_sidebar
+sidebar: nixos_sidebar
 hide_sidebar: false
 keywords: nixos, linux
 tags: [ nixos, linux ]

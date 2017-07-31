@@ -18,8 +18,8 @@ topnav_dropdowns:
         - title: Linux
           url: /linux.html
         - title: BSD
-          url: /linux.html
+          url: /bsd.html
         - title: System Administration
           url: /systemadministration.html
-        - title: Desktop
+        - title: Desktop and Userspace
           url: /desktop.html
