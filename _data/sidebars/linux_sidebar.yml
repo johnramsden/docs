@@ -8,11 +8,11 @@ entries:
   - title: Arch Linux
     output: web
     folderitems:
-    - title: Arch Linux
-      url: /archlinux.html
-      output: web
     - title: Setting up pacaur with the Arch User Repository
       url: /archlinux_aur_pacaur.html
+      output: web
+    - title: ZFS Dataset Structure on Arch Linux
+      url: /archlinux_zfs_structure.html
       output: web
 
   - title: NixOS
