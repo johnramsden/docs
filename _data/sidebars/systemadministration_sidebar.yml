@@ -14,3 +14,10 @@ entries:
     - title: dd
       url: /shell_dd.html
       output: web
+
+  - title: ZFS
+    output: web
+    folderitems:
+    - title: ZFS Mirrors
+      url: /zfs_mirrors.html
+      output: web

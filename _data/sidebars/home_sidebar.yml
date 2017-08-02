@@ -31,6 +31,9 @@ entries:
     - title: Shell Scripting
       url: /shell.html
       output: web
+    - title: ZFS
+      url: /zfs.html
+      output: web
 
   - title: Desktop and Userspace
     output: web

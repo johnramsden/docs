@@ -16,3 +16,4 @@ allowed-tags:
   - network
   - ssh
   - nixosconfig
+  - zfs
