@@ -2,8 +2,8 @@
 title: ZFS Dataset Structure on Arch Linux
 sidebar: linux_sidebar
 hide_sidebar: false
-keywords: archlinux, linux
-tags: [ archlinux, linux ]
+keywords: archlinux, linux, zfs
+tags: [ archlinux, linux, zfs ]
 permalink: archlinux_zfs_structure.html
 toc: false
 folder: linux/archlinux
@@ -168,46 +168,99 @@ Mount system datasets:
 
 {% highlight shell %}
 mkdir -p /mnt/usr/local
-mount -t zfs vault/sys/chin/usr/local /mnt/usr/local
+mount -t zfs vault/sys/chin/usr/local /mnt/usr/local; \
 
 mkdir -p /mnt/var/cache
-mount -t zfs vault/sys/chin/var/cache /mnt/var/cache
+mount -t zfs vault/sys/chin/var/cache /mnt/var/cache; \
 
-mkdir -p /mnt/var/lib/{lxc,lxd,machines,systemd/coredump} /mnt/var/log
-mount -t zfs vault/sys/chin/var/lib/lxc /mnt/var/lib/lxc
-mount -t zfs vault/sys/chin/var/lib/lxd /mnt/var/lib/lxd
-mount -t zfs vault/sys/chin/var/lib/machines /mnt/var/lib/machines
-mount -t zfs vault/sys/chin/var/lib/systemd/coredump /mnt/var/lib/systemd/coredump
-mount -t zfs vault/sys/chin/var/log /mnt/var/log
+
+mkdir -p /mnt/var/lib/{lxc,lxd,machines,systemd/coredump} /mnt/var/log; \
+mount -t zfs vault/sys/chin/var/lib/lxc /mnt/var/lib/lxc; \
+mount -t zfs vault/sys/chin/var/lib/lxd /mnt/var/lib/lxd; \
+mount -t zfs vault/sys/chin/var/lib/machines /mnt/var/lib/machines; \
+mount -t zfs vault/sys/chin/var/lib/systemd/coredump /mnt/var/lib/systemd/coredump; \
+mount -t zfs vault/sys/chin/var/log /mnt/var/log; \
 {% endhighlight shell %}
 
 Mount home.
 
 {% highlight shell %}
-mkdir -p /mnt/home
-mount -t zfs vault/sys/chin/home /mnt/home
+mkdir -p /mnt/home ; \
+mount -t zfs vault/sys/chin/home /mnt/home; \
 
 mkdir -p /mnt/home/john
-mount -t zfs vault/sys/chin/home/john /mnt/home/john
+mount -t zfs vault/sys/chin/home/john /mnt/home/john; \
 
 mkdir -p /mnt/home/john/{.cache,.config,.local}
-mount -t zfs vault/sys/chin/home/john/cache /mnt/home/john/.cache
-mount -t zfs vault/sys/chin/home/john/config /mnt/home/john/.config
-mount -t zfs vault/sys/chin/home/john/local /mnt/home/john/.local
+mount -t zfs vault/sys/chin/home/john/cache /mnt/home/john/.cache; \
+mount -t zfs vault/sys/chin/home/john/config /mnt/home/john/.config; \
+mount -t zfs vault/sys/chin/home/john/local /mnt/home/john/.local; \
 
 mkdir -p /mnt/home/john/.local/share/Steam
-mount -t zfs vault/sys/chin/home/john/local/share/Steam /mnt/home/john/.local/share/Steam
+mount -t zfs vault/sys/chin/home/john/local/share/Steam /mnt/home/john/.local/share/Steam; \
 {% endhighlight shell %}
 
 Mount data:
 
 {% highlight shell %}
 mkdir -p /mnt/home/john/{Books,Computer,Personal,Pictures,Reference,University,Workspace}
-mount -t zfs vault/data/Books /mnt/home/john/Books
-mount -t zfs vault/data/Computer /mnt/home/john/Computer
-mount -t zfs vault/data/Personal /mnt/home/john/Personal
-mount -t zfs vault/data/Pictures /mnt/home/john/Pictures
-mount -t zfs vault/data/Reference /mnt/home/john/Reference
-mount -t zfs vault/data/University /mnt/home/john/University
-mount -t zfs vault/data/Workspace /mnt/home/john/Workspace
+mount -t zfs vault/data/Books /mnt/home/john/Books; \
+mount -t zfs vault/data/Computer /mnt/home/john/Computer; \
+mount -t zfs vault/data/Personal /mnt/home/john/Personal; \
+mount -t zfs vault/data/Pictures /mnt/home/john/Pictures; \
+mount -t zfs vault/data/Reference /mnt/home/john/Reference; \
+mount -t zfs vault/data/University /mnt/home/john/University; \
+mount -t zfs vault/data/Workspace /mnt/home/john/Workspace; \
 {% endhighlight shell %}
+
+### Boot
+
+Create esp, (EF00) for regular install.
+
+{% highlight shell %}
+gdisk /dev/sdf
+mkfs.fat -F32 /dev/sdf1
+mount /dev/sdf1 /mnt/boot
+{% endhighlight shell %}
+
+I keep it at ```/mnt/efi``` instead, and [bindmount kernel directory to /boot](https://ramsdenj.com/2016/04/15/multi-boot-linux-with-one-boot-partition.html).
+
+{% highlight shell %}
+mkdir -p /mnt/mnt/efi
+mount /dev/sdf1 /mnt/mnt/efi
+{% endhighlight shell %}
+
+
+{% highlight shell %}
+mkdir -p /mnt/boot /mnt/mnt/efi/installs/chin
+mount --bind /mnt/mnt/efi/installs/chin /mnt/boot
+{% endhighlight shell %}
+
+Create fstab.
+
+{% highlight shell %}
+genfstab -U -p /mnt >> /mnt/etc/fstab
+{% endhighlight shell %}
+
+### Swap
+
+Create 32GiB partition and create swap.
+
+{% highlight shell %}
+mkswap /dev/sdf2
+swapon /dev/sdf2
+{% endhighlight shell %}
+
+Get swap UUID and add to fstab.
+
+{% highlight shell %}
+lsblk -no UUID /dev/sdf2
+{% endhighlight shell %}
+
+Add to fstab.
+
+{% highlight shell %}
+UUID=4b00ce42-d400-4060-9329-622c420f367e none swap defaults 0 0
+{% endhighlight shell %}
+
+Now all partitions and datasets are setup.
