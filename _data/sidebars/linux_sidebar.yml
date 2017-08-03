@@ -18,8 +18,11 @@ entries:
   - title: NixOS
     output: web
     folderitems:
-    - title: NixOS
-      url: /nixos.html
+    - title: NixOS root on ZFS Install
+      url: /nixos_install_zfs.html
+      output: web
+    - title: Remotely Accessing Install Media
+      url: /nixos_remote_access.html
       output: web
 
   - title: systemd
