@@ -4,7 +4,7 @@ sidebar: linux_sidebar
 hide_sidebar: false
 keywords: archlinux, linux, aur, pacaur
 tags: [ archlinux, linux, aur, postinstall ]
-permalink: archlinux_aur_pacaur.html
+permalink: archlinux_post_install.html
 toc: false
 folder: linux/archlinux
 ---
@@ -69,21 +69,36 @@ for ds in $(zfs list -H -o name | \
     grep -v cache); do
   echo "Creating: ${REMOTE_USER}@${REMOTE_IP}:${REMOTE_POOL_ROOT}/${ds}"
 
-  ssh ${REMOTE_USER}@${REMOTE_IP} \
-    "if [ $(zfs list -H -o name \"${ds}\") != \"${ds}\" ]; then \
-      echo \"Creating non-existant dataset ${ds}\";
-      #zfs create -p \"${ds}\" \
-      echo \"Creating non-existant dataset ${ds}\"; \
-      echo \"${ds} created, running ZnapZend.\"; \
-    else \
-      echo \"${ds} exists, running ZnapZend.\"; \
-    fi"
+  # See ssh(1) for -tt
+  # https://www.freebsd.org/cgi/man.cgi?query=ssh
+  # In simple terms, force pseudo-terminal and pseudo tty
+    ssh -tt ${REMOTE_USER}@${REMOTE_IP} \
+      "~/znap_check_dataset ${REMOTE_POOL_ROOT}/${ds}"
 
-#  znapzendzetup create --tsformat='%Y-%m-%d-%H%M%S' \
-#  SRC '1d=>15min,7d=>1h,30d=>4h,90d=>1d' ${ds} \
-#  DST:${REMOTE_IP} '1d=>15min,7d=>1h,30d=>4h,90d=>1d,1y=>1w,10y=>1month' \
-#  "${REMOTE_USER}@${REMOTE_IP}:${REMOTE_POOL_ROOT}/${ds}"
+  znapzendzetup create --tsformat='%Y-%m-%d-%H%M%S' \
+    SRC '1d=>15min,7d=>1h,30d=>4h,90d=>1d' ${ds} \
+    DST:${REMOTE_IP} '1d=>15min,7d=>1h,30d=>4h,90d=>1d,1y=>1w,10y=>1month' \
+    "${REMOTE_USER}@${REMOTE_IP}:${REMOTE_POOL_ROOT}/${ds}"
 done
+{% endhighlight shell %}
+
+On remote I have a pre-znazendzetup script which makes sure the remote location exists.
+
+{% highlight shell %}
+#!/bin/sh
+
+# Pre zapzendzetup script. Put in ~/znap_check_dataset on remote and run with
+
+ds="${1}"
+
+if [ "$(zfs list -H -o name "${ds}")" = "${ds}" ]; then
+  echo "${ds} exists, running ZnapZend."
+else
+  echo "Creating non-existant dataset ${ds}"
+  zfs create -p "${ds}"
+  zfs unmount "${ds}"
+  echo "${ds} created, running ZnapZend."
+fi
 {% endhighlight shell %}
 
 I would then run, for chin on ```replicator@lilan.ramsden.network```.
@@ -91,6 +106,8 @@ I would then run, for chin on ```replicator@lilan.ramsden.network```.
 {% highlight shell %}
 ./znapcfg "tank/replication/chin" "replicator" "lilan.ramsden.network"
 {% endhighlight shell %}
+
+
 
 ## Scrub
 
