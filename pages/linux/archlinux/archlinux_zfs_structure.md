@@ -5,11 +5,11 @@ hide_sidebar: false
 keywords: archlinux, linux, zfs
 tags: [ archlinux, linux, zfs ]
 permalink: archlinux_zfs_structure.html
-toc: false
+toc: true
 folder: linux/archlinux
 ---
 
-As of August-2-2017 I was using the following filesystem heirarchy for my ZFS datasets.
+After a lot of experimenting, as of August 2nd 2017 I was using the following filesystem heirarchy for my ZFS datasets during system setup when using Arch.
 
 ## Dataset Structure
 
@@ -67,7 +67,7 @@ The other datasets will be independent from the boot environment and will not ch
 
 #### System Datasets
 
-I keep some datasets like ```cache``` datasets seperate to avoid having to snapshot and backup their data, and logs so they are always available. I also keep containers and VMs seperate.
+I keep some datasets like ```/var/cache```'s' dataset seperate to avoid having to snapshot and backup their data. I also keep ```/var/log``` 's' dataset seperate so the logs are always available as well as the datasets for my containers and VMs.
 
 {% highlight shell %}
 zfs create -o mountpoint=legacy ${SYS_ROOT}/${SYSTEM_NAME}/var/lib/systemd/coredump; \
@@ -93,6 +93,29 @@ zfs create -o mountpoint=legacy ${SYS_ROOT}/${SYSTEM_NAME}/home/john/config; \
 zfs create -o mountpoint=legacy ${SYS_ROOT}/${SYSTEM_NAME}/home/john/cache
 {% endhighlight shell %}
 
+As of [zfsonlinux 0.7.0](https://github.com/zfsonlinux/zfs/releases/tag/zfs-0.7.0) ZFS delegation using ```zfs allow``` works on linux. I delegate all datasets under ```${SYS_ROOT}/${SYSTEM_NAME}/home/john``` to my user 'john' giving the abiity to snapshot and create datasets.
+
+{% highlight shell %}
+zfs allow john create,mount,mountpoint,snapshot ${SYS_ROOT}/${SYSTEM_NAME}/home/john
+{% endhighlight shell %}
+
+Checking permissions shows john's can permissions.
+
+{% highlight shell %}
+zfs allow ${SYS_ROOT}/${SYSTEM_NAME}/home/john
+{% endhighlight shell %}
+
+{% highlight shell %}
+---- Permissions on vault/sys/chin/home/john -------------------------
+Local+Descendent permissions:
+        user john create
+[root@chin ~]# zfs allow john snapshot ${SYS_ROOT}/${SYSTEM_NAME}/home/john
+[root@chin ~]# zfs allow ${SYS_ROOT}/${SYSTEM_NAME}/home/john
+---- Permissions on vault/sys/chin/home/john -------------------------
+Local+Descendent permissions:
+        user john create,snapshot
+{% endhighlight shell %}
+
 #### Data Datasets
 
 I'll be mounting these under ```${HOME}```. They exist outside the different systems and are shared between them.
@@ -108,7 +131,7 @@ zfs create -o mountpoint=legacy ${DATA_ROOT}/Workspace; \
 zfs create -o mountpoint=legacy ${DATA_ROOT}/Reference
 {% endhighlight shell %}
 
-### Final Structure
+## Final Structure
 
 So my system ends up as.
 
@@ -146,9 +169,11 @@ vault/sys/chin/var/lib/systemd/coredump       96K   860G    96K  legacy
 vault/sys/chin/var/log                        96K   860G    96K  legacy
 {% endhighlight shell %}
 
-### Install Setup
+## Install Perperation
 
 Using this structure datasets must be mounted in the correct order.
+
+### ZFS Setup
 
 Import zpool and mount root dataset:
 
@@ -213,7 +238,7 @@ mount -t zfs vault/data/University /mnt/home/john/University; \
 mount -t zfs vault/data/Workspace /mnt/home/john/Workspace; \
 {% endhighlight shell %}
 
-### Boot
+### Boot Setup
 
 Create esp, (EF00) for regular install.
 
@@ -236,12 +261,6 @@ mkdir -p /mnt/boot /mnt/mnt/efi/installs/chin
 mount --bind /mnt/mnt/efi/installs/chin /mnt/boot
 {% endhighlight shell %}
 
-Create fstab.
-
-{% highlight shell %}
-genfstab -U -p /mnt >> /mnt/etc/fstab
-{% endhighlight shell %}
-
 ### Swap
 
 Create 32GiB partition and create swap.
@@ -251,16 +270,22 @@ mkswap /dev/sdf2
 swapon /dev/sdf2
 {% endhighlight shell %}
 
+### fstab Configuration
+
+Create fstab, adding all currently mounted filesystems.
+
+{% highlight shell %}
+genfstab -U -p /mnt >> /mnt/etc/fstab
+{% endhighlight shell %}
+
 Get swap UUID and add to fstab.
 
 {% highlight shell %}
 lsblk -no UUID /dev/sdf2
 {% endhighlight shell %}
 
-Add to fstab.
-
 {% highlight shell %}
 UUID=4b00ce42-d400-4060-9329-622c420f367e none swap defaults 0 0
 {% endhighlight shell %}
 
-Now all partitions and datasets are setup.
+Now all partitions and datasets should be setup, check that the fstab looks correct.
