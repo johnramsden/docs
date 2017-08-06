@@ -14,6 +14,9 @@ entries:
     - title: ZFS Dataset Structure on Arch Linux
       url: /archlinux_zfs_structure.html
       output: web
+    - title: Arch Linux User Configuration Management
+      url: /archlinux_user_config.html
+      output: web
 
   - title: NixOS
     output: web

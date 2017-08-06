@@ -17,3 +17,5 @@ allowed-tags:
   - ssh
   - nixosconfig
   - zfs
+  - postinstall
+  - vcs
