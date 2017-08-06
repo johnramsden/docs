@@ -69,4 +69,4 @@ cd ~/.config/mr/config.d
 ln -s ../available.d/mr.vcsh
 {% endhighlight shell %}
 
-Now, run ```mr up``` to clone the specied repos.
+Now, run ```mr up``` to clone the specified repos.

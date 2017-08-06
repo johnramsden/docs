@@ -1,5 +1,5 @@
 ---
-title: Setting up pacaur with the Arch User Repository
+title: Post Install on Arch Linux
 sidebar: linux_sidebar
 hide_sidebar: false
 keywords: archlinux, linux, aur, pacaur
@@ -23,12 +23,18 @@ timedatectl set-ntp 1
 
 ## Enable Snapshots
 
+Install ```zfs-auto-snapshot``` and setup snapshotting on all datasets.
+
 {% highlight shell %}
 pacaur -S zfs-auto-snapshot-git
 systemctl enable --now zfs-auto-snapshot-daily.timer
 
 for ds in $(sudo zfs list -H -o name); do echo "Setting: ${ds}"; zfs set com.sun:auto-snapshot=true ${ds}; done
+{% endhighlight shell %}
 
+Disable any datasets that dont require snapshotting.
+
+{% highlight shell %}
 zfs set com.sun:auto-snapshot=false vault
 zfs set com.sun:auto-snapshot=false vault/sys
 zfs set com.sun:auto-snapshot=false vault/sys/chin
@@ -41,7 +47,50 @@ zfs set com.sun:auto-snapshot=false vault/sys/chin/var/cache
 zfs set com.sun:auto-snapshot=false vault/sys/chin/home/john/cache
 {% endhighlight shell %}
 
-Setup znapzend later.
+## Setup ZFS Replication With ZnapZend
+
+Install [ZnapZend](https://github.com/oetiker/znapzend) (it's a great tool, I maintain the AUR package).
+
+{% highlight shell %}
+pacaur -S znapzend
+{% endhighlight shell %}
+
+Create a config for each dataset thet needs replicating, where SYSTEM will be a name for the dataset at "${POOL}/replication/${SYSTEM}" on the remote. Specify the remote user and IP as well. Here is a small script I use for my setup. The grep can be adjusted to exclude any datasets that are unwanted.
+
+{% highlight shell %}
+#!/bin/sh
+
+REMOTE_POOL_ROOT="${1}"
+REMOTE_USER="${2}"
+REMOTE_IP="${3}"
+
+for ds in $(zfs list -H -o name | \
+    grep -E 'data/|default|john/|usr/|var/|lib/' | \
+    grep -v cache); do
+  echo "Creating: ${REMOTE_USER}@${REMOTE_IP}:${REMOTE_POOL_ROOT}/${ds}"
+
+  ssh ${REMOTE_USER}@${REMOTE_IP} \
+    "if [ $(zfs list -H -o name \"${ds}\") != \"${ds}\" ]; then \
+      echo \"Creating non-existant dataset ${ds}\";
+      #zfs create -p \"${ds}\" \
+      echo \"Creating non-existant dataset ${ds}\"; \
+      echo \"${ds} created, running ZnapZend.\"; \
+    else \
+      echo \"${ds} exists, running ZnapZend.\"; \
+    fi"
+
+#  znapzendzetup create --tsformat='%Y-%m-%d-%H%M%S' \
+#  SRC '1d=>15min,7d=>1h,30d=>4h,90d=>1d' ${ds} \
+#  DST:${REMOTE_IP} '1d=>15min,7d=>1h,30d=>4h,90d=>1d,1y=>1w,10y=>1month' \
+#  "${REMOTE_USER}@${REMOTE_IP}:${REMOTE_POOL_ROOT}/${ds}"
+done
+{% endhighlight shell %}
+
+I would then run, for chin on ```replicator@lilan.ramsden.network```.
+
+{% highlight shell %}
+./znapcfg "tank/replication/chin" "replicator" "lilan.ramsden.network"
+{% endhighlight shell %}
 
 ## Scrub
 
