@@ -11,11 +11,14 @@ entries:
     - title: Setting up pacaur with the Arch User Repository
       url: /archlinux_aur_pacaur.html
       output: web
-    - title: ZFS Dataset Structure on Arch Linux
+    - title: ZFS Dataset Structure
       url: /archlinux_zfs_structure.html
       output: web
-    - title: Arch Linux User Configuration Management
+    - title: User Configuration Management
       url: /archlinux_user_config.html
+      output: web
+    - title: Graphical Configuration
+      url: archlinux_graphical_configuration.html
       output: web
 
   - title: NixOS
