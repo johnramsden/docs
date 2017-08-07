@@ -2,10 +2,10 @@
 title: Post Install on Arch Linux
 sidebar: linux_sidebar
 hide_sidebar: false
-keywords: archlinux, linux, aur, pacaur
-tags: [ archlinux, linux, aur, postinstall ]
+keywords: archlinux, linux, aur, pacaur, zfs
+tags: [ archlinux, linux, aur, postinstall, zfs ]
 permalink: archlinux_post_install.html
-toc: false
+toc: true
 folder: linux/archlinux
 ---
 
@@ -21,15 +21,157 @@ timedatectl set-ntp true
 timedatectl set-ntp 1
 {% endhighlight shell %}
 
-## Enable Snapshots
+## Configure SMTP
 
-Install ```zfs-auto-snapshot``` and setup snapshotting on all datasets.
+I used to use ssmtp but since it's now unmaintained I've started using [Msmtp](https://wiki.archlinux.org/index.php/Msmtp).
+
+{% highlight shell %}
+pacman -S msmtp msmtp-mta
+{% endhighlight shell %}
+
+Setup system default.
+
+{% highlight shell %}
+cp /usr/share/doc/msmtp/msmtprc-system.example /etc/msmtprc
+{% endhighlight shell %}
+
+Example config file
+
+{% highlight shell %}
+# msmtp system wide configuration file
+
+# A system wide configuration file with default account.
+defaults
+
+# The SMTP smarthost.
+host smtp.fastmail.com
+port 465
+
+# Construct envelope-from addresses of the form "user@oursite.example".
+#auto_from on
+maildomain <your domain>
+
+# Use TLS.
+tls on
+tls_starttls off
+
+# Activate server certificate verification
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+
+# Syslog logging with facility LOG_MAIL instead of the default LOG_USER.
+syslog LOG_MAIL
+
+aliases               /etc/aliases
+
+# msmtp root account, inherit from 'default' account
+account default
+
+user <your email>
+
+from system@<your domain>
+
+# Terrible...
+# auth plain
+# password <pass>
+
+# or with passwordeval,
+# passwordeval "gpg --quiet --for-your-eyes-only --no-tty --decrypt ~/.msmtp-root.gpg"
+
+account root : default
+
+# password, see below
+{% endhighlight shell %}
+
+Set permissions.
+
+{% highlight shell %}
+chmod 600 /etc/msmtprc
+{% endhighlight shell %}
+
+You can setup a [gpg encrypted passphrase](https://wiki.archlinux.org/index.php/Msmtp#Password_management) if using interactively. The other (not very good option) is setting with 'password' in config.
+
+{% highlight shell %}
+
+{% endhighlight shell %}
+
+Add aliases,.
+
+{% highlight shell %}
+root: root@<yourdomain>
+{% endhighlight shell %}
+
+If anything private is in /etc/msmtprc, secure the file [as shown](https://wiki.archlinux.org/index.php/SSMTP#Security) on the Arch wiki.
+
+Create an ssmtp group and set the owner of ```/etc/msmtp``` and the msmtp binary.
+
+{% highlight shell %}
+groupadd msmtp
+chown :msmtp /etc/msmtprc
+chown :msmtp /usr/bin/msmtp
+{% endhighlight shell %}
+
+Make sure only root, and the msmtp group can access ```msmtprc```, then et the SGID bit on the binary
+
+{% highlight shell %}
+chmod 640 /etc/msmtprc
+chmod g+s /usr/bin/msmtp
+{% endhighlight shell %}
+
+Then add a pacman hook to always set the file permissions after the package has been upgraded:
+
+{% highlight shell %}
+nano /usr/local/bin/msmtp-set-permissions
+{% endhighlight shell %}
+
+{% highlight shell %}
+#!/bin/sh
+
+chown :msmtp /usr/bin/msmtp
+chmod g+s /usr/bin/msmtp
+{% endhighlight shell %}
+
+Make it executable:
+
+{% highlight shell %}
+chmod u+x /usr/local/bin/msmtp-set-permissions
+{% endhighlight shell %}
+
+Now add the pacman hook:
+
+{% highlight shell %}
+nano /usr/share/libalpm/hooks/msmtp-set-permissions.hook
+{% endhighlight shell %}
+
+{% highlight shell %}
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = msmtp
+
+[Action]
+Description = Set msmtp permissions for security
+When = PostTransaction
+Exec = /usr/local/bin/msmtp-set-permissions
+{% endhighlight shell %}
+
+## ZFS Configuration
+
+I always set up snapshotting and replication as one of the first things I do on a new desktop.
+
+### Enable Snapshots
+
+Install [zfs-auto-snapshot (AUR)](https://aur.archlinux.org/packages/zfs-auto-snapshot-git/) and setup snapshotting on all datasets.
 
 {% highlight shell %}
 pacaur -S zfs-auto-snapshot-git
 systemctl enable --now zfs-auto-snapshot-daily.timer
+{% endhighlight shell %}
 
-for ds in $(sudo zfs list -H -o name); do echo "Setting: ${ds}"; zfs set com.sun:auto-snapshot=true ${ds}; done
+Set all datasets to snapshot.
+
+{% highlight shell %}
+for ds in $(sudo zfs list -H -o name); do zfs set com.sun:auto-snapshot=true ${ds}; done
 {% endhighlight shell %}
 
 Disable any datasets that dont require snapshotting.
@@ -47,9 +189,9 @@ zfs set com.sun:auto-snapshot=false vault/sys/chin/var/cache
 zfs set com.sun:auto-snapshot=false vault/sys/chin/home/john/cache
 {% endhighlight shell %}
 
-## Setup ZFS Replication With ZnapZend
+### ZFS Replication With ZnapZend
 
-Install [ZnapZend](https://github.com/oetiker/znapzend) (it's a great tool, I maintain the AUR package).
+Install [ZnapZend (AUR)](https://aur.archlinux.org/packages/znapzend/) (it's a great tool, I maintain the AUR package).
 
 {% highlight shell %}
 pacaur -S znapzend
@@ -101,74 +243,48 @@ else
 fi
 {% endhighlight shell %}
 
-I would then run, for chin on ```replicator@lilan.ramsden.network```.
+I would then run, for chin on ```replicator@<server ip>```.
 
 {% highlight shell %}
-./znapcfg "tank/replication/chin" "replicator" "lilan.ramsden.network"
+./znapcfg "tank/replication/chin" "replicator" "<server ip>"
 {% endhighlight shell %}
 
+### Scrub
 
-
-## Scrub
+Setup a monthly scrub. Easiest way to set this up as install the [systemd-zpool-scrub (AUR)](https://aur.archlinux.org/packages/systemd-zpool-scrub/) package, but this could also easily set up by just installing a user-created systemd unit.
 
 {% highlight shell %}
 pacaur -S systemd-zpool-scrub
 systemctl enable --now zpool-scrub@vault.timer
 {% endhighlight shell %}
 
-## SSMTP
+### Enable The ZFS Event Daemon
 
-pacman -S ssmtp
-nsno /etc/ssmtp/ssmtp.conf
-
-{% highlight shell %}
-#
-# /etc/ssmtp.conf -- a config file for sSMTP sendmail.
-#
-# Example for fastmail.
-
-
-# The user that gets all the mails (UID < 1000, usually the admin)
-root=<email>
-
-# The mail server (where the mail is sent to)
-# https://www.fastmail.com/help/technical/servernamesandports.html
-mailhub=<mail server>
-# mail.messagingengine.com:465
-
-# The address where the mail appears to come from for user authentication.
-rewriteDomain=<host address>
-
-# The full hostname
-hostname=<hostname>
-
-# Use SSL/TLS before starting negotiation
-UseTLS=Yes
-UseSTARTTLS=No
-
-# Username/Password
-AuthUser=<email>
-AuthPass=<password>
-
-# Email 'From header's can override the default domain?
-FromLineOverride=yes
-{% endhighlight shell %}
-
-Create revaliases.
+If an SMTP or MTA is configured, setup [The ZFS Event Daemon (ZED)](https://ramsdenj.com/2016/08/29/arch-linux-on-zfs-part-3-followup.html#zed-the-zfs-event-daemon)
 
 {% highlight shell %}
-nano /etc/ssmtp/revaliases
+nano /etc/zfs/zed.d/zed.rc
 {% endhighlight shell %}
+
+Ad an email and mail program and set verbosity.
 
 {% highlight shell %}
-root:<roots email>
+ZED_EMAIL_ADDR="root"
+ZED_EMAIL_PROG="mail"
+ZED_NOTIFY_VERBOSE=1
 {% endhighlight shell %}
 
-NO! Setup msmtp instead.
+Start and enable the daemon.
 
-## ZED
-# uncomment root
-suno /etc/zfs/zed.d/zed.rc
+{% highlight shell %}
+systemctl enable --now zfs-zed.service
+{% endhighlight shell %}
+
+Start a scrub and check for an email.
+
+{% highlight shell %}
+zpool scrub vault
+{% endhighlight shell %}
 
 ## nfs
 pacman -S nfs-utils
