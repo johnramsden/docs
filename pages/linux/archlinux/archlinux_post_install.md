@@ -21,6 +21,54 @@ timedatectl set-ntp true
 timedatectl set-ntp 1
 {% endhighlight shell %}
 
+## Configure Reflector
+
+So you always have fresh mirrors, setup [reflector](https://www.archlinux.org/packages/?name=reflector).
+
+{% highlight shell %}
+pacman -S reflector
+{% endhighlight shell %}
+
+Create service to select the 200 most recently synchronized HTTP or HTTPS mirrors, sort them by download speed, and overwrite the file ```/etc/pacman.d/mirrorlist```.
+
+{% highlight shell %}
+nano /etc/systemd/system/reflector.service
+{% endhighlight shell %}
+
+{% highlight shell %}
+[Unit]
+Description=Pacman mirrorlist update
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/reflector --latest 200 --protocol http --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+{% endhighlight shell %}
+
+Create timer.
+
+{% highlight shell %}
+nano /etc/systemd/system/reflector.timer
+{% endhighlight shell %}
+
+{% highlight shell %}
+[Unit]
+Description=Run reflector weekly
+
+[Timer]
+OnCalendar=weekly
+RandomizedDelaySec=12h
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+{% endhighlight shell %}
+
+That will run reflector weekly.
+
+{% highlight shell %}
+systemctl enable --now reflector.timer
+{% endhighlight shell %}
+
 ## Configure SMTP
 
 I used to use ssmtp but since it's now unmaintained I've started using [Msmtp](https://wiki.archlinux.org/index.php/Msmtp).
@@ -291,5 +339,50 @@ zpool scrub vault
 [Define a hostid](https://ramsdenj.com/2016/06/23/arch-linux-on-zfs-part-2-installation.html#first-tasks) or problems arise at boot.
 
 ## nfs
+
+
+{% highlight shell %}
 pacman -S nfs-utils
-systemctl enable rpcbind.service nfs-client.target remote-fs.target
+systemctl enable --now rpcbind.service nfs-client.target remote-fs.target
+{% endhighlight shell %}
+
+Rpc has [a bug](https://bugs.archlinux.org/task/50663) caused by glibc, [until it's resolved force rpc.gssd to start](https://wiki.archlinux.org/index.php/NFS#Client).
+
+{% highlight shell %}
+systemctl edit rpc-gssd.service
+{% endhighlight shell %}
+
+{% highlight shell %}
+[Unit]
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=
+ExecStart=/usr/sbin/rpc.gssd -f
+{% endhighlight shell %}
+
+## Autofs
+
+Install [autofs](https://www.archlinux.org/packages/?name=autofs).
+
+{% highlight shell %}
+pacman -S autofs
+{% endhighlight shell %}
+
+{% highlight shell %}
+nano /etc/autofs/auto.master
+{% endhighlight shell %}
+
+Add or uncomment the following.
+
+{% highlight shell %}
+/net    -hosts   --timeout=60
+{% endhighlight shell %}
+
+Start and enable.
+
+{% highlight shell %}
+systemctl enable --now autofs
+{% endhighlight shell %}
