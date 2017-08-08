@@ -25,14 +25,31 @@ pacman -S nvidia lib32-nvidia-utils
 pacman -S xorg-server
 {% endhighlight shell %}
 
-Set dpi in ```~/.Xresources```, I use 220 for my 4k screen.
+Set dpi in ```~/.Xresources```, I use 192 for my 4k screen.
 
 {% highlight shell %}
 nano ~/.Xresources
 {% endhighlight shell %}
 
 {% highlight shell %}
-Xft.dpi: 220
+Xft.dpi: 192
+{% endhighlight shell %}
+
+### Nvidia - Tearing Fix
+
+My Nvidia card tears. This removes the tearing.
+
+{% highlight shell %}
+nano /etc/X11/xorg.conf.d/20-nvidia.conf
+{% endhighlight shell %}
+
+{% highlight shell %}
+Section "Screen"
+    Identifier     "Screen0"
+    Option         "metamodes" "nvidia-auto-select +0+0 { ForceFullCompositionPipeline = On }"
+    Option         "AllowIndirectGLXProtocol" "off"
+    Option         "TripleBuffer" "on"
+EndSection
 {% endhighlight shell %}
 
 ## Setup a Window Manager or Desktop Environment
@@ -93,6 +110,10 @@ Reboot into KDE!
 
 ## VNC
 
+Can access current display or create new session.
+
+### System
+
 To access the entire system over vnc, install [tigervnc](https://www.archlinux.org/packages/?name=tigervnc).
 
 Configure startup run ```vncserver```.
@@ -116,3 +137,11 @@ ExecStart=/usr/bin/sh -c '/usr/bin/x0vncserver -display :0 -rfbport 5900 -passwo
 [Install]
 WantedBy=multi-user.target
 {% endhighlight shell %}
+
+### New Session
+
+
+
+## Fonts
+
+Install [ttf-google-fonts-git (AUR)](https://aur.archlinux.org/packages/ttf-google-fonts-git/).
