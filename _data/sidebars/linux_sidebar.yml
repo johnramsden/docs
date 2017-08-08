@@ -20,6 +20,12 @@ entries:
     - title: Graphical Configuration
       url: archlinux_graphical_configuration.html
       output: web
+    - title: Post Install Tasks
+      url: /archlinux_post_install.html
+      output: web
+    - title: Common Applications
+      url: /archlinux_applications.html
+      output: web
 
   - title: NixOS
     output: web
