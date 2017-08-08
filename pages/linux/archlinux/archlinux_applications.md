@@ -1,10 +1,10 @@
 ---
-title: Graphical Configuration
+title: Common Applications
 sidebar: linux_sidebar
 hide_sidebar: false
 keywords: archlinux, linux, aur, pacaur, applications
 tags: [ archlinux, linux, aur, postinstall ]
-permalink: archlinux_graphical_configuration.html
+permalink: archlinux_applications.html
 toc: true
 folder: linux/archlinux
 ---
@@ -41,3 +41,9 @@ For secondary labels run.
 {% highlight shell %}
 gsettings set org.onboard.keyboard show-secondary-labels true
 {% endhighlight shell %}
+
+## Conky
+
+Install conky.
+
+I use a script with conky to check email with the perl```Mail::IMAPClient``` and ```IO::Socket::SSL```, on arch needs: [perl-mail-imapclient](https://aur.archlinux.org/packages/perl-mail-imapclient/), and [perl-io-socket-ssl](https://www.archlinux.org/packages/extra/any/perl-io-socket-ssl/)
