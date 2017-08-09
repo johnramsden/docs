@@ -169,7 +169,7 @@ vault/sys/chin/var/lib/systemd/coredump       96K   860G    96K  legacy
 vault/sys/chin/var/log                        96K   860G    96K  legacy
 {% endhighlight shell %}
 
-## Install Perperation
+## Install Preperation
 
 Using this structure datasets must be mounted in the correct order.
 
