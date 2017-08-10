@@ -26,6 +26,9 @@ entries:
     - title: Common Applications
       url: /archlinux_applications.html
       output: web
+    - title: Language Setup
+      url: /archlinux_languages.html
+      output: web
 
   - title: NixOS
     output: web

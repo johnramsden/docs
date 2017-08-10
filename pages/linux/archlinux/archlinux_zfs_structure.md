@@ -67,11 +67,12 @@ The other datasets will be independent from the boot environment and will not ch
 
 #### System Datasets
 
-I keep some datasets like ```/var/cache```'s' dataset seperate to avoid having to snapshot and backup their data. I also keep ```/var/log``` 's' dataset seperate so the logs are always available as well as the datasets for my containers and VMs.
+I keep some datasets like ```/var/cache```'s' dataset seperate to avoid having to snapshot and backup their data. I also keep ```/var/log``` 's' dataset seperate so the logs are always available as well as the datasets for my containers and VMs. Turn on posixacls [for systemd-journald](https://www.freedesktop.org/software/systemd/man/systemd-journald.service.html)'s /var/log/journal dataset.
 
 {% highlight shell %}
 zfs create -o mountpoint=legacy ${SYS_ROOT}/${SYSTEM_NAME}/var/lib/systemd/coredump; \
 zfs create -o mountpoint=legacy ${SYS_ROOT}/${SYSTEM_NAME}/var/log; \
+zfs create -o mountpoint=legacy -o acltype=posixacl ${SYS_ROOT}/${SYSTEM_NAME}/var/log/journal; \
 zfs create -o mountpoint=legacy ${SYS_ROOT}/${SYSTEM_NAME}/var/lib/lxc; \
 zfs create -o mountpoint=legacy ${SYS_ROOT}/${SYSTEM_NAME}/var/lib/lxd; \
 zfs create -o mountpoint=legacy ${SYS_ROOT}/${SYSTEM_NAME}/var/lib/machines; \
