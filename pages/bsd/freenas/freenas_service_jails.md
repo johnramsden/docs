@@ -1,92 +1,52 @@
 ---
-title: FreeBSD Service jails
+title: FreeNAS Service jails
 sidebar: bsd_sidebar
 hide_sidebar: false
-keywords: freebsd, bsd, jail
+keywords: freebsd, bsd, freenas, jail, deluge, sickrage, sabnzbd, emby, couchpotato, syncthing
 tags: [ freebsd, bsd, jail ]
-permalink: freebsd_service_jails.html
+permalink: freenas_service_jails.html
 toc: true
-folder: bsd/freebsd/jails
+folder: bsd/freenas
 ---
 
-# Deluge
+## Deluge
 
-## Jail
+Setup of a jail for deluge server.
 
-Insert the lines below into /etc/make.conf :
-WITHOUT_X11=yes
-WITHOUT_X=yes
-WITH_X=NO
-ENABLE_GUI=NO
-OPTIONS_UNSET= DEBUG HELP STATIC GNUTLS DOCS EXAMPLES IPV6 \
-               PTH IDN LIBIDN NLS PULSEAUDIO JAVA MANPAGES \
-               DOCBOOK CUPS TESTS HTMLDOCS BONJOUR GSSAPI \
-               APIDOCS NLS X11 GTK2
-### Setup
+### FreeNAS Configuration
 
-### User
+#### User
 
-Use media user from FreeNAS
+Use the media user from FreeNAS, It's important to check the UID and GID match up with the user's for any datasets shared with the jail. I have found the media user is usually already correctly matched.
 
-Create database dataset deluge and mount to /home/media/.config
+Create a dataset for deluge and mount to your desired location inside the jail. Mount the desired location inside the jail, I mounted mine to the ```${HOME}/.config``` directory of my deluge user.
 
-mkdir -p /home/media/.config
-chown -R media:media /home/media/.config
+### jail
 
-### Install Deluge
+The following sections were done inside the jail.
 
-Try cli:
+#### Install Deluge
 
+Install ```deluge``` or ```deluge-cli``` depending on what you want installed. Since this is a headless server I'm only installing the CLI version.
+
+{% highlight shell %}
 pkg update && pkg upgrade
 pkg install deluge-cli
+{% endhighlight shell %}
 
-### rc
+#### Init Script
 
-Setup /etc/rc.conf
+Setup ```/etc/rc.conf```
 
+{% highlight shell %}
 sysrc 'deluged_enable=YES' 'deluged_user=media'
+{% endhighlight shell %}
 
-### Create Config
+#### Start Service
 
+{% highlight shell %}
 service deluged start
-
-```
-root@deluge:/usr/ports/ports-mgmt/portmaster # /usr/local/lib/python2.7/site-packages/deluge/_libtorrent.py:59: RuntimeWarning: to-Python converter for boost::shared_ptr<libtorrent::alert> already registered; second conversion method ignored.
-  import libtorrent as lt
-```
-
-service deluged stop
-
-## Using Ports
-
-### Update
-
-portsnap fetch extract
-
-cd /usr/ports/ports-mgmt/portmaster
-make install clean
-
-portmaster -a
-
-portmaster net-p2p/deluge-cli
-
-## libtorrent
-
-root@deluge:/usr/ports/net-p2p/libtorrent-rasterbar-python # make deinstall
-root@deluge:/usr/ports/net-p2p/libtorrent-rasterbar # make deinstall
-
-
-
-cd /usr/ports/net/GeoIP
-make install clean
-/usr/local/bin/geoipupdate.sh
-
-cd /usr/old_ports/ports/net-p2p/libtorrent-rasterbar
-make install clean
-
-cd /usr/old_ports/ports/net-p2p/libtorrent-rasterbar-python/
-make install clean
-
+{% endhighlight shell %}
 
 # Couchpotato
 

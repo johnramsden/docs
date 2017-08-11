@@ -24,6 +24,9 @@ entries:
     - title: FreeBSD
       url: /freebsd.html
       output: web
+    - title: FreeNAS
+      url: /freenas.html
+      output: web
 
   - title: System Administration
     output: web

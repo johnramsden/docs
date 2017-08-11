@@ -5,16 +5,22 @@ entries:
   levels: one
   folders:
 
-  - title: Virtualization
+  - title: FreeNAS
+    output: web
+    folderitems:
+    - title: Copy SSH Keys off FreeNAS
+      url: /freenas_copy_ssh_keys.html
+      output: web
+    - title: FreeNAS Service jails
+      url: /freenas_service_jails.html
+      output: web
+
+  - title: FreeBSD
     output: web
     folderitems:
     - title: bhyve
       url: /freebsd_bhyve.html
       output: web
-
-  - title: Jails
-    output: web
-    folderitems:
     - title: iocage
       url: /freebsd_iocage.html
       output: web
