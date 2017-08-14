@@ -338,6 +338,102 @@ zpool scrub vault
 
 [Define a hostid](https://ramsdenj.com/2016/06/23/arch-linux-on-zfs-part-2-installation.html#first-tasks) or problems arise at boot.
 
+## S.M.A.R.T
+
+Install [smartmontools](https://www.archlinux.org/packages/?name=smartmontools).
+
+{% highlight shell %}
+pacman -S smartmontools
+{% endhighlight shell %}
+
+### Tests
+
+Long or short tests can be run on a disk. A short test will check for device problems. The long test is just a short test plus complete disc surface examination.
+
+Long test example:
+
+{% highlight shell %}
+smartctl -t long /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_152271401093
+smartctl -t long /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_154501401266
+smartctl -t long /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_164277402487
+smartctl -t long /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_164277402657
+smartctl -t long /dev/disk/by-id/ata-Samsung_SSD_840_EVO_250GB_S1DBNSADA75563M
+{% endhighlight shell %}
+
+Veiw results:
+
+{% highlight shell %}
+smartctl -H /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_152271401093
+smartctl -H /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_154501401266
+smartctl -H /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_164277402487
+smartctl -H /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_164277402657
+smartctl -H /dev/disk/by-id/ata-Samsung_SSD_840_EVO_250GB_S1DBNSADA75563M
+{% endhighlight shell %}
+
+Or, veiw all test results.
+
+{% highlight shell %}
+smartctl -l selftest /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_152271401093
+smartctl -l selftest /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_154501401266
+smartctl -l selftest /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_164277402487
+smartctl -l selftest /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_164277402657
+smartctl -l selftest /dev/disk/by-id/ata-Samsung_SSD_840_EVO_250GB_S1DBNSADA75563M
+{% endhighlight shell %}
+
+Or detailed results.
+
+{% highlight shell %}
+smartctl -a /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_152271401093
+smartctl -a /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_154501401266
+smartctl -a /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_164277402487
+smartctl -a /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_164277402657
+smartctl -a /dev/disk/by-id/ata-Samsung_SSD_840_EVO_250GB_S1DBNSADA75563M
+{% endhighlight shell %}
+
+### Daemon
+
+The smartd daemon can also run, periodically running tests and will send you a message if a problem occurs.
+
+Edit the configuration file at ```/etc/smartd.conf```.
+
+{% highlight shell %}
+nano /etc/smartd.conf
+{% endhighlight shell %}
+
+To check for all errors on a disk use the option ```-a``` after the disk ID.
+
+{% highlight shell %}
+/dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_152271401093 -a
+/dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_154501401266 -a
+/dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_164277402487 -a
+/dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_164277402657 -a
+/dev/disk/by-id/ata-Samsung_SSD_840_EVO_250GB_S1DBNSADA75563M -a
+{% endhighlight shell %}
+
+To test if your mail notification is working run a test. This will run the test on the start of the daemon.:
+
+{% highlight shell %}
+DEVICESCAN -m <email address> -M test
+{% endhighlight shell %}
+
+Start smartd:
+
+{% highlight shell %}
+systemctl start smartd
+{% endhighlight shell %}
+
+My config looks like:
+
+{% highlight shell %}
+/dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_152271401093 -a
+/dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_154501401266 -a
+/dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_164277402487 -a
+/dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_164277402657 -a
+/dev/disk/by-id/ata-Samsung_SSD_840_EVO_250GB_S1DBNSADA75563M -a
+
+DEVICESCAN -m
+{% endhighlight shell %}
+
 ## nfs
 
 
