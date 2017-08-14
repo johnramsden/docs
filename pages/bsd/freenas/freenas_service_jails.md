@@ -132,15 +132,10 @@ pkg delete -f ffmpeg
 
 Reinstall FFMpeg from ports with lame option enabled
 
-```
-cd /usr/ports/multimedia/ffmpeg
-make config
-# enable the lame option
-# enable the ass subtitles option
-# enable the opus subtitles option
-# enable the x265 subtitles option
-make install clean
-```
+*   enable the lame option
+*   enable the ass subtitles option
+*   enable the opus subtitles option
+*   enable the x265 subtitles option
 
 ## ImageMagick
 
@@ -148,7 +143,7 @@ make install clean
 
 It is recommended to recompile the graphics/ImageMagick package from ports with the following options .
 
-DISABLED (UNSET): 16BIT_PIXEL (to increase thumbnail generation performance)
+*  disable (unset) 16BIT_PIXEL (to increase thumbnail generation performance)
 
 #### Delete pkg
 
