@@ -464,8 +464,8 @@ poudriere options -j freebsd-11-amd64 -p HEAD -f /usr/local/etc/poudriere.d/port
 
 For ffmpeg:
 
-*   enable the lame option
 *   enable the ass subtitles option
+*   enable the lame option
 *   enable the opus subtitles option
 *   enable the x265 subtitles option
 
