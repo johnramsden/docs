@@ -24,3 +24,10 @@ entries:
     - title: iocage
       url: /freebsd_iocage.html
       output: web
+
+  - title: pfSense
+    output: web
+    folderitems:
+    - title: Sending Specific Traffic Through OpenVPN
+      url: /pfsense_send_traffic_through_vpn.html
+      output: web

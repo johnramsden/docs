@@ -21,10 +21,3 @@ entries:
     - title: ZFS Mirrors
       url: /zfs_mirrors.html
       output: web
-
-  - title: Other
-    output: web
-    folderitems:
-    - title: Updating Nextcloud
-      url: /systemadministration_updating_nextcloud.html
-      output: web
