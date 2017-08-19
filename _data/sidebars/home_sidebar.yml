@@ -27,6 +27,9 @@ entries:
     - title: FreeNAS
       url: /freenas.html
       output: web
+    - title: pfSense
+      url: /pfsense.html
+      output: web
 
   - title: System Administration
     output: web
