@@ -1,5 +1,5 @@
 ---
-title: FreeNA
+title: FreeNAS
 sidebar: bsd_sidebar
 hide_sidebar: false
 keywords: freebsd, bsd, freenas
