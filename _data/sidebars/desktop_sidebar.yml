@@ -16,9 +16,9 @@ entries:
       output: web
 
 
-  - title: Miscellaneous
+  - title: Internet
     output: web
     folderitems:
     - title: Re-authenticate IRC Nickname
-      url: /miscellaneous_irc_authenticate_nick.html
+      url: /internet_irc_authenticate_nick.html
       output: web

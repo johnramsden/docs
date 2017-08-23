@@ -1,12 +1,12 @@
 ---
-title: Miscellaneous
+title: Internet
 sidebar: desktop_sidebar
 hide_sidebar: false
-#keywords: irc, nick, nickname, authenticate
+keywords: internet
 #tags: [ irc ]
-permalink: miscellaneous.html
+permalink: internet.html
 toc: true
-folder: desktop/miscellaneous
+folder: desktop/internet
 ---
 
-Section containing various miscellaneous information.
+Section containing various internet related information.
