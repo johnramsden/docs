@@ -29,6 +29,9 @@ entries:
     - title: Language Setup
       url: /archlinux_languages.html
       output: web
+    - title: libvirt
+      url: /archlinux_libvirt.html
+      output: web
 
   - title: NixOS
     output: web

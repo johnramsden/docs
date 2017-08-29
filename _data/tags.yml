@@ -21,3 +21,4 @@ allowed-tags:
   - vcs
   - jail
   - pfsense
+  - virtualization
