@@ -67,7 +67,9 @@ The other datasets will be independent from the boot environment and will not ch
 
 #### System Datasets
 
-I keep some datasets like ```/var/cache```'s' dataset seperate to avoid having to snapshot and backup their data. I also keep ```/var/log``` 's' dataset seperate so the logs are always available as well as the datasets for my containers and VMs. Turn on posixacls [for systemd-journald](https://www.freedesktop.org/software/systemd/man/systemd-journald.service.html)'s /var/log/journal dataset.
+I keep some datasets like ```/var/cache```'s' dataset seperate to avoid having to snapshot and backup their data. I also keep ```/var/log``` 's' dataset seperate so the logs are always available as well as the datasets for my containers and VMs.
+
+Turn on posixacls [for systemd-journald](https://www.freedesktop.org/software/systemd/man/systemd-journald.service.html)'s /var/log/journal dataset.
 
 {% highlight shell %}
 zfs create -o mountpoint=legacy ${SYS_ROOT}/${SYSTEM_NAME}/var/lib/systemd/coredump; \
@@ -76,6 +78,7 @@ zfs create -o mountpoint=legacy -o acltype=posixacl ${SYS_ROOT}/${SYSTEM_NAME}/v
 zfs create -o mountpoint=legacy ${SYS_ROOT}/${SYSTEM_NAME}/var/lib/lxc; \
 zfs create -o mountpoint=legacy ${SYS_ROOT}/${SYSTEM_NAME}/var/lib/lxd; \
 zfs create -o mountpoint=legacy ${SYS_ROOT}/${SYSTEM_NAME}/var/lib/machines; \
+zfs create -o mountpoint=legacy ${SYS_ROOT}/${SYSTEM_NAME}/var/lib/libvirt; \
 zfs create -o mountpoint=legacy ${SYS_ROOT}/${SYSTEM_NAME}/var/cache; \
 zfs create -o mountpoint=legacy ${SYS_ROOT}/${SYSTEM_NAME}/usr/local
 {% endhighlight shell %}
@@ -100,7 +103,7 @@ As of [zfsonlinux 0.7.0](https://github.com/zfsonlinux/zfs/releases/tag/zfs-0.7.
 zfs allow john create,mount,mountpoint,snapshot ${SYS_ROOT}/${SYSTEM_NAME}/home/john
 {% endhighlight shell %}
 
-Checking permissions shows john's can permissions.
+Checking permissions shows john's permissions.
 
 {% highlight shell %}
 zfs allow ${SYS_ROOT}/${SYSTEM_NAME}/home/john
@@ -116,6 +119,75 @@ Local+Descendent permissions:
 Local+Descendent permissions:
         user john create,snapshot
 {% endhighlight shell %}
+
+Available options:
+
+NAME             TYPE           NOTES
+allow            subcommand     Must also have the permission that is
+                                being allowed
+clone            subcommand     Must also have the 'create' ability and
+                                'mount'
+                                ability in the origin file system
+create           subcommand     Must also have the 'mount' ability
+destroy          subcommand     Must also have the 'mount' ability
+hold             subcommand     Allows adding a user hold to a snapshot
+mount            subcommand     Allows mount/umount of ZFS datasets
+promote          subcommand     Must also have the 'mount' and 'promote'
+                                ability in the origin file system
+receive          subcommand     Must also have the 'mount' and 'create'
+                                ability
+release          subcommand     Allows releasing a user hold which
+                                might destroy the snapshot
+rename           subcommand     Must also have the 'mount' and 'create'
+                                ability in the new parent
+rollback         subcommand
+send             subcommand
+share            subcommand     Allows sharing file systems over NFS or
+                                SMB protocols
+snapshot         subcommand
+groupquota       other          Allows accessing any groupquota@...
+                                property
+groupused        other          Allows reading any groupused@... property
+userprop         other          Allows changing any user property
+userquota        other          Allows accessing any userquota@...
+                                property
+userused         other          Allows reading any userused@... property
+aclinherit       property
+aclmode          property
+atime            property
+canmount         property
+casesensitivity  property
+checksum         property
+compression      property
+copies           property
+dedup            property
+devices          property
+exec             property
+logbias          property
+mlslabel         property
+mountpoint       property
+nbmand           property
+normalization    property
+primarycache     property
+quota            property
+readonly         property
+recordsize       property
+refquota         property
+refreservation   property
+reservation      property
+secondarycache   property
+setuid           property
+shareiscsi       property
+sharenfs         property
+sharesmb         property
+snapdir          property
+utf8only         property
+version          property
+volblocksize     property
+volsize          property
+vscan            property
+xattr            property
+zoned            property
 
 #### Data Datasets
 
@@ -165,6 +237,7 @@ vault/sys/chin/var/lib                       576K   860G    96K  /var/lib
 vault/sys/chin/var/lib/lxc                    96K   860G    96K  legacy
 vault/sys/chin/var/lib/lxd                    96K   860G    96K  legacy
 vault/sys/chin/var/lib/machines               96K   860G    96K  legacy
+vault/sys/chin/var/lib/libvirt                96K   860G    96K  legacy
 vault/sys/chin/var/lib/systemd               192K   860G    96K  /var/lib/systemd
 vault/sys/chin/var/lib/systemd/coredump       96K   860G    96K  legacy
 vault/sys/chin/var/log                        96K   860G    96K  legacy
@@ -199,11 +272,11 @@ mount -t zfs vault/sys/chin/usr/local /mnt/usr/local; \
 mkdir -p /mnt/var/cache
 mount -t zfs vault/sys/chin/var/cache /mnt/var/cache; \
 
-
-mkdir -p /mnt/var/lib/{lxc,lxd,machines,systemd/coredump} /mnt/var/log; \
+mkdir -p /mnt/var/lib/{lxc,lxd,machines,libvirt,systemd/coredump} /mnt/var/log; \
 mount -t zfs vault/sys/chin/var/lib/lxc /mnt/var/lib/lxc; \
 mount -t zfs vault/sys/chin/var/lib/lxd /mnt/var/lib/lxd; \
 mount -t zfs vault/sys/chin/var/lib/machines /mnt/var/lib/machines; \
+mount -t zfs vault/sys/chin/var/lib/libvirt /mnt/var/lib/libvirt; \
 mount -t zfs vault/sys/chin/var/lib/systemd/coredump /mnt/var/lib/systemd/coredump; \
 mount -t zfs vault/sys/chin/var/log /mnt/var/log; \
 {% endhighlight shell %}
