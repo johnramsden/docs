@@ -97,12 +97,9 @@ zfs allow john create,mount,mountpoint,snapshot vault/zvols/john
 
 #### Create ZVOL
 
-Try [Turn off Windows write-cache buffer flushing](https://forums.servethehome.com/index.php?threads/performance-of-kvm-qemu-disks-on-zfs-volumes.12550/)
-Make sure that [volblocksize is the same as the guest FS block size](http://list.zfsonlinux.org/pipermail/zfs-discuss/2016-February/024682.html)
+To let guest do its own caching, use:
 
-use
-
-*   primarycache=metadata - Let guest do its own caching.
+*   primarycache=metadata
 
 Create ZVOL for a new VM. Replace <new VM> with name. Volumes still need to be created by root.
 
@@ -110,3 +107,52 @@ Create ZVOL for a new VM. Replace <new VM> with name. Volumes still need to be c
 zfs create -o mountpoint=none vault/zvols/john/libvirt
 zfs create -V 50G vault/zvols/john/libvirt/<new VM> -o primarycache=metadata -o compression=on
 {% endhighlight shell %}
+
+### Authentication
+
+By default, anybody in the ```wheel``` group can authenticate with polkit as defined in ```/etc/polkit-1/rules.d/50-default.rules``` (see [Polkit#Administrator identities](https://wiki.archlinux.org/index.php/Polkit#Administrator_identities)).
+
+### System Service
+
+Enable libvirtd.service.
+
+{% highlight shell %}
+systemctl enable --now libvirtd
+{% endhighlight shell %}
+
+To run only a user-session the daemon does not need to be enabled.
+
+### Connect
+
+Test libvirt system-session:
+
+{% highlight shell %}
+virsh -c qemu:///system
+{% endhighlight shell %}
+
+Test libvirt system user-session:
+
+{% highlight shell %}
+virsh -c qemu:///session
+{% endhighlight shell %}
+
+### Create Guest
+
+Use virsh or virt manager.
+
+### Storage
+
+Select virtIO Network and storage for best performance. Select ZVOL raw device. Mine was ```vault/zvols/john/libvirt/<new VM>```
+
+#### Network
+
+To use another interface, don't configure anything on the host and select macvtap passthrough, and select the interface..
+
+Install drivers:
+
+I [downloaded](https://fedoraproject.org/wiki/Windows_Virtio_Drivers#Direct_download) and attached the drivers pre-install.
+
+SCSI: "viostor\w10\amd64"
+Networking: "NetKVM\w10\amd64"
+
+Install then reboot.
