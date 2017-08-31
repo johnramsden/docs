@@ -269,36 +269,38 @@ Mount system datasets:
 
 {% highlight shell %}
 mkdir -p /mnt/usr/local
-mount -t zfs vault/sys/chin/usr/local /mnt/usr/local; \
+mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/usr/local /mnt/usr/local; \
 
 mkdir -p /mnt/var/cache
-mount -t zfs vault/sys/chin/var/cache /mnt/var/cache; \
+mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/var/cache /mnt/var/cache; \
 
 mkdir -p /mnt/var/lib/{lxc,lxd,machines,libvirt,systemd/coredump} /mnt/var/log; \
-mount -t zfs vault/sys/chin/var/lib/lxc /mnt/var/lib/lxc; \
-mount -t zfs vault/sys/chin/var/lib/lxd /mnt/var/lib/lxd; \
-mount -t zfs vault/sys/chin/var/lib/machines /mnt/var/lib/machines; \
-mount -t zfs vault/sys/chin/var/lib/libvirt /mnt/var/lib/libvirt; \
-mount -t zfs vault/sys/chin/var/lib/systemd/coredump /mnt/var/lib/systemd/coredump; \
-mount -t zfs vault/sys/chin/var/log /mnt/var/log; \
+mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/var/lib/lxc /mnt/var/lib/lxc; \
+mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/var/lib/lxd /mnt/var/lib/lxd; \
+mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/var/lib/machines /mnt/var/lib/machines; \
+mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/var/lib/libvirt /mnt/var/lib/libvirt; \
+mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/var/lib/systemd/coredump /mnt/var/lib/systemd/coredump; \
+mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/var/log /mnt/var/log; \
+mkdir /mnt/var/log/journal; \
+mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/var/log/journal /mnt/var/log/journal
 {% endhighlight shell %}
 
 Mount home.
 
 {% highlight shell %}
 mkdir -p /mnt/home ; \
-mount -t zfs vault/sys/chin/home /mnt/home; \
+mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/home /mnt/home; \
 
 mkdir -p /mnt/home/john
-mount -t zfs vault/sys/chin/home/john /mnt/home/john; \
+mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/home/john /mnt/home/john; \
 
 mkdir -p /mnt/home/john/{.cache,.config,.local}
-mount -t zfs vault/sys/chin/home/john/cache /mnt/home/john/.cache; \
-mount -t zfs vault/sys/chin/home/john/config /mnt/home/john/.config; \
-mount -t zfs vault/sys/chin/home/john/local /mnt/home/john/.local; \
+mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/home/john/cache /mnt/home/john/.cache; \
+mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/home/john/config /mnt/home/john/.config; \
+mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/home/john/local /mnt/home/john/.local; \
 
 mkdir -p /mnt/home/john/.local/share/Steam
-mount -t zfs vault/sys/chin/home/john/local/share/Steam /mnt/home/john/.local/share/Steam; \
+mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/home/john/local/share/Steam /mnt/home/john/.local/share/Steam; \
 {% endhighlight shell %}
 
 Mount data:
