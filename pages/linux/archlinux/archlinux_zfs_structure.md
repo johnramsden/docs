@@ -122,6 +122,7 @@ Local+Descendent permissions:
 
 Available options:
 
+{% highlight shell %}
 NAME             TYPE           NOTES
 allow            subcommand     Must also have the permission that is
                                 being allowed
@@ -188,6 +189,7 @@ volsize          property
 vscan            property
 xattr            property
 zoned            property
+{% endhighlight shell %}
 
 #### Data Datasets
 
