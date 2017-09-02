@@ -142,7 +142,7 @@ You can setup a [gpg encrypted passphrase](https://wiki.archlinux.org/index.php/
 
 {% endhighlight shell %}
 
-Add aliases,.
+Add aliases to ```/etc/aliases```.
 
 {% highlight shell %}
 root: root@<yourdomain>
@@ -203,6 +203,14 @@ When = PostTransaction
 Exec = /usr/local/bin/msmtp-set-permissions
 {% endhighlight shell %}
 
+#### Test mail
+
+Send a test mail.
+
+{% highlight shell %}
+ echo "Text, more text." | /usr/bin/mail -s SUBJECT email@your.domain.com
+{% endhighlight shell %}
+
 ## ZFS Configuration
 
 I always set up snapshotting and replication as one of the first things I do on a new desktop.
@@ -216,25 +224,25 @@ pacaur -S zfs-auto-snapshot-git
 systemctl enable --now zfs-auto-snapshot-daily.timer
 {% endhighlight shell %}
 
-Set all datasets to snapshot.
+Set all datasets to snapshot and disable any datasets that dont require snapshotting.
 
 {% highlight shell %}
-for ds in $(sudo zfs list -H -o name); do zfs set com.sun:auto-snapshot=true ${ds}; done
+for ds in $(zfs list -H -o name); do
+  MP="$(zfs get -H -o value mountpoint $ds )";
+  if [ ${MP} == "legacy" ] || [ "${MP}" == "/" ]; then
+    echo "${ds}: on";
+    zfs set com.sun:auto-snapshot=true ${ds};
+  else
+    echo "${ds}: off";
+    zfs set com.sun:auto-snapshot=false ${ds};
+  fi;
+done
 {% endhighlight shell %}
 
-Disable any datasets that dont require snapshotting.
+In one line:
 
 {% highlight shell %}
-zfs set com.sun:auto-snapshot=false vault
-zfs set com.sun:auto-snapshot=false vault/sys
-zfs set com.sun:auto-snapshot=false vault/sys/chin
-zfs set com.sun:auto-snapshot=false vault/sys/chin/ROOT
-zfs set com.sun:auto-snapshot=false vault/sys/chin/var/lib/systemd
-zfs set com.sun:auto-snapshot=false vault/sys/chin/usr
-zfs set com.sun:auto-snapshot=false vault/sys/chin/var
-zfs set com.sun:auto-snapshot=false vault/sys/chin/var/lib
-zfs set com.sun:auto-snapshot=false vault/sys/chin/var/cache
-zfs set com.sun:auto-snapshot=false vault/sys/chin/home/john/cache
+for ds in $(zfs list -H -o name); do MP="$(zfs get -H -o value mountpoint $ds )"; if [ ${MP} == "legacy" ] || [ "${MP}" == "/" ]; then echo "${ds}: on"; zfs set com.sun:auto-snapshot=true ${ds}; else echo "${ds}: off";zfs set com.sun:auto-snapshot=false ${ds}; fi; done
 {% endhighlight shell %}
 
 ### ZFS Replication With ZnapZend
