@@ -138,9 +138,9 @@ ExecStart=/usr/bin/sh -c '/usr/bin/x0vncserver -display :0 -rfbport 5900 -passwo
 WantedBy=multi-user.target
 {% endhighlight shell %}
 
-### New Session
-
-
+{% highlight shell %}
+systemctl start x0vncserver
+{% endhighlight shell %}
 
 ## Fonts
 
