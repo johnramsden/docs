@@ -5,7 +5,7 @@ hide_sidebar: false
 keywords: archlinux, linux, vcs, vcsh, mr, myrepos
 tags: [ archlinux, linux, vcs, postinstall ]
 permalink: archlinux_user_config.html
-toc: false
+toc: true
 folder: linux/archlinux
 ---
 
@@ -22,7 +22,15 @@ pacaur -S myrepos vcsh
 Clone an existing myrepos configuration from a users ```$HOME```.
 
 {% highlight shell %}
-git clone git@github.com:johnramsden/mr.git
+vcsh clone git@github.com:johnramsden/mr.git
+{% endhighlight shell %}
+
+To clone a branch:
+
+Clone an existing myrepos configuration from a users ```$HOME```.
+
+{% highlight shell %}
+vcsh clone -b <wooly> git@github.com:johnramsden/mr.git
 {% endhighlight shell %}
 
 Or the [vcsh template](https://github.com/RichiH/vcsh_mr_template) for a new setup.
