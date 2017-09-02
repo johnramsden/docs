@@ -203,7 +203,7 @@ When = PostTransaction
 Exec = /usr/local/bin/msmtp-set-permissions
 {% endhighlight shell %}
 
-#### Test mail
+### Test mail
 
 Send a test mail.
 
@@ -251,9 +251,10 @@ Install [ZnapZend (AUR)](https://aur.archlinux.org/packages/znapzend/) (it's a g
 
 {% highlight shell %}
 pacaur -S znapzend
+systemctl enable --now znapzend
 {% endhighlight shell %}
 
-Create a config for each dataset thet needs replicating, where SYSTEM will be a name for the dataset at "${POOL}/replication/${SYSTEM}" on the remote. Specify the remote user and IP as well. Here is a small script I use for my setup. The grep can be adjusted to exclude any datasets that are unwanted.
+Create a config for each dataset thet needs replicating, where SYSTEM will be a name for the dataset at ```${POOL}/replication/${SYSTEM}``` on the remote. Specify the remote user and IP as well. Here is a small script I use for my setup. The grep can be adjusted to exclude any datasets that are unwanted.
 
 {% highlight shell %}
 #!/bin/sh
@@ -307,11 +308,29 @@ I would then run, for chin on ```replicator@<server ip>```.
 
 ### Scrub
 
-Setup a monthly scrub. Easiest way to set this up as install the [systemd-zpool-scrub (AUR)](https://aur.archlinux.org/packages/systemd-zpool-scrub/) package, but this could also easily set up by just installing a user-created systemd unit.
+Setup a monthly scrub. Easiest way to set this up as install the [systemd-zpool-scrub (AUR)](https://aur.archlinux.org/packages/systemd-zpool-scrub/) package.
 
 {% highlight shell %}
 pacaur -S systemd-zpool-scrub
 systemctl enable --now zpool-scrub@vault.timer
+{% endhighlight shell %}
+
+This could also easily set up by just installing a systemd unit containing the following.
+
+{% highlight shell %}
+nano /usr/lib/systemd/system/zpool-scrub@.service
+{% endhighlight shell %}
+
+{% highlight shell %}
+[Unit]
+Description=Scrub ZFS Pool
+Requires=zfs.target
+After=zfs.target
+
+[Service]
+Type=oneshot
+ExecStartPre=-/usr/bin/zpool scrub -s %i
+ExecStart=/usr/bin/zpool scrub %i
 {% endhighlight shell %}
 
 ### Enable The ZFS Event Daemon
@@ -411,14 +430,14 @@ nano /etc/smartd.conf
 To check for all errors on a disk use the option ```-a``` after the disk ID.
 
 {% highlight shell %}
-/dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_152271401093 -a
-/dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_154501401266 -a
-/dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_164277402487 -a
-/dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_164277402657 -a
-/dev/disk/by-id/ata-Samsung_SSD_840_EVO_250GB_S1DBNSADA75563M -a
+/dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_152271401093 -a -m <email>
+/dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_154501401266 -a -m <email>
+/dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_164277402487 -a -m <email>
+/dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_164277402657 -a -m <email>
+/dev/disk/by-id/ata-Samsung_SSD_840_EVO_250GB_S1DBNSADA75563M -a -m <email>
 {% endhighlight shell %}
 
-To test if your mail notification is working run a test. This will run the test on the start of the daemon.:
+To test if your mail notification is working run a test, add ```-m <email address> -M test``` to the end of the config. This will run the test on the start of the daemon.:
 
 {% highlight shell %}
 DEVICESCAN -m <email address> -M test
@@ -433,13 +452,11 @@ systemctl start smartd
 My config looks like:
 
 {% highlight shell %}
-/dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_152271401093 -a
-/dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_154501401266 -a
-/dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_164277402487 -a
-/dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_164277402657 -a
-/dev/disk/by-id/ata-Samsung_SSD_840_EVO_250GB_S1DBNSADA75563M -a
-
-DEVICESCAN -m
+/dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_152271401093 -a -m <email>
+/dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_154501401266 -a -m <email>
+/dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_164277402487 -a -m <email>
+/dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_164277402657 -a -m <email>
+/dev/disk/by-id/ata-Samsung_SSD_840_EVO_250GB_S1DBNSADA75563M -a -m <email>
 {% endhighlight shell %}
 
 ## nfs
