@@ -36,6 +36,12 @@ fs.inotify.max_user_watches=524288
 
 ## Onboard Virtual Keyboard
 
+Install onboard.
+
+{% highlight shell %}
+pacman -S onboard
+{% endhighlight shell %}
+
 For secondary labels run.
 
 {% highlight shell %}
@@ -46,4 +52,12 @@ gsettings set org.onboard.keyboard show-secondary-labels true
 
 Install conky.
 
-I use a script with conky to check email with the perl```Mail::IMAPClient``` and ```IO::Socket::SSL```, on arch needs: [perl-mail-imapclient (AUR)](https://aur.archlinux.org/packages/perl-mail-imapclient/), and [perl-io-socket-ssl](https://www.archlinux.org/packages/extra/any/perl-io-socket-ssl/)
+{% highlight shell %}
+pacman -S conky
+{% endhighlight shell %}
+
+I use a script with conky to check email with the perl```Mail::IMAPClient``` and ```IO::Socket::SSL```, on arch needs: [perl-mail-imapclient (AUR)](https://aur.archlinux.org/packages/perl-mail-imapclient/), and [perl-io-socket-ssl](https://www.archlinux.org/packages/extra/any/perl-io-socket-ssl/).
+
+{% highlight shell %}
+pacaur -S perl-mail-imapclient perl-io-socket-ssl
+{% endhighlight shell %}
