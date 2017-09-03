@@ -22,3 +22,6 @@ entries:
     - title: Re-authenticate IRC Nickname
       url: /internet_irc_authenticate_nick.html
       output: web
+    - title: Lightdm VNC Connection with Password
+      url: /internet_lightdm_vnc.html
+      output: web
