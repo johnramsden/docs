@@ -30,7 +30,7 @@ To clone a branch:
 Clone an existing myrepos configuration from a users ```$HOME```.
 
 {% highlight shell %}
-vcsh clone -b <wooly> git@github.com:johnramsden/mr.git
+vcsh clone -b branch git@github.com:johnramsden/mr.git
 {% endhighlight shell %}
 
 Or the [vcsh template](https://github.com/RichiH/vcsh_mr_template) for a new setup.
@@ -78,3 +78,32 @@ ln -s ../available.d/mr.vcsh
 {% endhighlight shell %}
 
 Now, run ```mr up``` to clone the specified repos.
+
+## Setup SSH
+
+To start ssh-agent with a systemd unit create ```~/.config/systemd/user/ssh-agent.service```.
+
+{% highlight shell %}
+nano ~/.config/systemd/user/ssh-agent.service
+{% endhighlight shell %}
+
+{% highlight shell %}
+[Unit]
+Description=SSH key agent
+
+[Service]
+Type=simple
+Environment=SSH_AUTH_SOCK=%t/ssh-agent.socket
+ExecStart=/usr/bin/ssh-agent -D -a $SSH_AUTH_SOCK
+
+[Install]
+WantedBy=default.target
+{% endhighlight shell %}
+
+Add ```SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"``` to ```~/.pam_environment```
+
+Start and anable.
+
+{% highlight shell %}
+systemctl --user enable --now ssh-agent
+{% endhighlight shell %}
