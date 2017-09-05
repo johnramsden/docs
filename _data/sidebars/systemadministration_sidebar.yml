@@ -21,3 +21,10 @@ entries:
     - title: ZFS Mirrors
       url: /zfs_mirrors.html
       output: web
+
+  - title: Security
+    output: web
+    folderitems:
+    - title: GPG Subkeys
+      url: /systemadministration_gpg_subkeys.html
+      output: web
