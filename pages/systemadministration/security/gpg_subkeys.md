@@ -87,6 +87,29 @@ Now export again as the new, altered subkey.
 gpg --homedir temp_directory/gpg -a --export-secret-subkeys [subkey id]! > temp_directory/subkey.altpass.gpg
 {% endhighlight shell %}
 
+## Importing The Subkey(s)
+
+Now, on a new system, the subkeys can be imported:
+
+{% highlight shell %}
+gpg --import subkey.altpass.gpg
+{% endhighlight shell %}
+
+Checking ```gpg --list-secret-keys``` will show a ```#``` after sec, meaning the master key isn't present:
+
+On new, subkey only system:
+
+{% highlight shell %}
+/home/john/.gnupg/pubring.kbx
+-----------------------------
+sec#  rsa4096 2017-05-17 [SC]
+      <KEY ID>
+uid           [ unknown] John Ramsden (<comment>) <email>
+uid           [ unknown] John Ramsden (<comment>) <email>
+ssb   rsa4096 2017-09-05 [S] [expires: 2019-09-05]
+ssb   rsa4096 2017-09-05 [E] [expires: 2019-09-05]
+{% endhighlight shell %}
+
 References:
 [Arch Wiki - GnuPG](https://wiki.archlinux.org/index.php/GnuPG#Edit_your_key)
 [Debiamm- Subkeys](https://wiki.debian.org/Subkeys)
