@@ -4,7 +4,7 @@ sidebar: linux_sidebar
 hide_sidebar: false
 keywords: archlinux, linux, aur, pacaur, zfs
 tags: [ archlinux, linux, aur, postinstall, zfs ]
-permalink: archlinux_post_install.html
+permalink: linux_archlinux_post_install.html
 toc: true
 folder: linux/archlinux
 ---

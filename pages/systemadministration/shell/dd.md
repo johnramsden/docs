@@ -4,7 +4,7 @@ sidebar: systemadministration_sidebar
 hide_sidebar: false
 keywords: shellscript, dd, shell, command
 tags: [ shell, dd, command ]
-permalink: shell_dd.html
+permalink: systemadministration_shell_dd.html
 toc: true
 folder: systemadministration/shell
 ---

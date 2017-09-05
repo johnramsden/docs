@@ -4,7 +4,7 @@ sidebar: linux_sidebar
 hide_sidebar: false
 keywords: archlinux, linux, aur, pacaur, dwm
 tags: [ archlinux, linux, aur, postinstall ]
-permalink: archlinux_graphical_configuration.html
+permalink: linux_archlinux_graphical_configuration.html
 toc: true
 folder: linux/archlinux
 ---
@@ -145,3 +145,7 @@ systemctl start x0vncserver
 ## Fonts
 
 Install [ttf-google-fonts-git (AUR)](https://aur.archlinux.org/packages/ttf-google-fonts-git/).
+
+{% highlight shell %}
+pacaur -S ttf-google-fonts-git
+{% endhighlight shell %}

@@ -9,10 +9,10 @@ entries:
     output: web
     folderitems:
     - title: Arch Linux
-      url: /archlinux.html
+      url: /linux_archlinux.html
       output: web
     - title: NixOS
-      url: /nixos.html
+      url: /linux_nixos.html
       output: web
     - title: General Linux
       url: /linux.html
@@ -22,31 +22,34 @@ entries:
     output: web
     folderitems:
     - title: FreeBSD
-      url: /freebsd.html
+      url: /bsd_freebsd.html
       output: web
     - title: FreeNAS
-      url: /freenas.html
+      url: /bsd_freenas.html
       output: web
     - title: pfSense
-      url: /pfsense.html
+      url: /bsd_pfsense.html
       output: web
 
   - title: System Administration
     output: web
     folderitems:
     - title: Shell Scripting
-      url: /shell.html
+      url: /systemadministration_shell.html
       output: web
     - title: ZFS
-      url: /zfs.html
+      url: /systemadministration_zfs.html
+      output: web
+    - title: Security
+      url: /systemadministration_security.html
       output: web
 
   - title: Desktop and Userspace
     output: web
     folderitems:
     - title: Internet
-      url: /internet.html
+      url: /desktop_internet.html
       output: web
     - title: Media
-      url: /media.html
+      url: /desktop_media.html
       output: web

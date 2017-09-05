@@ -3,7 +3,7 @@ title: Using GPG Subkeys
 sidebar: systemadministration_sidebar
 hide_sidebar: false
 keywords: systemadministration, gpg
-permalink: systemadministration_gpg_subkeys.html
+permalink: systemadministration_security_gpg_subkeys.html
 toc: true
 folder: systemadministration
 ---
@@ -88,6 +88,6 @@ gpg --homedir temp_directory/gpg -a --export-secret-subkeys [subkey id]! > temp_
 {% endhighlight shell %}
 
 References:
-https://wiki.archlinux.org/index.php/GnuPG#Edit_your_key
-https://wiki.debian.org/Subkeys
-https://www.void.gr/kargig/blog/2013/12/02/creating-a-new-gpg-key-with-subkeys/
+[Arch Wiki - GnuPG](https://wiki.archlinux.org/index.php/GnuPG#Edit_your_key)
+[Debiamm- Subkeys](https://wiki.debian.org/Subkeys)
+[void.gr](https://www.void.gr/kargig/blog/2013/12/02/creating-a-new-gpg-key-with-subkeys/)

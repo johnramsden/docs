@@ -4,7 +4,7 @@ sidebar: desktop_sidebar
 hide_sidebar: false
 keywords: internet
 #tags: [ irc ]
-permalink: internet.html
+permalink: desktop_internet.html
 toc: true
 folder: desktop/internet
 ---

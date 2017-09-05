@@ -4,7 +4,7 @@ sidebar: bsd_sidebar
 hide_sidebar: false
 keywords: freebsd, bsd, bhyve, virtualization, poudriere, zfs
 tags: [ freebsd, freenas, bsd, virtualization, zfs ]
-permalink: freebsd_poudriere_bhyve.html
+permalink: bsd_freebsd_poudriere_bhyve.html
 toc: false
 folder: bsd/freebsd
 ---

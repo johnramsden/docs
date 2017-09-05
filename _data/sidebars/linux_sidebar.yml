@@ -9,43 +9,43 @@ entries:
     output: web
     folderitems:
     - title: Setting up pacaur with the Arch User Repository
-      url: /archlinux_aur_pacaur.html
+      url: /linux_archlinux_aur_pacaur.html
       output: web
     - title: ZFS Dataset Structure
-      url: /archlinux_zfs_structure.html
+      url: /linux_archlinux_zfs_structure.html
       output: web
     - title: User Configuration Management
-      url: /archlinux_user_config.html
+      url: /linux_archlinux_user_config.html
       output: web
     - title: Graphical Configuration
-      url: archlinux_graphical_configuration.html
+      url: /linux_archlinux_graphical_configuration.html
       output: web
     - title: Post Install Tasks
-      url: /archlinux_post_install.html
+      url: /linux_archlinux_post_install.html
       output: web
     - title: Common Applications
-      url: /archlinux_applications.html
+      url: /linux_archlinux_applications.html
       output: web
     - title: Language Setup
-      url: /archlinux_languages.html
+      url: /linux_archlinux_languages.html
       output: web
     - title: libvirt
-      url: /archlinux_libvirt.html
+      url: /linux_archlinux_libvirt.html
       output: web
 
   - title: NixOS
     output: web
     folderitems:
     - title: NixOS root on ZFS Install
-      url: /nixos_install_zfs.html
+      url: /linux_nixos_install_zfs.html
       output: web
     - title: Remotely Accessing Install Media
-      url: /nixos_remote_access.html
+      url: /linux_nixos_remote_access.html
       output: web
 
   - title: systemd
     output: web
     folderitems:
     - title: systemd
-      url: /systemd.html
+      url: /linux_systemd.html
       output: web

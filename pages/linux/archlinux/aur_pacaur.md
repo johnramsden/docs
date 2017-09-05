@@ -4,7 +4,7 @@ sidebar: linux_sidebar
 hide_sidebar: false
 keywords: archlinux, linux, aur, pacaur
 tags: [ archlinux, linux, aur, postinstall ]
-permalink: archlinux_aur_pacaur.html
+permalink: linux_archlinux_aur_pacaur.html
 toc: false
 folder: linux/archlinux
 ---

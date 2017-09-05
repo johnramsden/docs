@@ -3,7 +3,7 @@ title: Media
 sidebar: desktop_sidebar
 hide_sidebar: false
 keywords: media
-permalink: media.html
+permalink: desktop_media.html
 toc: true
 folder: desktop/media
 ---

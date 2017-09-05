@@ -4,7 +4,7 @@ sidebar: systemadministration_sidebar
 hide_sidebar: false
 keywords: shellscript, find, shell
 tags: [ shell, find, command ]
-permalink: shell_find.html
+permalink: systemadministration_shell_find.html
 toc: true
 folder: systemadministration/shell
 ---

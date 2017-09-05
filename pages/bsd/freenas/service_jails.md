@@ -2,51 +2,47 @@
 title: FreeNAS Service jails
 sidebar: bsd_sidebar
 hide_sidebar: false
-keywords: freenas, bsd, jail
-tags: [ freenas, bsd, jail ]
-permalink: freenas_service_jails.html
+keywords: freebsd, bsd, freenas, jail, deluge, sickrage, sabnzbd, emby, couchpotato, syncthing
+tags: [ freebsd, bsd, jail ]
+permalink: bsd_freenas_service_jails.html
 toc: true
-folder: bsd/freenas/jails
+folder: bsd/freenas
 ---
 
 ## Deluge
 
-The following sets up the torrent client [net-p2p/deluge](https://www.freshports.org/net-p2p/deluge/)
+Setup of a jail for deluge server.
 
-### FreeNAS Preperation
+### FreeNAS Configuration
 
-First set a few things up on FreeNAS.
+#### User
 
-### Datasets
+Use the media user from FreeNAS, It's important to check the UID and GID match up with the user's for any datasets shared with the jail. I have found the media user is usually already correctly matched.
 
-Use the existing media user from FreeNAS
+Create a dataset for deluge and mount to your desired location inside the jail. Mount the desired location inside the jail, I mounted mine to the ```${HOME}/.config``` directory of my deluge user.
 
-Create dataset for deluge and mount to ```/home/media/.config```.
+### jail
 
-### In Jail
+The following sections were done inside the jail.
 
-Enter the jail.
+#### Install Deluge
 
-{% highlight shell %}
-jexec deluge tcsh
-{% endhighlight shell %}
-
-### Install Deluge
-
-Install cli version.
+Install ```deluge``` or ```deluge-cli``` depending on what you want installed. Since this is a headless server I'm only installing the CLI version.
 
 {% highlight shell %}
 pkg update && pkg upgrade
 pkg install deluge-cli
 {% endhighlight shell %}
 
-### rc
+#### Init Script
 
-Setup /etc/rc.conf
+Setup ```/etc/rc.conf```
 
+{% highlight shell %}
 sysrc 'deluged_enable=YES' 'deluged_user=media'
+{% endhighlight shell %}
 
-### Start Deluge
+#### Start Service
 
 {% highlight shell %}
 service deluged start
@@ -54,32 +50,18 @@ service deluged start
 
 # Couchpotato
 
-Install and cunfigure [couchpotato](https://couchpota.to/#freebsd)
-
 ## FreeNAS UI
 
-Create database dataset couchpotato and mount to ```/var/db/couchpotato``` within FreeNAS.
+Create database dataset couchpotato and mount to /var/db/couchpotato
 
-## In the jail
+https://couchpota.to/#freebsd
 
-Enter the jail.
-
-{% highlight shell %}
-jexec couchpotato tcsh
-{% endhighlight shell %}
-
-### Installing Requirements
-
-Install the required packages.
-
-{% highlight shell %}
 pkg update && pkg upgrade
+
+Install required tools
 pkg install python py27-sqlite3 fpc-libcurl docbook-xml git-lite
-{% endhighlight shell %}
 
-Use user media if it exists, it should match FreeNAS's media user's UID.
-
-### Configuration
+Use user media
 
 cd /var/db
 
@@ -150,15 +132,10 @@ pkg delete -f ffmpeg
 
 Reinstall FFMpeg from ports with lame option enabled
 
-```
-cd /usr/ports/multimedia/ffmpeg
-make config
-# enable the lame option
-# enable the ass subtitles option
-# enable the opus subtitles option
-# enable the x265 subtitles option
-make install clean
-```
+*   enable the lame option
+*   enable the ass subtitles option
+*   enable the opus subtitles option
+*   enable the x265 subtitles option
 
 ## ImageMagick
 
@@ -166,7 +143,7 @@ make install clean
 
 It is recommended to recompile the graphics/ImageMagick package from ports with the following options .
 
-DISABLED (UNSET): 16BIT_PIXEL (to increase thumbnail generation performance)
+*  disable (unset) 16BIT_PIXEL (to increase thumbnail generation performance)
 
 #### Delete pkg
 

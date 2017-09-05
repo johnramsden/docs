@@ -3,7 +3,7 @@ title: ZFS Mirrors
 sidebar: systemadministration_sidebar
 hide_sidebar: false
 keywords: zfs
-permalink: zfs_mirrors.html
+permalink: systemadministration_zfs_mirrors.html
 toc: true
 folder: systemadministration/zfs
 ---

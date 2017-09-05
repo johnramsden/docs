@@ -4,7 +4,7 @@ sidebar: linux_sidebar
 hide_sidebar: false
 keywords: archlinux, linux, virtualization, libvirt, kvm, qemu
 tags: [ archlinux, linux, virtualization ]
-permalink: archlinux_libvirt.html
+permalink: linux_archlinux_libvirt.html
 toc: true
 folder: linux/archlinux
 ---
@@ -134,6 +134,26 @@ Test libvirt system user-session:
 
 {% highlight shell %}
 virsh -c qemu:///session
+{% endhighlight shell %}
+
+### UEFI
+
+Add the following to ```/etc/libvirt/qemu.conf```.
+
+{% highlight shell %}
+nano /etc/libvirt/qemu.conf
+{% endhighlight shell %}
+
+{% highlight shell %}
+nvram = [
+    "/usr/share/ovmf/ovmf_code_x64.bin:/usr/share/ovmf/ovmf_vars_x64.bin"
+]
+{% endhighlight shell %}
+
+and restart libvirtd
+
+{% highlight shell %}
+systemctl restart libvirtd
 {% endhighlight shell %}
 
 ### Create Guest

@@ -3,7 +3,7 @@ title: Security
 sidebar: systemadministration_sidebar
 hide_sidebar: false
 keywords: security
-permalink: security.html
+permalink: systemadministration_security.html
 toc: true
 folder: systemadministration/security
 ---

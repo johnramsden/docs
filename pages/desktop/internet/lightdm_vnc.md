@@ -4,7 +4,7 @@ sidebar: desktop_sidebar
 hide_sidebar: false
 keywords: vnc, authenticate
 tags: [ network ]
-permalink: internet_lightdm_vnc.html
+permalink: desktop_internet_lightdm_vnc.html
 toc: true
 folder: desktop/internet
 ---

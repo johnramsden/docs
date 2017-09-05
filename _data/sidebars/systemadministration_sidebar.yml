@@ -9,22 +9,22 @@ entries:
     output: web
     folderitems:
     - title: find
-      url: /shell_find.html
+      url: /systemadministration_shell_find.html
       output: web
     - title: dd
-      url: /shell_dd.html
+      url: /systemadministration_shell_dd.html
       output: web
 
   - title: ZFS
     output: web
     folderitems:
     - title: ZFS Mirrors
-      url: /zfs_mirrors.html
+      url: /systemadministration_zfs_mirrors.html
       output: web
 
   - title: Security
     output: web
     folderitems:
-    - title: GPG Subkeys
-      url: /systemadministration_gpg_subkeys.html
+    - title: Using GPG Subkeys
+      url: /systemadministration_security_gpg_subkeys.html
       output: web

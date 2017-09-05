@@ -4,7 +4,7 @@ sidebar: linux_sidebar
 hide_sidebar: false
 keywords: archlinux, linux, ruby, nodejs
 tags: [ archlinux, linux, postinstall ]
-permalink: archlinux_languages.html
+permalink: linux_archlinux_languages.html
 toc: true
 folder: linux/archlinux
 ---

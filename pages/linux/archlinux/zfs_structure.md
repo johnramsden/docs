@@ -4,7 +4,7 @@ sidebar: linux_sidebar
 hide_sidebar: false
 keywords: archlinux, linux, zfs
 tags: [ archlinux, linux, zfs ]
-permalink: archlinux_zfs_structure.html
+permalink: linux_archlinux_zfs_structure.html
 toc: true
 folder: linux/archlinux
 ---
@@ -13,28 +13,30 @@ After a lot of experimenting, as of August 2nd 2017 I was using the following fi
 
 ## Dataset Structure
 
-I use a few variables to represent different locations in the pool for datasets.
+I'll use a few variables to represent different locations in the pool for datasets.
 
 *   ```SYS_ROOT=vault/sys``` - The location of any systems on the pool.
 *   ```DATA_ROOT=vault/data``` - System shared data.
 
 ## Boot Environments
 
-For boot environments I use (where SYSTEM_NAME can be anything, I use the hostname):
+For boot environments I use the following configuration. SYSTEM_NAME can be anything, I use the hostname.
 
 {% highlight shell %}
 ${SYS_ROOT}/${SYSTEM_NAME}/ROOT/${BOOT_ENV}
 {% endhighlight shell %}
 
-For example, my current boot environment ```/```:
+For example, my current boot environment which will be mounted to ```/```:
 
 {% highlight shell %}
 vault/sys/chin/ROOT/default
 {% endhighlight shell %}
 
-## Datasets Created
+In this configuration it makes it easy to dual boot multiple systems off of a single ZFS pool. To create a new system just add a new dataset under ```vault/sys```, and set it up as normal. This should even work dual booting Linux and FreeBSD.
 
-While only a dataset for ```/``` really needs creating, I create quite a few. This lets me backup and snapshot only datasets for areas I need.
+## Datasets
+
+While only a dataset for ```/``` really needs creating, I create quite a few. This lets me backup and snapshot only datasets I find important.
 
 Setup datasets. Set all besides ```/``` legacy, or use zfs management. I like using legacy for multi system setups using a shared pool, and zfs for single install systems.
 
@@ -291,29 +293,29 @@ Mount home.
 mkdir -p /mnt/home ; \
 mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/home /mnt/home; \
 
-mkdir -p /mnt/home/john
+mkdir -p /mnt/home/john; \
 mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/home/john /mnt/home/john; \
 
-mkdir -p /mnt/home/john/{.cache,.config,.local}
+mkdir -p /mnt/home/john/{.cache,.config,.local}; \
 mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/home/john/cache /mnt/home/john/.cache; \
 mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/home/john/config /mnt/home/john/.config; \
 mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/home/john/local /mnt/home/john/.local; \
 
-mkdir -p /mnt/home/john/.local/share/Steam
-mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/home/john/local/share/Steam /mnt/home/john/.local/share/Steam; \
+mkdir -p /mnt/home/john/.local/share/Steam; \
+mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/home/john/local/share/Steam /mnt/home/john/.local/share/Steam
 {% endhighlight shell %}
 
 Mount data:
 
 {% highlight shell %}
-mkdir -p /mnt/home/john/{Books,Computer,Personal,Pictures,Reference,University,Workspace}
+mkdir -p /mnt/home/john/{Books,Computer,Personal,Pictures,Reference,University,Workspace}; \
 mount -t zfs vault/data/Books /mnt/home/john/Books; \
 mount -t zfs vault/data/Computer /mnt/home/john/Computer; \
 mount -t zfs vault/data/Personal /mnt/home/john/Personal; \
 mount -t zfs vault/data/Pictures /mnt/home/john/Pictures; \
 mount -t zfs vault/data/Reference /mnt/home/john/Reference; \
 mount -t zfs vault/data/University /mnt/home/john/University; \
-mount -t zfs vault/data/Workspace /mnt/home/john/Workspace; \
+mount -t zfs vault/data/Workspace /mnt/home/john/Workspace
 {% endhighlight shell %}
 
 ### Boot Setup

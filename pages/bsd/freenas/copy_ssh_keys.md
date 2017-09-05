@@ -4,7 +4,7 @@ sidebar: bsd_sidebar
 hide_sidebar: false
 keywords: freebsd, bsd, freenas, ssh
 tags: [ freebsd, freenas, bsd ]
-permalink: freenas_copy_ssh_keys.html
+permalink: bsd_freenas_copy_ssh_keys.html
 toc: false
 folder: bsd/freenas
 ---

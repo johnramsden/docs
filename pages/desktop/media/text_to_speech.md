@@ -4,7 +4,7 @@ sidebar: desktop_sidebar
 hide_sidebar: false
 keywords: text-to-speech, ffmpeg, espeak
 tags: [ media, ffmpeg ]
-permalink: media_text_to_speech.html
+permalink: desktop_media_text_to_speech.html
 toc: true
 folder: desktop/media
 ---

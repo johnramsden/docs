@@ -3,7 +3,7 @@ title: ZFS
 sidebar: systemadministration_sidebar
 hide_sidebar: false
 keywords: zfs
-permalink: zfs.html
+permalink: systemadministration_zfs.html
 toc: true
 folder: systemadministration/zfs
 ---

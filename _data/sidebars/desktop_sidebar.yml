@@ -9,10 +9,10 @@ entries:
     output: web
     folderitems:
     - title: Convert Text to Speech
-      url: /media_text_to_speech.html
+      url: /desktop_media_text_to_speech.html
       output: web
     - title: Convert Audio to Video
-      url: /media_audio_to_video.html
+      url: /desktop_media_audio_to_video.html
       output: web
 
 
@@ -20,8 +20,8 @@ entries:
     output: web
     folderitems:
     - title: Re-authenticate IRC Nickname
-      url: /internet_irc_authenticate_nick.html
+      url: /desktop_internet_irc_authenticate_nick.html
       output: web
     - title: Lightdm VNC Connection with Password
-      url: /internet_lightdm_vnc.html
+      url: /desktop_internet_lightdm_vnc.html
       output: web

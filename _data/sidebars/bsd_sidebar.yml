@@ -9,25 +9,25 @@ entries:
     output: web
     folderitems:
     - title: Copy SSH Keys off FreeNAS
-      url: /freenas_copy_ssh_keys.html
+      url: /bsd_freenas_copy_ssh_keys.html
       output: web
-    - title: FreeNAS Service jails
-      url: /freenas_service_jails.html
-      output: web
+    # - title: FreeNAS Service jails
+    #   url: /bsd_freenas_service_jails.html
+    #   output: web
 
   - title: FreeBSD
     output: web
     folderitems:
     - title: bhyve
-      url: /freebsd_bhyve.html
+      url: /bsd_freebsd_bhyve.html
       output: web
     - title: iocage
-      url: /freebsd_iocage.html
+      url: /bsd_freebsd_iocage.html
       output: web
 
   - title: pfSense
     output: web
     folderitems:
     - title: Sending Specific Traffic Through OpenVPN
-      url: /pfsense_send_traffic_through_vpn.html
+      url: /bsd_pfsense_send_traffic_through_vpn.html
       output: web

@@ -4,7 +4,7 @@ sidebar: linux_sidebar
 hide_sidebar: false
 keywords: archlinux, linux, vcs, vcsh, mr, myrepos
 tags: [ archlinux, linux, vcs, postinstall ]
-permalink: archlinux_user_config.html
+permalink: linux_archlinux_user_config.html
 toc: true
 folder: linux/archlinux
 ---
