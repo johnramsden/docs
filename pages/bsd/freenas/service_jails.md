@@ -48,56 +48,71 @@ sysrc 'deluged_enable=YES' 'deluged_user=media'
 service deluged start
 {% endhighlight shell %}
 
-# Couchpotato
+## Couchpotato
 
-## FreeNAS UI
+Install [couchpotato](https://couchpota.to/#freebsd) freebsd version from git.
 
-Create database dataset couchpotato and mount to /var/db/couchpotato
+### FreeNAS UI
 
-https://couchpota.to/#freebsd
+Create database dataset couchpotato and mount to ```/var/db/couchpotato```.
 
+{% highlight shell %}
 pkg update && pkg upgrade
+{% endhighlight shell %}
 
 Install required tools
+
+{% highlight shell %}
 pkg install python py27-sqlite3 fpc-libcurl docbook-xml git-lite
+{% endhighlight shell %}
 
-Use user media
+Use user media, clone to a temp repo in ```/var/db```.
 
+{% highlight shell %}
 cd /var/db
-
-
 git clone https://github.com/CouchPotato/CouchPotatoServer.git temp
+{% endhighlight shell %}
+
+Move the bare repo that was just cloned to the dataset we mounted earlier to ```/var/db/couchpotato```.
+
+{% highlight shell %}
 mv temp/.git couchpotato/
 rm -rf temp
+{% endhighlight shell %}
 
+Switch to the ```media``` user and reset the repo to HEAD.
+
+{% highlight shell %}
 su media
 cd couchpotato
 git reset --hard HEAD
-
 exit
+{% endhighlight shell %}
 
-Copy the startup script
+As root, copy the startup script to ```/usr/local/etc/rc.d``` and make the startup script executable.
+
+{% highlight shell %}
 cp couchpotato/init/freebsd /usr/local/etc/rc.d/couchpotato
-
-Make startup script executable
 chmod 555 /usr/local/etc/rc.d/couchpotato
+{% endhighlight shell %}
 
-Read the options at the top of more
-/usr/local/etc/rc.d/couchpotato
+Read the options at the top of ```/usr/local/etc/rc.d/couchpotato```.
 
-If not default install, specify options with startup flags
+If not using the default install, specify options with startup flags.
 
+{% highlight shell %}
 sysrc 'couchpotato_enable=YES'
 sysrc 'couchpotato_user=media'
 sysrc 'couchpotato_dir=/var/db/couchpotato'
+{% endhighlight shell %}
 
-Finally,
+Finally, start couchpotato.
+
+{% highlight shell %}
 service couchpotato start
+{% endhighlight shell %}
 
-Restart jail
-
-Open your browser and go to:
-http://server:5050/
+Restart the jail, open your browser and go to [http://server:5050/](http://server:5050/).
 
 # Emby
 
