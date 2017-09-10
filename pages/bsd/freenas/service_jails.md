@@ -114,106 +114,134 @@ service couchpotato start
 
 Restart the jail, open your browser and go to [http://server:5050/](http://server:5050/).
 
-# Emby
+## Emby
 
-## FreeNAS
+### FreeNAS
 
-Create dataset, mount at /var/db/emby
+Create dataset, mount at ```/var/db/emby```
 
-## Jail
+### Jail
 
-Use pkg
+In the jail, update all packages and install ```emby-server```.
 
-```
+{% highlight shell %}
 pkg update && pkg upgrade
 pkg install emby-server
-```
+{% endhighlight shell %}
 
 ### FFMpeg
 
-#### Update FreeBSD ports tree
+It's recommended to install ffmpeg from ports so that surgeon compile time options can be enabled.
 
-```
+Update the FreeBSD ports tree
+
+{% highlight shell %}
 portsnap fetch extract update
-```
+{% endhighlight shell %}
 
-### Remove default FFMpeg package
+Remove the default ffmpeg package
 
-```
+{% highlight shell %}
 pkg delete -f ffmpeg
-```
-
-### Reinstall FFMpeg
+{% endhighlight shell %}
 
 Reinstall FFMpeg from ports with lame option enabled
+
+{% highlight shell %}
+cd /usr/ports/multimedia/ffmpeg && make config
+{% endhighlight shell %}
 
 *   enable the lame option
 *   enable the ass subtitles option
 *   enable the opus subtitles option
 *   enable the x265 subtitles option
 
-## ImageMagick
+Compile and install.
 
-### Reinstall ImageMagick from ports
+{% highlight shell %}
+make install clean
+{% endhighlight shell %}
+
+### ImageMagick
 
 It is recommended to recompile the graphics/ImageMagick package from ports with the following options .
 
 *  disable (unset) 16BIT_PIXEL (to increase thumbnail generation performance)
 
-#### Delete pkg
+Delete the imagemagick pkg.
 
-```
+{% highlight shell %}
 pkg delete -f imagemagick
-```
+{% endhighlight shell %}
 
-#### Install from ports
+Install from ports
 
-```
-cd /usr/ports/graphics/ImageMagick
-# DISABLED (UNSET): 16BIT_PIXEL
-make config
-```
+{% highlight shell %}
+cd /usr/ports/graphics/ImageMagick && make config
+{% endhighlight shell %}
 
-Make sure you have DISABLED (UNSET): 16BIT_PIXEL.
+*   Disable the 16BIT_PIXEL option
 
-```
+{% highlight shell %}
 make install clean
-```
+{% endhighlight shell %}
 
-## Options
+## Emby Start Options
 
-```
+Set the rc script executable.
+
+{% highlight shell %}
 chmod 555 /usr/local/etc/rc.d/emby-server
-```
+{% endhighlight shell %}
 
-Check options
+Check the options.
 
-```
+{% highlight shell %}
 less /usr/local/etc/rc.d/emby-server
-```
+{% endhighlight shell %}
 
-### Enable Emby service
+Set emby to start on boot and change the options based on setup.
 
-```
+{% highlight shell %}
 sysrc 'emby_server_enable=YES'
 sysrc 'emby_server_user=media'
 sysrc 'emby_server_group=media'
 sysrc 'emby_server_data_dir=/var/db/emby-server'
-```
+{% endhighlight shell %}
 
-## Start Emby!
+Start the emby service.
 
-```
+{% highlight shell %}
 service emby-server start
-```
-# Pod
+{% endhighlight shell %}
 
-## Requirements
+## Pod
 
+### In Jail
+
+Enter jail.
+
+{% highlight shell %}
+jexec pod tcsh
+{% endhighlight shell %}
+
+Update.
+
+{% highlight shell %}
+pkg update && pkg upgrade
+{% endhighlight shell %}
+
+### Requirements
+
+{% highlight shell %}
 pkg install bash libxslt wget curl
+{% endhighlight shell %}
 
-bash requires fdescfs(5) mounted on /dev/fd, add to tasks:
+bash requires fdescfs(5) mounted on /dev/fd, add to boot tasks in FreeNAS UI.
+
+{% highlight shell %}
 mount -t fdescfs fdesc /mnt/tank/jails/pod/dev/fd
+{% endhighlight shell %}
 
 ## User
 
@@ -255,28 +283,58 @@ git clone https://github.com/johnramsden/bashpod.git
 
 jexec -U pod pod /usr/local/bin/bash -c "/home/pod/bashpod/bashpod.sh"
 
-# Sabnzbd
+## Sabnzbd
 
 ## FreeNAS
 
-Create dataset, mount at /var/db/sabnzbd
+Create dataset, mount at ```/var/db/sabnzbd```
 
-## Jail
+### Jail
 
+Enter jail.
+
+{% highlight shell %}
+jexec sickrage tcsh
+{% endhighlight shell %}
+
+Update and install sabnzbd.
+
+{% highlight shell %}
 pkg update && pkg upgrade && pkg install sabnzbdplus
+{% endhighlight shell %}
 
+{% highlight shell %}
 sysrc 'sabnzbd_enable=YES'
 sysrc 'sabnzbd_user=media'
 sysrc 'sabnzbd_group=media'
 sysrc 'sabnzbd_conf_dir=/var/db/sabnzbd'
+{% endhighlight shell %}
 
 Restart jail
 
-Edit config in /var/db/sabnzbd, change host to 0.0.0.0
+Edit config in ````/var/db/sabnzbd````, change host to 0.0.0.0
 
-# SickRage
+## SickRage
 
+### In Jail
+
+Enter jail.
+
+{% highlight shell %}
+jexec sickrage tcsh
+{% endhighlight shell %}
+
+Update.
+
+{% highlight shell %}
+pkg update && pkg upgrade
+{% endhighlight shell %}
+
+Install requirements.
+
+{% highlight shell %}
 pkg install py27-sqlite3
+{% endhighlight shell %}
 
 cd /var/db
 git clone  https://github.com/SickRage/SickRage.git temp
@@ -302,15 +360,25 @@ sysrc 'sickrage_dir=/var/db/sickrage'
 service sickrage start
 service sickrage stop
 
-# Syncthing
+## Syncthing
 
-## Create User Syncthing
+### Create User Syncthing
 
 On FreeNAS with ID 983, nologin
 
-## In Jail
+### In Jail
 
+Enter jail.
+
+{% highlight shell %}
+jexec syncthing tcsh
+{% endhighlight shell %}
+
+Update and install syncthing.
+
+{% highlight shell %}
 pkg update && pkg upgrade && pkg install syncthing
+{% endhighlight shell %}
 
 Add the following to rc.conf:
 
