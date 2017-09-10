@@ -243,8 +243,11 @@ bash requires fdescfs(5) mounted on /dev/fd, add to boot tasks in FreeNAS UI.
 mount -t fdescfs fdesc /mnt/tank/jails/pod/dev/fd
 {% endhighlight shell %}
 
-## User
+### Create User
 
+Create user 'pod'.
+
+{% highlight shell %}
 adduser pod
 Username: pod
 Full name: Podcatcher
@@ -272,16 +275,25 @@ OK? (yes/no): yes
 adduser: INFO: Successfully added (pod) to the user database.
 Add another user? (yes/no): no
 Goodbye!
+{% endhighlight shell %}
 
-## Clone bashpod
+### Install bashpod
 
+Clone the script.
+
+{% highlight shell %}
 su pod
 cd /home/pod
 git clone https://github.com/johnramsden/bashpod.git
+{% endhighlight shell %}
 
-## Task
+### FreeNAS Task
 
+In order to run from FreeNAS, create a new task that runs the bashpod script.
+
+{% highlight shell %}
 jexec -U pod pod /usr/local/bin/bash -c "/home/pod/bashpod/bashpod.sh"
+{% endhighlight shell %}
 
 ## Sabnzbd
 
