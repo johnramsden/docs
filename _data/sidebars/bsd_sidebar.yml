@@ -11,6 +11,9 @@ entries:
     - title: Copy SSH Keys off FreeNAS
       url: /bsd_freenas_copy_ssh_keys.html
       output: web
+    - title: Wrong Version jail
+      url: /bsd_freenas_wrong_version_jail.html
+      output: web
     # - title: FreeNAS Service jails
     #   url: /bsd_freenas_service_jails.html
     #   output: web
