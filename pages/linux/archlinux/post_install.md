@@ -264,7 +264,7 @@ REMOTE_USER="${2}"
 REMOTE_IP="${3}"
 
 for ds in $(zfs list -H -o name | \
-    grep -E 'data/|default|john/|usr/|var/|lib/' | \
+    grep -E 'data/|default|john|usr/|var/|lib/' | \
     grep -v cache); do
   echo "Creating: ${REMOTE_USER}@${REMOTE_IP}:${REMOTE_POOL_ROOT}/${ds}"
 
