@@ -30,7 +30,7 @@ nano /etc/fstab
 {% endhighlight shell %}
 
 {% highlight shell %}
-vault/sys/chin/var/lib/libvirt            /var/lib/lxc                    zfs       rw,relatime,xattr,noacl     0 0
+vault/sys/chin/var/lib/libvirt            /var/lib/libvirt                    zfs       rw,relatime,xattr,noacl     0 0
 {% endhighlight shell %}
 
 ### Kernel
@@ -112,6 +112,22 @@ zfs create -V 50G vault/zvols/john/libvirt/<new VM> -o primarycache=metadata -o 
 
 By default, anybody in the ```wheel``` group can authenticate with polkit as defined in ```/etc/polkit-1/rules.d/50-default.rules``` (see [Polkit#Administrator identities](https://wiki.archlinux.org/index.php/Polkit#Administrator_identities)).
 
+If you want passwordless authentication, as of libvirt 1.2.16, anyone in the ```libvirt``` group can access to the RW daemon socket by default.
+
+Create the group if it doesn't exist.
+
+{% highlight shell %}
+groupadd libvirt
+{% endhighlight shell %}
+
+Add any users required to it.
+
+{% highlight shell %}
+gpasswd -a john libvirt
+{% endhighlight shell %}
+
+Make sure to re-login after.
+
 ### System Service
 
 Enable libvirtd.service.
@@ -150,10 +166,33 @@ nvram = [
 ]
 {% endhighlight shell %}
 
+I have found UEFI may not work if I haven't set the system user to ```user = root``` in ```/etc/libvirt/qemu.conf```.
+
 and restart libvirtd
 
 {% highlight shell %}
 systemctl restart libvirtd
+{% endhighlight shell %}
+
+#### User
+
+To use uefi as a user, note networking options are limited, move the nvram to a user readable location and add it to ```~/.config/libvirt/qemu.conf```.
+
+{% highlight shell %}
+cp -r /usr/share/ovmf /home/john/.config/libvirt/ovmf
+chown -R john:john /home/john/.config/libvirt/ovmf
+{% endhighlight shell %}
+
+Add the following to ```/etc/libvirt/qemu.conf```.
+
+{% highlight shell %}
+nano ~/.config/libvirt/qemu.conf
+{% endhighlight shell %}
+
+{% highlight shell %}
+nvram = [
+    "/home/john/.config/libvirt/ovmf/ovmf_code_x64.bin:/home/john/.config/libvirt/ovmf/ovmf_vars_x64.bin"
+]
 {% endhighlight shell %}
 
 ### Create Guest
@@ -162,17 +201,38 @@ Use virsh or virt manager.
 
 ### Storage
 
-Select virtIO Network and storage for best performance. Select ZVOL raw device. Mine was ```vault/zvols/john/libvirt/<new VM>```
+Select virtIO Network and storage for best performance. Select ZVOL raw device. Mine was ```/dev/vault/zvols/john/libvirt/<new VM>```.
 
-#### Network
+#### ZVOL Persistance
 
-To use another interface, don't configure anything on the host and select macvtap passthrough, and select the interface..
+If using a user session the block device might need to be changed to be owned by the user running the VM.
+
+Temporarily the device can be chown'd, but the owner will not live through reboot. For persistence [add a udev rule](ramsdenj.com/2016/07/21/making-a-zvol-backed-virtualbox-vm-on-linux.html) by creating a new file ```99-local-zvol.rules``` in ```/etc/udev/rules.d/``` that contains the following (replacing the ZVOL path and user):
+
+{% highlight shell %}
+# /etc/udev/rules.d/99-local-zvol.rules
+# Give persistant ownership of ZVOL to user
+KERNEL=="zd*" SUBSYSTEM=="block" ACTION=="add|change" PROGRAM="/lib/udev/zvol_id /dev/%k"
+RESULT=="vault/zvols/john/libvirt/win" OWNER="john" GROUP="john" MODE="0750"
+{% endhighlight shell %}
+
+Refresh the rules with ```udevadm control --reload```
+
+#### VirtIO
 
 Install drivers:
 
-I [downloaded](https://fedoraproject.org/wiki/Windows_Virtio_Drivers#Direct_download) and attached the drivers pre-install.
+I [downloaded](https://fedoraproject.org/wiki/Windows_Virtio_Drivers#Direct_download) ISO and attached the drivers pre-install.
+
+At the "Where do you want to install Windows?" screen, select the option Load Drivers, uncheck the box for "Hide drivers that aren't compatible with this computer's hardware".
+
+Browse to the wanted driver(s) at:
 
 SCSI: "viostor\w10\amd64"
 Networking: "NetKVM\w10\amd64"
+
+### Network
+
+To use another interface, don't configure anything on the host and select macvtap passthrough, and select the interface.
 
 Install then reboot.
