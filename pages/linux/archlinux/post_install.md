@@ -507,3 +507,24 @@ Start and enable.
 {% highlight shell %}
 systemctl enable --now autofs
 {% endhighlight shell %}
+
+## User Cache
+
+I like to keep certain directories in tmpfs. It avoids extra writes to disk and can be faster since everything is stored in memory.
+
+## Cleaning the cache
+
+I like periodically have my users cache directory cleaned. This can easily be done using tmpfiles.d.
+
+Create a new file in the ```/etc/tmpfiles.d``` directory.
+
+{% highlight shell %}
+nano /etc/tmpfiles.d/home-cache.conf
+{% endhighlight shell %}
+
+Add a rule that will delete any file older than 10 days. Exclude the Google Chrome Mount point if you mounted it in tmpfs.
+
+{% highlight shell %}
+# remove files in /home/john/.cache older than 10 days
+D /home/john/.cache 1755 john john 10d
+{% endhighlight shell %}
