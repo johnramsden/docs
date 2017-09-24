@@ -522,7 +522,7 @@ Create a new file in the ```/etc/tmpfiles.d``` directory.
 nano /etc/tmpfiles.d/home-cache.conf
 {% endhighlight shell %}
 
-Add a rule that will delete any file older than 10 days. Exclude the Google Chrome Mount point if you mounted it in tmpfs.
+Add a rule that will delete any file older than 10 days.
 
 {% highlight shell %}
 # remove files in /home/john/.cache older than 10 days
