@@ -22,3 +22,4 @@ allowed-tags:
   - jail
   - pfsense
   - virtualization
+  - tuning

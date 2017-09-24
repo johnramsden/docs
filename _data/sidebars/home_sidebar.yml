@@ -14,7 +14,10 @@ entries:
     - title: NixOS
       url: /linux_nixos.html
       output: web
-    - title: General Linux
+    - title: Linux Tuning
+      url: /linux_tuning.html
+      output: web
+    - title: General
       url: /linux.html
       output: web
 

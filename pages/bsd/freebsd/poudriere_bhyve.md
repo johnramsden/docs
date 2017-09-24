@@ -218,11 +218,13 @@ COMMIT_PACKAGES_ON_FAILURE=no
 BUILDER_HOSTNAME=<domain>
 {% endhighlight shell %}
 
-## Setup jail:
+## Create jail
 
-```
+Create a new '11.1-RELEASE' jail with the name 'freebsd-11-amd64'.
+
+{% highlight shell %}
 poudriere jail -c -j freebsd-11-amd64 -v 11.1-RELEASE
-```
+{% endhighlight shell %}
 
 Setup ports tree:
 

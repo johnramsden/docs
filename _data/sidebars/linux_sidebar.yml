@@ -49,3 +49,10 @@ entries:
     - title: systemd
       url: /linux_systemd.html
       output: web
+
+  - title: Tuning
+    output: web
+    folderitems:
+    - title: Linux General Tuning
+      url: /linux_tuning.html
+      output: web
