@@ -1,0 +1,24 @@
+<p>The following pages are in this section</p>
+
+{% assign thisSec = page.sectionName %}
+  {% for page in site.pages %}
+    {% for cat in site.tags %}
+        {% if cat == thisSec %}
+
+        <a href="{{ page.url | remove: "/" }}">{{page.title}}</a>
+
+        <p>{% if page.summary %} {{ page.summary | strip_html | strip_newlines | truncate: 160 }} {% else %} {{ page.content | truncatewords: 50 | strip_html }} {% endif %}</p>
+        {% endif %}
+     {% endfor %}
+   {% endfor %}
+
+    {% assign thisSec = page.sectionName %}
+    {% for post in site.posts %}
+      {% for cat in site.categories %}
+        {% if cat == thisSec %}
+
+        <a href="{{ post.url | remove: "/" }}">{{post.title}}</a>
+          <p>{% if post.summary %} {{ post.summary | strip_html | strip_newlines | truncate: 160 }} {% else %} {{ post.content | truncatewords: 50 | strip_html }} {% endif %}</p>
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
