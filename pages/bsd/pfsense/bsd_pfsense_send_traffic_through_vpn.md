@@ -2,6 +2,7 @@
 title: Sending Specific Traffic Through OpenVPN
 sidebar: bsd_sidebar
 hide_sidebar: false
+category: [ bsd, pfsense ]
 keywords: freebsd, bsd, pfsense, vpn
 tags: [ freebsd, bsd, pfsense, networking ]
 permalink: bsd_pfsense_send_traffic_through_vpn.html

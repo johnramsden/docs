@@ -2,6 +2,7 @@
 title: Lightdm VNC Connection with Password
 sidebar: desktop_sidebar
 hide_sidebar: false
+category: [ desktop, desktop-internet ]
 keywords: vnc, authenticate
 tags: [ network ]
 permalink: desktop_internet_lightdm_vnc.html

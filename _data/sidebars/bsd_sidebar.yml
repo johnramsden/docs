@@ -8,6 +8,9 @@ entries:
   - title: FreeNAS
     output: web
     folderitems:
+    - title: FreeNAS Table of Contents
+      url: /bsd_freenas.html
+      output: web
     - title: Copy SSH Keys off FreeNAS
       url: /bsd_freenas_copy_ssh_keys.html
       output: web
@@ -21,8 +24,8 @@ entries:
   - title: FreeBSD
     output: web
     folderitems:
-    - title: bhyve
-      url: /bsd_freebsd_bhyve.html
+    - title: FreeBSD Table of Contents
+      url: /bsd_freebsd.html
       output: web
     - title: iocage
       url: /bsd_freebsd_iocage.html
@@ -31,6 +34,9 @@ entries:
   - title: pfSense
     output: web
     folderitems:
+    - title: pfSense Table of Contents
+      url: /bsd_pfsense.html
+      output: web
     - title: Sending Specific Traffic Through OpenVPN
       url: /bsd_pfsense_send_traffic_through_vpn.html
       output: web

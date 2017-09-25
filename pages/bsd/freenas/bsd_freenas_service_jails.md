@@ -2,6 +2,7 @@
 title: FreeNAS Service jails
 sidebar: bsd_sidebar
 hide_sidebar: false
+category: [ bsd, freenas ]
 keywords: freebsd, bsd, freenas, jail, deluge, sickrage, sabnzbd, emby, couchpotato, syncthing
 tags: [ freebsd, bsd, jail ]
 permalink: bsd_freenas_service_jails.html

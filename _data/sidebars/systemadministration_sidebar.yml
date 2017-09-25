@@ -8,6 +8,9 @@ entries:
   - title: Shell Commands
     output: web
     folderitems:
+    - title: Shell Commands Table of Contents
+      url: /systemadministration_shell.html
+      output: web
     - title: find
       url: /systemadministration_shell_find.html
       output: web
@@ -18,6 +21,9 @@ entries:
   - title: ZFS
     output: web
     folderitems:
+    - title: ZFS Table of Contents
+      url: /systemadministration_zfs.html
+      output: web
     - title: ZFS Mirrors
       url: /systemadministration_zfs_mirrors.html
       output: web
@@ -25,6 +31,9 @@ entries:
   - title: Security
     output: web
     folderitems:
+    - title: Security Table of Contents
+      url: /systemadministration_security.html
+      output: web
     - title: Using GPG Subkeys
       url: /systemadministration_security_gpg_subkeys.html
       output: web

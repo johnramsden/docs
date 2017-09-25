@@ -1,5 +1,5 @@
 ---
-title: Deskyop
+title: Desktop Table of Contents
 sidebar: desktop_sidebar
 hide_sidebar: false
 sectionName: desktop

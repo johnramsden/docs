@@ -8,6 +8,9 @@ entries:
   - title: Media
     output: web
     folderitems:
+    - title: Media Table of Contents
+      url: /desktop_media.html
+      output: web
     - title: Convert Text to Speech
       url: /desktop_media_text_to_speech.html
       output: web
@@ -19,6 +22,9 @@ entries:
   - title: Internet
     output: web
     folderitems:
+    - title: Internet Table of Contents
+      url: /desktop_internet.html
+      output: web
     - title: Re-authenticate IRC Nickname
       url: /desktop_internet_irc_authenticate_nick.html
       output: web

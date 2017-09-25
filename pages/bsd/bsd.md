@@ -1,5 +1,5 @@
 ---
-title: BSD
+title: BSD Table of Contents
 sidebar: bsd_sidebar
 sectionName: bsd
 hide_sidebar: false

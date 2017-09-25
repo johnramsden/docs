@@ -1,5 +1,5 @@
 ---
-title: Shell Scripting
+title: Shell Scripting Table of Contents
 sidebar: systemadministration_sidebar
 hide_sidebar: false
 category: [ shell, systemadministration ]
@@ -10,3 +10,5 @@ folder: systemadministration/shell
 ---
 
 This section conatins a compilation of useful commands or small shell scripts.
+
+{% include section_contents_logic.html %}

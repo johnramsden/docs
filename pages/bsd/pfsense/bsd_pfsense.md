@@ -1,5 +1,5 @@
 ---
-title: pfSense
+title: pfSense Table of Contents
 sidebar: bsd_sidebar
 sectionName: pfsense
 hide_sidebar: false

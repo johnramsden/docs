@@ -2,6 +2,7 @@
 title: iocage
 sidebar: bsd_sidebar
 hide_sidebar: false
+category: [ bsd, freebsd ]
 keywords: freebsd, bsd, iocage, containerization
 tags: [ freebsd, bsd, containerization ]
 permalink: bsd_freebsd_iocage.html

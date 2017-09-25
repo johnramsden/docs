@@ -2,6 +2,7 @@
 title: Poudriere in a bhyve VM
 sidebar: bsd_sidebar
 hide_sidebar: false
+category: [ bsd, freebsd ]
 keywords: freebsd, bsd, bhyve, virtualization, poudriere, zfs
 tags: [ freebsd, freenas, bsd, virtualization, zfs ]
 permalink: bsd_freebsd_poudriere_bhyve.html

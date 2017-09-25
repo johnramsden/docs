@@ -1,5 +1,5 @@
 ---
-title: FreeNAS
+title: FreeNAS Table of Contents
 sidebar: bsd_sidebar
 sectionName: freenas
 hide_sidebar: false

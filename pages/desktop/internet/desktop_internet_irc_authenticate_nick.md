@@ -2,6 +2,7 @@
 title: Re-authenticate IRC Nickname
 sidebar: desktop_sidebar
 hide_sidebar: false
+category: [ desktop, desktop-internet ]
 keywords: irc, nick, nickname, authenticate
 tags: [ network ]
 permalink: desktop_internet_irc_authenticate_nick.html

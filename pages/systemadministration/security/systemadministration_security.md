@@ -9,4 +9,4 @@ toc: true
 folder: systemadministration/security
 ---
 
-This section conatins a information related to security.
+{% include section_contents_logic.html %}

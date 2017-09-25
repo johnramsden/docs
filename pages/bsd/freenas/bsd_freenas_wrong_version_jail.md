@@ -2,6 +2,7 @@
 title: Wrong Version jail
 sidebar: bsd_sidebar
 hide_sidebar: false
+category: [ bsd, freenas ]
 keywords: freebsd, bsd, freenas, jail
 tags: [ freebsd, freenas, bsd ]
 permalink: bsd_freenas_wrong_version_jail.html

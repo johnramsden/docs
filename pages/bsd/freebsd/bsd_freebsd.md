@@ -1,5 +1,5 @@
 ---
-title: FreeBSD
+title: FreeBSD Table of Contents
 sidebar: bsd_sidebar
 sectionName: freebsd
 hide_sidebar: false
