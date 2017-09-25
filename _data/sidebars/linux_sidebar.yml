@@ -57,5 +57,5 @@ entries:
     output: web
     folderitems:
     - title: Linux General Tuning
-      url: /linux_tuning.html
+      url: /linux_tuning_sysctls.html
       output: web

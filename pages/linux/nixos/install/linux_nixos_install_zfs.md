@@ -4,7 +4,7 @@ sidebar: linux_sidebar
 hide_sidebar: false
 keywords: nixos, linux, recovery, configuration, zfs
 tags: [ nixos, linux, nixosconfig, zfs ]
-permalink: nixos_install_zfs.html
+permalink: linux_nixos_install_zfs.html
 toc: false
 folder: linux/nixos/install
 ---

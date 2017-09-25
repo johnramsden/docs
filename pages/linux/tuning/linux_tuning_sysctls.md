@@ -1,12 +1,12 @@
 ---
-title: Linux General Tuning
+title: Linux Tuning with Sysctls
 sidebar: linux_sidebar
 hide_sidebar: false
 keywords: linux, tuning, sysctl
 tags: [ tuning, linux, networking ]
-permalink: linux_tuning.html
+permalink: linux_tuning_sysctls.html
 toc: false
-folder: linux
+folder: linux/tuning
 ---
 
 ## Inotify:

@@ -4,7 +4,7 @@ sidebar: linux_sidebar
 hide_sidebar: false
 keywords: nixos, linux, recovery, ssh, remote, networking
 tags: [ nixos, linux, ssh, network ]
-permalink: nixos_remote_access.html
+permalink: linux_nixos_remote_access.html
 toc: false
 folder: linux/nixos/recovery
 ---
