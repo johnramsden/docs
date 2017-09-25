@@ -2,6 +2,7 @@
 title: Convert Text to Speech
 sidebar: desktop_sidebar
 hide_sidebar: false
+category: [ desktop, desktop-media ]
 keywords: text-to-speech, ffmpeg, espeak
 tags: [ media, ffmpeg ]
 permalink: desktop_media_text_to_speech.html

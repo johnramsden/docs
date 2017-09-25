@@ -2,7 +2,7 @@
 title: Common Applications
 sidebar: linux_sidebar
 hide_sidebar: false
-category: archlinux
+category: [ archlinux, linux ]
 keywords: archlinux, linux, aur, pacaur, applications
 tags: [ archlinux, linux, aur, postinstall ]
 permalink: linux_archlinux_applications.html

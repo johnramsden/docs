@@ -2,6 +2,7 @@
 title: Network Bonding
 sidebar: linux_sidebar
 hide_sidebar: false
+category: [ systemd, linux]
 keywords: systemd, linux, bond, networking
 tags: [ systemd, linux, networking ]
 permalink: linux_systemd_network_bonding.html

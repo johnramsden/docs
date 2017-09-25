@@ -2,10 +2,11 @@
 title: Linux
 sidebar: linux_sidebar
 hide_sidebar: false
+sectionName: linux
 keywords: linux
 permalink: linux.html
 toc: false
 folder: linux
 ---
 
-Linux specific section.
+{% include section_contents_logic.html %}

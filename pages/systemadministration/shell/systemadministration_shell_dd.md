@@ -2,6 +2,7 @@
 title: dd
 sidebar: systemadministration_sidebar
 hide_sidebar: false
+category: [ shell, systemadministration ]
 keywords: shellscript, dd, shell, command
 tags: [ shell, dd, command ]
 permalink: systemadministration_shell_dd.html

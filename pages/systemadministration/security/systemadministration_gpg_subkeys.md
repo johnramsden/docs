@@ -2,6 +2,7 @@
 title: Using GPG Subkeys
 sidebar: systemadministration_sidebar
 hide_sidebar: false
+category: [ security, systemadministration ]
 keywords: systemadministration, gpg
 permalink: systemadministration_security_gpg_subkeys.html
 toc: true

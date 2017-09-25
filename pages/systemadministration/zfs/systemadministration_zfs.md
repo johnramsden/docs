@@ -2,10 +2,11 @@
 title: ZFS
 sidebar: systemadministration_sidebar
 hide_sidebar: false
+sectionName: zfs
 keywords: zfs
 permalink: systemadministration_zfs.html
 toc: true
 folder: systemadministration/zfs
 ---
 
-This section conatins a compilation of common ways to use ZFS.
+{% include section_contents_logic.html %}

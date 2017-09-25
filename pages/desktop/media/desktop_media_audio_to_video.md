@@ -2,6 +2,7 @@
 title: Convert Text to Speech
 sidebar: desktop_sidebar
 hide_sidebar: false
+category: [ desktop, desktop-media ]
 keywords: audio-to-video, ffmpeg
 tags: [ media, ffmpeg ]
 permalink: desktop_media_audio_to_video.html

@@ -2,6 +2,7 @@
 title: Arch Linux User Configuration Management
 sidebar: linux_sidebar
 hide_sidebar: false
+category: [ archlinux, linux ]
 keywords: archlinux, linux, vcs, vcsh, mr, myrepos
 tags: [ archlinux, linux, vcs, postinstall ]
 permalink: linux_archlinux_user_config.html

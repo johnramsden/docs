@@ -1,24 +1,21 @@
-<p>The following pages are in this section</p>
+<html>
+<p>The following pages and posts are tagged from the {{page.sectionName}} category.</p>
 
-{% assign thisSec = page.sectionName %}
+{% assign thisTag = page.sectionName %}
   {% for page in site.pages %}
-    {% for cat in site.tags %}
-        {% if cat == thisSec %}
-
-        <a href="{{ page.url | remove: "/" }}">{{page.title}}</a>
-
-        <p>{% if page.summary %} {{ page.summary | strip_html | strip_newlines | truncate: 160 }} {% else %} {{ page.content | truncatewords: 50 | strip_html }} {% endif %}</p>
+    {% for tag in page.category %}
+        {% if tag == thisTag %}
+        <p><a href="{{ page.url | remove: "/" }}">{{page.title}}</a></p>
         {% endif %}
      {% endfor %}
    {% endfor %}
 
-    {% assign thisSec = page.sectionName %}
-    {% for post in site.posts %}
-      {% for cat in site.categories %}
-        {% if cat == thisSec %}
-
-        <a href="{{ post.url | remove: "/" }}">{{post.title}}</a>
-          <p>{% if post.summary %} {{ post.summary | strip_html | strip_newlines | truncate: 160 }} {% else %} {{ post.content | truncatewords: 50 | strip_html }} {% endif %}</p>
+{% assign thisTag = page.sectionName %}
+  {% for post in site.posts %}
+    {% for tag in post.tags %}
+        {% if tag == thisTag %}
+        <p><a href="{{ post.url | remove: "/" }}">{{post.title}}</a></p>
         {% endif %}
       {% endfor %}
     {% endfor %}
+</html>

@@ -2,10 +2,11 @@
 title: vPro Setup
 sidebar: systemadministration_sidebar
 hide_sidebar: false
+category: [ security, systemadministration ]
 keywords: systemadministration
-permalink: systemadministration_vpro.html
+permalink: systemadministration_security_vpro.html
 toc: true
-folder: systemadministration
+folder: systemadministration/security
 ---
 
 Setting up vPro management.

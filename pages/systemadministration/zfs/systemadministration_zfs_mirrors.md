@@ -2,6 +2,7 @@
 title: ZFS Mirrors
 sidebar: systemadministration_sidebar
 hide_sidebar: false
+category: [ zfs, systemadministration ]
 keywords: zfs
 permalink: systemadministration_zfs_mirrors.html
 toc: true

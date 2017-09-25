@@ -2,6 +2,7 @@
 title: Remotely Accessing Install Media with SSH
 sidebar: linux_sidebar
 hide_sidebar: false
+category: [ nixos, linux]
 keywords: nixos, linux, recovery, ssh, remote, networking
 tags: [ nixos, linux, ssh, network ]
 permalink: linux_nixos_remote_access.html

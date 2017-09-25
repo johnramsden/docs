@@ -2,6 +2,7 @@
 title: NixOS root on ZFS Install
 sidebar: linux_sidebar
 hide_sidebar: false
+category: [ nixos, linux]
 keywords: nixos, linux, recovery, configuration, zfs
 tags: [ nixos, linux, nixosconfig, zfs ]
 permalink: linux_nixos_install_zfs.html

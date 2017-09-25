@@ -2,6 +2,7 @@
 title: Graphical Configuration
 sidebar: linux_sidebar
 hide_sidebar: false
+category: [ archlinux, linux ]
 keywords: archlinux, linux, aur, pacaur, dwm
 tags: [ archlinux, linux, aur, postinstall ]
 permalink: linux_archlinux_graphical_configuration.html

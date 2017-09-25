@@ -2,6 +2,7 @@
 title: libvirt
 sidebar: linux_sidebar
 hide_sidebar: false
+category: [ archlinux, linux ]
 keywords: archlinux, linux, virtualization, libvirt, kvm, qemu
 tags: [ archlinux, linux, virtualization ]
 permalink: linux_archlinux_libvirt.html

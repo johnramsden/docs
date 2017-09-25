@@ -2,6 +2,7 @@
 title: Linux Tuning with Sysctls
 sidebar: linux_sidebar
 hide_sidebar: false
+category: [ linux-tuning, linux]
 keywords: linux, tuning, sysctl
 tags: [ tuning, linux, networking ]
 permalink: linux_tuning_sysctls.html

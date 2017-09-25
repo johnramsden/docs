@@ -2,6 +2,7 @@
 title: Shell Scripting
 sidebar: systemadministration_sidebar
 hide_sidebar: false
+category: [ shell, systemadministration ]
 keywords: shell
 permalink: systemadministration_shell.html
 toc: true

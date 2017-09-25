@@ -2,6 +2,7 @@
 title: find
 sidebar: systemadministration_sidebar
 hide_sidebar: false
+category: [ shell, systemadministration ]
 keywords: shellscript, find, shell
 tags: [ shell, find, command ]
 permalink: systemadministration_shell_find.html

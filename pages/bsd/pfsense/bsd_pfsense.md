@@ -1,6 +1,7 @@
 ---
 title: pfSense
 sidebar: bsd_sidebar
+sectionName: pfsense
 hide_sidebar: false
 keywords: freebsd, bsd, pfsense
 tags: [ freebsd, pfsense, bsd ]
@@ -9,4 +10,4 @@ toc: false
 folder: bsd/pfsense
 ---
 
-Posts about pfSense.
+{% include section_contents_logic.html %}

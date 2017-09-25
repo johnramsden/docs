@@ -2,6 +2,7 @@
 title: Post Install on Arch Linux
 sidebar: linux_sidebar
 hide_sidebar: false
+category: [ archlinux, linux ]
 keywords: archlinux, linux, aur, pacaur, zfs
 tags: [ archlinux, linux, aur, postinstall, zfs ]
 permalink: linux_archlinux_post_install.html

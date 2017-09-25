@@ -2,6 +2,7 @@
 title: Media
 sidebar: desktop_sidebar
 hide_sidebar: false
+sectionName: desktop-media
 keywords: media
 permalink: desktop_media.html
 toc: true

@@ -2,6 +2,7 @@
 title: ZFS Dataset Structure on Arch Linux
 sidebar: linux_sidebar
 hide_sidebar: false
+category: [ archlinux, linux ]
 keywords: archlinux, linux, zfs
 tags: [ archlinux, linux, zfs ]
 permalink: linux_archlinux_zfs_structure.html

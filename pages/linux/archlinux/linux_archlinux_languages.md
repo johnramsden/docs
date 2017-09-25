@@ -2,6 +2,7 @@
 title: Language Configuration
 sidebar: linux_sidebar
 hide_sidebar: false
+category: [ archlinux, linux ]
 keywords: archlinux, linux, ruby, nodejs
 tags: [ archlinux, linux, postinstall ]
 permalink: linux_archlinux_languages.html
