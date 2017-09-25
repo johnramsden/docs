@@ -14,11 +14,11 @@ entries:
     - title: NixOS
       url: /linux_nixos.html
       output: web
-    - title: Linux Tuning
-      url: /linux_tuning.html
+    - title: systemd
+      url: /linux_systemd.html
       output: web
-    - title: General
-      url: /linux.html
+    - title: Tuning
+      url: /linux_tuning.html
       output: web
 
   - title: BSD

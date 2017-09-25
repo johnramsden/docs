@@ -49,6 +49,9 @@ entries:
     - title: systemd
       url: /linux_systemd.html
       output: web
+    - title: systemd Network Bonding
+      url: /linux_systemd_network_bonding.html
+      output: web
 
   - title: Tuning
     output: web

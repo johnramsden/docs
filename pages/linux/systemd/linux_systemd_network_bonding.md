@@ -4,7 +4,7 @@ sidebar: linux_sidebar
 hide_sidebar: false
 keywords: systemd, linux, bond, networking
 tags: [ systemd, linux, networking ]
-permalink: systemd.html
+permalink: linux_systemd_network_bonding.html
 toc: false
 folder: linux/systemd
 ---
@@ -132,7 +132,30 @@ cat /proc/net/bonding/bond1
 {% endhighlight shell %}
 
 {% highlight shell %}
+cat /proc/net/bonding/bond1                             john@chin
+Ethernet Channel Bonding Driver: v3.7.1 (April 27, 2011)
 
+Bonding Mode: load balancing (round-robin)
+MII Status: up
+MII Polling Interval (ms): 0
+Up Delay (ms): 0
+Down Delay (ms): 0
+
+Slave Interface: eno1
+MII Status: up
+Speed: 1000 Mbps
+Duplex: full
+Link Failure Count: 0
+Permanent HW addr: 74:d0:2b:7d:2b:eb
+Slave queue ID: 0
+
+Slave Interface: enp5s0
+MII Status: up
+Speed: Unknown
+Duplex: Unknown
+Link Failure Count: 0
+Permanent HW addr: 00:1b:21:63:1f:4d
+Slave queue ID: 0
 {% endhighlight shell %}
 
 **Note**: DNS using ```systemd-resolved``` config in ```/etc/systemd/resolved.conf```
