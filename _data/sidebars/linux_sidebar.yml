@@ -35,6 +35,9 @@ entries:
     - title: libvirt
       url: /linux_archlinux_libvirt.html
       output: web
+    - title: Wine Gaming
+      url: /linux_archlinux_wine_gaming.html
+      output: web
 
   - title: NixOS
     output: web

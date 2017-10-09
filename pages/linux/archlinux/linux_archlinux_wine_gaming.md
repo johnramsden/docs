@@ -86,5 +86,22 @@ env WINEARCH=win32 WINEPREFIX=${HOME}/.local/share/wine/pathofexile wine  ${HOME
 Then run:
 
 {% highlight shell %}
-env WINEARCH=win32 WINEPREFIX=${HOME}/.local/share/wine/pathofexile wine  "${HOME}/.local/share/wine/pathofexile/drive_c/Program Files/Steam/Steam.exe" -no-cef-sandbox  -no-dwrite
+env WINEDEBUG=-all WINEARCH=win32 WINEPREFIX=${HOME}/.local/share/wine/pathofexile wine  "${HOME}/.local/share/wine/pathofexile/drive_c/Program Files/Steam/Steam.exe" -no-cef-sandbox  -no-dwrite -noasync
 {% endhighlight shell %}
+
+Get videocard RAM:
+
+{% highlight shell %}
+echo $"VRAM: "$(($(grep -P -o -i "(?<=memory:).*(?=kbytes)" /var/log/Xorg.0.log) / 1024))$" Mb"
+{% endhighlight shell %}
+
+Set in regedit. Copy the number.
+
+{% highlight shell %}
+env WINEARCH=win32 WINEPREFIX=${HOME}/.local/share/wine/pathofexile wine regedit
+{% endhighlight shell %}
+
+Go to HKEY_CURRENT_USER>Software>Wine
+In wine folder add key "Direct3D", click add new string to Direct3D folder. Right click>New String, type "VideoMemorySize", add "VideoMemorySize" string, use video memory number
+
+Create shortcut, and disable overlay. Set back to windows 7, if steam needed again, set to xp.
