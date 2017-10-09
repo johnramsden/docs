@@ -229,66 +229,70 @@ poudriere jail -c -j freebsd-11-amd64 -v 11.1-RELEASE
 
 Setup ports tree:
 
-```
+{% highlight shell %}
 poudriere ports -c -p HEAD
-```
+{% endhighlight shell %}
 
-Create pkg list(s) /usr/local/etc/poudriere.d/portlists/freebsd-11-amd64/iocage
+Create pkg list(s) ```/usr/local/etc/poudriere.d/portlists/freebsd-11-amd64/iocage```
 
-```
+{% highlight shell %}
 sysutils/py3-iocage
-```
+{% endhighlight shell %}
 
 Add to make.conf : /usr/local/etc/poudriere.d/freebsd-11-amd64-make.conf
 
 use py3.6 version of python3:
 
-```
+{% highlight shell %}
 DEFAULT_VERSIONS+= php=7.1 python3=3.6
-```
+{% endhighlight shell %}
 
-For my jails globally: /usr/local/etc/poudriere.d/make.conf
+For my jails globally: ```/usr/local/etc/poudriere.d/make.conf```
 
 No docs, X11 NLS or egs:
 
-```
+{% highlight shell %}
 OPTIONS_UNSET+= DOCS NLS X11 EXAMPLES
-```
+{% endhighlight shell %}
+
 Set options:
 
+{% highlight shell %}
 pkg install dialog4ports
+{% endhighlight shell %}
 
-```
+{% highlight shell %}
 poudriere options -j freebsd-11-amd64 -p HEAD -f /usr/local/etc/poudriere.d/portlists/freebsd-11-amd64/iocage -f /usr/local/etc/poudriere.d/portlists/freebsd-11-amd64/nextcloud
-```
+{% endhighlight shell %}
 
 
 To update jail
 
-```
+{% highlight shell %}
 poudriere jail -u -j freebsd-11-amd64
-```
+{% endhighlight shell %}
 
 Update tree:
 
-```
+{% highlight shell %}
 poudriere ports -u -p HEAD
-```
+{% endhighlight shell %}
 
 Start build(s):
 
-```
+{% highlight shell %}
 poudriere bulk -cj freebsd-11-amd64 -p HEAD -f /usr/local/etc/poudriere.d/portlists/freebsd-11-amd64/iocage -f /usr/local/etc/poudriere.d/portlists/freebsd-11-amd64/nextcloud
-```
+{% endhighlight shell %}
 
 ## Web Server
 
+{% highlight shell %}
 pkg install nginx && sysrc nginx_enable=YES
+{% endhighlight shell %}
 
+Remove all inside server in ```/usr/local/etc/nginx/nginx.conf```, add:
 
-Remove all inside server in /usr/local/etc/nginx/nginx.conf, add:
-
-```
+{% highlight nginx %}
 server {
 
     listen 80 default;
@@ -306,26 +310,26 @@ server {
     }
 
 }
-```
+{% endhighlight nginx %}
 
 Edit mimetypes /usr/local/etc/nginx/mime.types, add log:
 
-```
+{% highlight shell %}
 text/plain                          txt log;
-```
+{% endhighlight shell %}
 
 Check config and start nginx:
 
-```
+{% highlight shell %}
 service nginx configtest
 service nginx start
-```
+{% endhighlight shell %}
 
 ## Repo Only server
 
 In jail, nullfs mount packages to same spot. Install nginx.
 
-```
+{% highlight shell %}
 server {
 
     listen 80 default;
@@ -333,54 +337,48 @@ server {
     root /usr/local/poudriere/data/packages;
     autoindex on;
 }
-```
+{% endhighlight shell %}
 
 ## Clients
 
 Get cert:
 
+{% highlight shell %}
 cat /usr/local/etc/ssl/certs/poudriere.cert
-
------BEGIN PUBLIC KEY-----
-MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAvbwvtq26XllehnB4YqpN
-5RL9JU8EY682tu2BBLeRYtau5oYPtbpHyAJ/kUy1vV/759Bf6QbaRoKAbHyBYyms
-LSrlHd+XNR84tSeix2e0dkpzZgsa+i3Rn+LHqbnk+JAGAG0y+vgVWPADIvI3W2Aa
-9tqHLW/sxSoZS58GDsCoAwx7L/5G+FEXGmLewi544CQcGIAqMRN6Q/ClcGVZcMFw
-a+eZW8CimFadUMZ3OZTysMDmm/p8lvcCUcsQ4LVD8ywO/WLNzJ9UKuBAGGAW8Vst
-qFiFiWjdboTzxkpv/JKnXcEMm7tDhB0Om9RFnuctfST98o6XuvR79LM0mSo98Um1
-mvDA2HliUC+JqyT/n5iU1p8R12nrXc9DoHDdhDJ3AgzyMcnDXFGA9pwPijUnwQjf
-A76OZPekKSV6qgLxFPGM/qkFwMB8chfkQGeOeKJF0wwlhMuw515US5jzX7HKhbNO
-jEpKf+FzMS3Xd4izH+HJcK7rRU3ZoP2ooY1pPfQkckleyPfMhFe1jZRocFVEcyY7
-qHflGvjEavULGTPXMkIVXpf7C/xKIU2Ec5vVQsgD37OedVPciqejkPb06K4rmuwI
-LxErMYEsya9XLztrB9HQuphWFYsSNdIwQJwOOz4iB5/GPNjRcnXM7CT93lcViNY4
-0BLpTnynaQ/LQstMPlq4s7sCAwEAAQ==
------END PUBLIC KEY-----
+{% endhighlight shell %}
 
 Save it on clients:
 
+{% highlight shell %}
 mkdir -p /usr/local/etc/ssl/{keys,certs}
 ee /usr/local/etc/ssl/certs/poudriere.cert
+{% endhighlight shell %}
 
 ## Repo
 
+{% highlight shell %}
 mkdir -p /usr/local/etc/pkg/repos
+{% endhighlight shell %}
 
 Define repo:
 
- /usr/local/etc/pkg/repos/poudriere.conf
-
-/usr/local/etc/pkg/repos/freebsd.conf
+{% highlight shell %}
+ee /usr/local/etc/pkg/repos/freebsd.conf
+{% endhighlight shell %}
 
 Inside, use the name FreeBSD in order to match the default repository definition. Disable the repository by defining it like this:
 
+{% highlight shell %}
 FreeBSD: {
     enabled: no
 }
+{% endhighlight shell %}
 
-Repo file at /usr/local/etc/pkg/repos/poudriere.conf
+Repo file at ```/usr/local/etc/pkg/repos/poudriere.conf```
 
 If you want to mix your custom packages with those of the official repositories, your file should look something like this:
 
+{% highlight shell %}
 poudriere: {
     url: "http://pkgrepo.ramsden.network/freebsd-11-amd64-HEAD/",
     mirror_type: "http",
@@ -389,10 +387,12 @@ poudriere: {
     enabled: yes,
     priority: 100
 }
+{% endhighlight shell %}
 
 
 If you want to only use your compiled packages, your file should look something like this:
 
+{% highlight shell %}
 poudriere: {
     url: "http://pkgrepo.ramsden.network/freebsd-11-amd64-HEAD/",
     mirror_type: "http",
@@ -400,13 +400,17 @@ poudriere: {
     pubkey: "/usr/local/etc/ssl/certs/poudriere.cert",
     enabled: yes
 }
+{% endhighlight shell %}
 
 Update:
 
+{% highlight shell %}
 pkg update
+{% endhighlight shell %}
 
 Crontab:
 
+{% highlight shell %}
 # Update tree at 3
 0 3 * * * /usr/local/bin/poudriere ports -u -p HEAD >/dev/null 2>&1
 # Jails at 3:30:
@@ -414,20 +418,17 @@ Crontab:
 
 # Build at 4
 0 4 * * * poudriere bulk -cj freebsd-11-amd64 -p HEAD -f /usr/local/etc/poudriere.d/portlists/freebsd-11-amd64/iocage -f /usr/local/etc/poudriere.d/portlists/freebsd-11-amd64/nextcloud -f /usr/local/etc/poudriere.d/portlists/freebsd-11-amd64/emby
+{% endhighlight shell %}
 
 # off at 6
-
-# Reference
-
-https://www.digitalocean.com/community/tutorials/how-to-set-up-a-poudriere-build-system-to-create-packages-for-your-freebsd-servers
-/usr/local/www/freenasUI/vm/admin.py
-/usr/local/www/freenasUI/vm/utils.py
 
 ## Upgrade jails
 
 To upgrade releases, ie 11.0 to 11.1:
 
+{% highlight shell %}
 /usr/local/bin/poudriere jail -u -t 11.1-RELEASE -j freebsd-11-amd64
+{% endhighlight shell %}
 
 Or delete and re-create
 
@@ -443,10 +444,9 @@ poudriere ports -d -p HEAD
 poudriere ports -c -p HEAD
 {% endhighlight shell %}
 
-
 ## Add new ports
 
-Emby:
+Add additional lists. for example, Emby:
 
 Add ports.
 
@@ -475,3 +475,7 @@ For ffmpeg:
 For ImageMagick
 
 *  disable (unset) 16BIT_PIXEL (to increase thumbnail generation performance)
+
+# Reference
+
+*   [DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-poudriere-build-system-to-create-packages-for-your-freebsd-servers)
