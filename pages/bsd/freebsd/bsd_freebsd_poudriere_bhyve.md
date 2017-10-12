@@ -6,7 +6,7 @@ category: [ bsd, freebsd ]
 keywords: freebsd, bsd, bhyve, virtualization, poudriere, zfs
 tags: [ freebsd, freenas, bsd, virtualization, zfs ]
 permalink: bsd_freebsd_poudriere_bhyve.html
-toc: false
+toc: true
 folder: bsd/freebsd
 ---
 
@@ -419,8 +419,6 @@ Crontab:
 # Build at 4
 0 4 * * * poudriere bulk -cj freebsd-11-amd64 -p HEAD -f /usr/local/etc/poudriere.d/portlists/freebsd-11-amd64/iocage -f /usr/local/etc/poudriere.d/portlists/freebsd-11-amd64/nextcloud -f /usr/local/etc/poudriere.d/portlists/freebsd-11-amd64/emby
 {% endhighlight shell %}
-
-# off at 6
 
 ## Upgrade jails
 

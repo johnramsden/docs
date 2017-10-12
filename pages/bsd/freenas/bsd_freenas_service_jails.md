@@ -132,7 +132,7 @@ pkg install emby-server
 
 ### FFMpeg
 
-It's recommended to install ffmpeg from ports so that surgeon compile time options can be enabled.
+It's recommended to install ffmpeg from ports so that certain compile time options can be enabled.
 
 Update the FreeBSD ports tree
 

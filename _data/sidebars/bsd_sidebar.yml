@@ -17,9 +17,9 @@ entries:
     - title: Wrong Version jail
       url: /bsd_freenas_wrong_version_jail.html
       output: web
-    # - title: FreeNAS Service jails
-    #   url: /bsd_freenas_service_jails.html
-    #   output: web
+    - title: FreeNAS Service jails
+      url: /bsd_freenas_service_jails.html
+      output: web
 
   - title: FreeBSD
     output: web
@@ -29,6 +29,9 @@ entries:
       output: web
     - title: iocage
       url: /bsd_freebsd_iocage.html
+      output: web
+    - title: Poudriere in a bhyve VM
+      url: /bsd_freebsd_poudriere_bhyve.html
       output: web
 
   - title: pfSense
