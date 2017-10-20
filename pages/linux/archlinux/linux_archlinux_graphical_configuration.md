@@ -10,7 +10,7 @@ toc: true
 folder: linux/archlinux
 ---
 
-Forst setup [xorg](https://wiki.archlinux.org/index.php/Xorg) and graphics.
+First setup [xorg](https://wiki.archlinux.org/index.php/Xorg) and graphics.
 
 ## Graphics
 
