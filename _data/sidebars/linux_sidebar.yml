@@ -29,6 +29,12 @@ entries:
     - title: Common Applications
       url: /linux_archlinux_applications.html
       output: web
+    - title: Restore Installed Applications
+      url: /linux_archlinux_restore_installed_applications.html
+      output: web
+    - title: Bluetooth
+      url: /linux_archlinux_bluetooth.html
+      output: web
     - title: Language Setup
       url: /linux_archlinux_languages.html
       output: web
