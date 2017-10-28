@@ -23,15 +23,15 @@ I'll use a few variables to represent different locations in the pool for datase
 
 For boot environments I use the following configuration. SYSTEM_NAME can be anything, I use the hostname.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 ${SYS_ROOT}/${SYSTEM_NAME}/ROOT/${BOOT_ENV}
-{% endhighlight shell %}
+{%endace%}
 
 For example, my current boot environment which will be mounted to ```/```:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 vault/sys/chin/ROOT/default
-{% endhighlight shell %}
+{%endace%}
 
 In this configuration it makes it easy to dual boot multiple systems off of a single ZFS pool. To create a new system just add a new dataset under ```vault/sys```, and set it up as normal. This should even work dual booting Linux and FreeBSD.
 
@@ -45,24 +45,24 @@ Setup datasets. Set all besides ```/``` legacy, or use zfs management. I like us
 
 The boot environment will be mounted to ```/``` and store everything that doesnt have it's own mounted dataset.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 zfs create -o mountpoint=none ${SYS_ROOT}; \
 zfs create -o mountpoint=none ${SYS_ROOT}/${SYSTEM_NAME}; \
 zfs create -o mountpoint=none ${SYS_ROOT}/${SYSTEM_NAME}/ROOT; \
 zfs create -o mountpoint=/ ${SYS_ROOT}/${SYSTEM_NAME}/ROOT/${BOOT_ENV}
-{% endhighlight shell %}
+{%endace%}
 
 
 #### canmount=off Datasets
 
 Set ```/var```, ```/var/lib``` and ```/usr``` to ```canmount=off``` meaning they're not mounted and are only there to create the directory structure. This will put their data in the boot environment dataset.' Their properties will be inherited.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 zfs create -o canmount=off -o mountpoint=/var -o xattr=sa ${SYS_ROOT}/${SYSTEM_NAME}/var; \
 zfs create -o canmount=off -o mountpoint=/var/lib ${SYS_ROOT}/${SYSTEM_NAME}/var/lib; \
 zfs create -o canmount=off -o mountpoint=/var/lib/systemd ${SYS_ROOT}/${SYSTEM_NAME}/var/lib/systemd; \
 zfs create -o canmount=off -o mountpoint=/usr ${SYS_ROOT}/${SYSTEM_NAME}/usr
-{% endhighlight shell %}
+{%endace%}
 
 ### Regular Datasets
 
@@ -74,7 +74,7 @@ I keep some datasets like ```/var/cache```'s' dataset seperate to avoid having t
 
 Turn on posixacls [for systemd-journald](https://www.freedesktop.org/software/systemd/man/systemd-journald.service.html)'s /var/log/journal dataset.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 zfs create -o mountpoint=legacy ${SYS_ROOT}/${SYSTEM_NAME}/var/lib/systemd/coredump; \
 zfs create -o mountpoint=legacy ${SYS_ROOT}/${SYSTEM_NAME}/var/log; \
 zfs create -o mountpoint=legacy -o acltype=posixacl ${SYS_ROOT}/${SYSTEM_NAME}/var/log/journal; \
@@ -84,13 +84,13 @@ zfs create -o mountpoint=legacy ${SYS_ROOT}/${SYSTEM_NAME}/var/lib/machines; \
 zfs create -o mountpoint=legacy ${SYS_ROOT}/${SYSTEM_NAME}/var/lib/libvirt; \
 zfs create -o mountpoint=legacy ${SYS_ROOT}/${SYSTEM_NAME}/var/cache; \
 zfs create -o mountpoint=legacy ${SYS_ROOT}/${SYSTEM_NAME}/usr/local
-{% endhighlight shell %}
+{%endace%}
 
 #### User Datasets
 
 I create extensive user datasets, outside the boot environment.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 zfs create -o mountpoint=legacy ${SYS_ROOT}/${SYSTEM_NAME}/home; \
 zfs create -o mountpoint=legacy ${SYS_ROOT}/${SYSTEM_NAME}/home/john; \
 zfs create -o mountpoint=legacy ${SYS_ROOT}/${SYSTEM_NAME}/home/john/local; \
@@ -98,21 +98,21 @@ zfs create -o mountpoint=/home/john/.local/share -o canmount=off ${SYS_ROOT}/${S
 zfs create -o mountpoint=legacy ${SYS_ROOT}/${SYSTEM_NAME}/home/john/local/share/Steam; \
 zfs create -o mountpoint=legacy ${SYS_ROOT}/${SYSTEM_NAME}/home/john/config; \
 zfs create -o mountpoint=legacy ${SYS_ROOT}/${SYSTEM_NAME}/home/john/cache
-{% endhighlight shell %}
+{%endace%}
 
 As of [zfsonlinux 0.7.0](https://github.com/zfsonlinux/zfs/releases/tag/zfs-0.7.0) ZFS delegation using ```zfs allow``` works on linux. I delegate all datasets under ```${SYS_ROOT}/${SYSTEM_NAME}/home/john``` to my user 'john' giving the abiity to snapshot and create datasets.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 zfs allow john create,mount,mountpoint,snapshot ${SYS_ROOT}/${SYSTEM_NAME}/home/john
-{% endhighlight shell %}
+{%endace%}
 
 Checking permissions shows john's permissions.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 zfs allow ${SYS_ROOT}/${SYSTEM_NAME}/home/john
-{% endhighlight shell %}
+{%endace%}
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 ---- Permissions on vault/sys/chin/home/john -------------------------
 Local+Descendent permissions:
         user john create
@@ -121,11 +121,11 @@ Local+Descendent permissions:
 ---- Permissions on vault/sys/chin/home/john -------------------------
 Local+Descendent permissions:
         user john create,snapshot
-{% endhighlight shell %}
+{%endace%}
 
 Available options:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 NAME             TYPE           NOTES
 allow            subcommand     Must also have the permission that is
                                 being allowed
@@ -192,13 +192,13 @@ volsize          property
 vscan            property
 xattr            property
 zoned            property
-{% endhighlight shell %}
+{%endace%}
 
 #### Data Datasets
 
 I'll be mounting these under ```${HOME}```. They exist outside the different systems and are shared between them.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 zfs create -o mountpoint=none ${DATA_ROOT}; \
 zfs create -o mountpoint=legacy ${DATA_ROOT}/Books; \
 zfs create -o mountpoint=legacy ${DATA_ROOT}/Computer; \
@@ -207,13 +207,13 @@ zfs create -o mountpoint=legacy ${DATA_ROOT}/Pictures; \
 zfs create -o mountpoint=legacy ${DATA_ROOT}/University; \
 zfs create -o mountpoint=legacy ${DATA_ROOT}/Workspace; \
 zfs create -o mountpoint=legacy ${DATA_ROOT}/Reference
-{% endhighlight shell %}
+{%endace%}
 
 ## Final Structure
 
 So my system ends up as.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 zfs list -o name | grep -E 'chin|data'
 
 vault/data                                   768K   860G    96K  none
@@ -246,7 +246,7 @@ vault/sys/chin/var/lib/libvirt                96K   860G    96K  legacy
 vault/sys/chin/var/lib/systemd               192K   860G    96K  /var/lib/systemd
 vault/sys/chin/var/lib/systemd/coredump       96K   860G    96K  legacy
 vault/sys/chin/var/log                        96K   860G    96K  legacy
-{% endhighlight shell %}
+{%endace%}
 
 ## Install Preperation
 
@@ -256,21 +256,21 @@ Using this structure datasets must be mounted in the correct order.
 
 Import zpool and mount root dataset:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 zpool import -d /dev/disk/by-id -R /mnt vault
 mount -t zfs vault/sys/chin/ROOT/default /mnt
-{% endhighlight shell %}
+{%endace%}
 
 After dataset creation, create cachefile.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 zpool set cachefile=/etc/zfs/zpool.cache vault
 mkdir -p /mnt/etc/zfs && cp /etc/zfs/zpool.cache /mnt/etc/zfs/zpool.cache
-{% endhighlight shell %}
+{%endace%}
 
 Mount system datasets:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 mkdir -p /mnt/usr/local
 mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/usr/local /mnt/usr/local; \
 
@@ -286,11 +286,11 @@ mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/var/lib/systemd/coredump /mnt/var/lib/sy
 mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/var/log /mnt/var/log; \
 mkdir /mnt/var/log/journal; \
 mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/var/log/journal /mnt/var/log/journal
-{% endhighlight shell %}
+{%endace%}
 
 Mount home.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 mkdir -p /mnt/home ; \
 mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/home /mnt/home; \
 
@@ -304,11 +304,11 @@ mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/home/john/local /mnt/home/john/.local; \
 
 mkdir -p /mnt/home/john/.local/share/Steam; \
 mount -t zfs ${SYS_ROOT}/${SYSTEM_NAME}/home/john/local/share/Steam /mnt/home/john/.local/share/Steam
-{% endhighlight shell %}
+{%endace%}
 
 Mount data:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 mkdir -p /mnt/home/john/{Books,Computer,Personal,Pictures,Reference,University,Workspace}; \
 mount -t zfs vault/data/Books /mnt/home/john/Books; \
 mount -t zfs vault/data/Computer /mnt/home/john/Computer; \
@@ -317,56 +317,56 @@ mount -t zfs vault/data/Pictures /mnt/home/john/Pictures; \
 mount -t zfs vault/data/Reference /mnt/home/john/Reference; \
 mount -t zfs vault/data/University /mnt/home/john/University; \
 mount -t zfs vault/data/Workspace /mnt/home/john/Workspace
-{% endhighlight shell %}
+{%endace%}
 
 ### Boot Setup
 
 Create esp, (EF00) for regular install.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 gdisk /dev/sdf
 mkfs.fat -F32 /dev/sdf1
 mount /dev/sdf1 /mnt/boot
-{% endhighlight shell %}
+{%endace%}
 
 I keep it at ```/mnt/efi``` instead, and [bindmount kernel directory to /boot](https://ramsdenj.com/2016/04/15/multi-boot-linux-with-one-boot-partition.html).
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 mkdir -p /mnt/mnt/efi
 mount /dev/sdf1 /mnt/mnt/efi
-{% endhighlight shell %}
+{%endace%}
 
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 mkdir -p /mnt/boot /mnt/mnt/efi/installs/chin
 mount --bind /mnt/mnt/efi/installs/chin /mnt/boot
-{% endhighlight shell %}
+{%endace%}
 
 ### Swap
 
 Create 32GiB partition and create swap.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 mkswap /dev/sdf2
 swapon /dev/sdf2
-{% endhighlight shell %}
+{%endace%}
 
 ### fstab Configuration
 
 Create fstab, adding all currently mounted filesystems.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 genfstab -U -p /mnt >> /mnt/etc/fstab
-{% endhighlight shell %}
+{%endace%}
 
 Get swap UUID and add to fstab.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 lsblk -no UUID /dev/sdf2
-{% endhighlight shell %}
+{%endace%}
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 UUID=4b00ce42-d400-4060-9329-622c420f367e none swap defaults 0 0
-{% endhighlight shell %}
+{%endace%}
 
 Now all partitions and datasets should be setup, check that the fstab looks correct.

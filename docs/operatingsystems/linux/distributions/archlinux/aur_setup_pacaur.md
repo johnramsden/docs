@@ -30,18 +30,18 @@ Setting up ```pacaur``` on new system is fairly easy. It only requires one packa
 
 Download ```cower``` using ```wget``` or ```curl``` and then install using ```makepkg```.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 mkdir -p ~/Downloads/cower && cd ~/Downloads/cower
 curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/cower.tar.gz
 tar -xvf cower.tar.gz && cd cower
 gpg --recv-key 1EB2638FF56C0C53 && gpg --lsign 1EB2638FF56C0C53
 makepkg -sic
-{% endhighlight shell %}
+{%endace%}
 
 Then do the same for ```pacaur```
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 mkdir ~/Downloads/pacaur && cd ~/Downloads/pacaur
 curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/pacaur.tar.gz
 tar -xvf pacaur.tar.gz && cd pacaur && makepkg -sic
-{% endhighlight shell %}
+{%endace%}

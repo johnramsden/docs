@@ -12,110 +12,110 @@ folder: bsd/freebsd
 
 Setup iohyve:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 iohyve setup pool=tank
 iohyve setup net=igb1
 iohyve setup kmod=1
-{% endhighlight shell %}
+{%endace%}
 
 Fetch ISO:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 iohyve fetchiso ftp://ftp.freebsd.org/pub/FreeBSD/releases/ISO-IMAGES/11.0/FreeBSD-11.0-RELEASE-amd64-bootonly.iso
 iohyve deleteiso FreeBSD-11.0-RELEASE-amd64-bootonly.iso
-{% endhighlight shell %}
+{%endace%}
 
 Create guest with 20GiB HDD.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 iohyve create poudriere 20G
 iohyve set poudriere ram=8G cpu=4
-{% endhighlight shell %}
+{%endace%}
 
 Install FreeBSD 11:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 iohyve install poudriere FreeBSD-11.0-RELEASE-amd64-bootonly.iso
-{% endhighlight shell %}
+{%endace%}
 
 Attach to console
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 iohyve console poudriere
-{% endhighlight shell %}
+{%endace%}
 
 Exit and stop the installer when finished
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 iohyve stop poudriere
-{% endhighlight shell %}
+{%endace%}
 
 Start the machine.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 iohyve start poudriere
-{% endhighlight shell %}
+{%endace%}
 
 ## In VM
 
 Update
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pkg update && pkg upgrade
 freebsd-update fetch install
-{% endhighlight shell %}
+{%endace%}
 
 ### Poudriere
 
 Install poudriere
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pkg install poudriere
-{% endhighlight shell %}
+{%endace%}
 
 Copy the config.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 cp /usr/local/etc/poudriere.conf.sample /usr/local/etc/poudriere.conf
-{% endhighlight shell %}
+{%endace%}
 
 ### Certs
 
 Setup SSL to sign ports:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 mkdir -p /usr/local/etc/ssl/{keys,certs}
 chmod 0600 /usr/local/etc/ssl/keys
 openssl genrsa -out /usr/local/etc/ssl/keys/poudriere.key 4096
 openssl rsa -in /usr/local/etc/ssl/keys/poudriere.key -pubout -out /usr/local/etc/ssl/certs/poudriere.cert
-{% endhighlight shell %}
+{%endace%}
 
 ## NFS
 
 Start NFS
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 sysrc nfs_client_enable=YES && service nfsclient start
-{% endhighlight shell %}
+{%endace%}
 
 Mount packages
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 mount <ip address>:/mnt/tank/data/poudriere/packages /usr/local/poudriere/data/packages
-{% endhighlight shell %}
+{%endace%}
 
 Add to fstab:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 <ip address>:/mnt/tank/data/poudriere/packages /usr/local/poudriere/data/packages nfs  rw      0       0
-{% endhighlight shell %}
+{%endace%}
 
 Add locking:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 sysrc rpc_lockd_enable=YES && sysrc rpc_statd_enable=YES
 service lockd start && service statd start
-{% endhighlight shell %}
+{%endace%}
 
 
 ## Configuration
@@ -126,7 +126,7 @@ Edit /usr/local/etc/poudriere.conf
 
 These were the settings I had uncommented:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 # Poudriere can optionally use ZFS for its ports/jail storage. For
 # ZFS define ZPOOL, otherwise set NO_ZFS=yes
 #
@@ -217,82 +217,82 @@ COMMIT_PACKAGES_ON_FAILURE=no
 # Some port/packages hardcode the hostname of the host during build time
 # This is a necessary setup for reproducible builds.
 BUILDER_HOSTNAME=<domain>
-{% endhighlight shell %}
+{%endace%}
 
 ## Create jail
 
 Create a new '11.1-RELEASE' jail with the name 'freebsd-11-amd64'.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 poudriere jail -c -j freebsd-11-amd64 -v 11.1-RELEASE
-{% endhighlight shell %}
+{%endace%}
 
 Setup ports tree:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 poudriere ports -c -p HEAD
-{% endhighlight shell %}
+{%endace%}
 
 Create pkg list(s) ```/usr/local/etc/poudriere.d/portlists/freebsd-11-amd64/iocage```
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 sysutils/py3-iocage
-{% endhighlight shell %}
+{%endace%}
 
 Add to make.conf : /usr/local/etc/poudriere.d/freebsd-11-amd64-make.conf
 
 use py3.6 version of python3:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 DEFAULT_VERSIONS+= php=7.1 python3=3.6
-{% endhighlight shell %}
+{%endace%}
 
 For my jails globally: ```/usr/local/etc/poudriere.d/make.conf```
 
 No docs, X11 NLS or egs:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 OPTIONS_UNSET+= DOCS NLS X11 EXAMPLES
-{% endhighlight shell %}
+{%endace%}
 
 Set options:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pkg install dialog4ports
-{% endhighlight shell %}
+{%endace%}
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 poudriere options -j freebsd-11-amd64 -p HEAD -f /usr/local/etc/poudriere.d/portlists/freebsd-11-amd64/iocage -f /usr/local/etc/poudriere.d/portlists/freebsd-11-amd64/nextcloud
-{% endhighlight shell %}
+{%endace%}
 
 
 To update jail
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 poudriere jail -u -j freebsd-11-amd64
-{% endhighlight shell %}
+{%endace%}
 
 Update tree:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 poudriere ports -u -p HEAD
-{% endhighlight shell %}
+{%endace%}
 
 Start build(s):
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 poudriere bulk -cj freebsd-11-amd64 -p HEAD -f /usr/local/etc/poudriere.d/portlists/freebsd-11-amd64/iocage -f /usr/local/etc/poudriere.d/portlists/freebsd-11-amd64/nextcloud
-{% endhighlight shell %}
+{%endace%}
 
 ## Web Server
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pkg install nginx && sysrc nginx_enable=YES
-{% endhighlight shell %}
+{%endace%}
 
 Remove all inside server in ```/usr/local/etc/nginx/nginx.conf```, add:
 
-{% highlight nginx %}
+```
 server {
 
     listen 80 default;
@@ -310,26 +310,26 @@ server {
     }
 
 }
-{% endhighlight nginx %}
+```
 
 Edit mimetypes /usr/local/etc/nginx/mime.types, add log:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 text/plain                          txt log;
-{% endhighlight shell %}
+{%endace%}
 
 Check config and start nginx:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 service nginx configtest
 service nginx start
-{% endhighlight shell %}
+{%endace%}
 
 ## Repo Only server
 
 In jail, nullfs mount packages to same spot. Install nginx.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 server {
 
     listen 80 default;
@@ -337,48 +337,48 @@ server {
     root /usr/local/poudriere/data/packages;
     autoindex on;
 }
-{% endhighlight shell %}
+{%endace%}
 
 ## Clients
 
 Get cert:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 cat /usr/local/etc/ssl/certs/poudriere.cert
-{% endhighlight shell %}
+{%endace%}
 
 Save it on clients:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 mkdir -p /usr/local/etc/ssl/{keys,certs}
 ee /usr/local/etc/ssl/certs/poudriere.cert
-{% endhighlight shell %}
+{%endace%}
 
 ## Repo
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 mkdir -p /usr/local/etc/pkg/repos
-{% endhighlight shell %}
+{%endace%}
 
 Define repo:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 ee /usr/local/etc/pkg/repos/freebsd.conf
-{% endhighlight shell %}
+{%endace%}
 
 Inside, use the name FreeBSD in order to match the default repository definition. Disable the repository by defining it like this:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 FreeBSD: {
     enabled: no
 }
-{% endhighlight shell %}
+{%endace%}
 
 Repo file at ```/usr/local/etc/pkg/repos/poudriere.conf```
 
 If you want to mix your custom packages with those of the official repositories, your file should look something like this:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 poudriere: {
     url: "http://pkgrepo.ramsden.network/freebsd-11-amd64-HEAD/",
     mirror_type: "http",
@@ -387,12 +387,12 @@ poudriere: {
     enabled: yes,
     priority: 100
 }
-{% endhighlight shell %}
+{%endace%}
 
 
 If you want to only use your compiled packages, your file should look something like this:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 poudriere: {
     url: "http://pkgrepo.ramsden.network/freebsd-11-amd64-HEAD/",
     mirror_type: "http",
@@ -400,17 +400,17 @@ poudriere: {
     pubkey: "/usr/local/etc/ssl/certs/poudriere.cert",
     enabled: yes
 }
-{% endhighlight shell %}
+{%endace%}
 
 Update:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pkg update
-{% endhighlight shell %}
+{%endace%}
 
 Crontab:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 # Update tree at 3
 0 3 * * * /usr/local/bin/poudriere ports -u -p HEAD >/dev/null 2>&1
 # Jails at 3:30:
@@ -418,29 +418,29 @@ Crontab:
 
 # Build at 4
 0 4 * * * poudriere bulk -cj freebsd-11-amd64 -p HEAD -f /usr/local/etc/poudriere.d/portlists/freebsd-11-amd64/iocage -f /usr/local/etc/poudriere.d/portlists/freebsd-11-amd64/nextcloud -f /usr/local/etc/poudriere.d/portlists/freebsd-11-amd64/emby
-{% endhighlight shell %}
+{%endace%}
 
 ## Upgrade jails
 
 To upgrade releases, ie 11.0 to 11.1:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 /usr/local/bin/poudriere jail -u -t 11.1-RELEASE -j freebsd-11-amd64
-{% endhighlight shell %}
+{%endace%}
 
 Or delete and re-create
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 poudriere jail -d -j freebsd-11~1-amd64
 poudriere jail -c -j freebsd-11-amd64 -v 11.1-RELEASE
-{% endhighlight shell %}
+{%endace%}
 
 Re-create ports tree:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 poudriere ports -d -p HEAD
 poudriere ports -c -p HEAD
-{% endhighlight shell %}
+{%endace%}
 
 ## Add new ports
 
@@ -448,20 +448,20 @@ Add additional lists. for example, Emby:
 
 Add ports.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 ee /usr/local/etc/poudriere.d/portlists/freebsd-11-amd64/emby
-{% endhighlight shell %}
+{%endace%}
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 multimedia/ffmpeg
 graphics/ImageMagick
-{% endhighlight shell %}
+{%endace%}
 
 ## Poudriere options:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 poudriere options -j freebsd-11-amd64 -p HEAD -f /usr/local/etc/poudriere.d/portlists/freebsd-11-amd64/emby
-{% endhighlight shell %}
+{%endace%}
 
 For ffmpeg:
 

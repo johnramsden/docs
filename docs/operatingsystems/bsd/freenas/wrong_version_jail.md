@@ -18,15 +18,15 @@ There are two solutions to this problem, the non-permanent option is to set an e
 
 The permanent solution is to set the environment variable by editing ```/etc/login.conf```, and adding the jail's version.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 default:\
 :setenv=UNAME_r=10.3-RELEASE:\
-{% endhighlight shell %}
+{%endace%}
 
 Reset the database.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 cap_mkdb /etc/login.conf
-{% endhighlight shell %}
+{%endace%}
 
 Exit and enter shell and everything should work.

@@ -30,24 +30,24 @@ The following sections were done inside the jail.
 
 Install ```deluge``` or ```deluge-cli``` depending on what you want installed. Since this is a headless server I'm only installing the CLI version.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pkg update && pkg upgrade
 pkg install deluge-cli
-{% endhighlight shell %}
+{%endace%}
 
 #### Init Script
 
 Setup ```/etc/rc.conf```
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 sysrc 'deluged_enable=YES' 'deluged_user=media'
-{% endhighlight shell %}
+{%endace%}
 
 #### Start Service
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 service deluged start
-{% endhighlight shell %}
+{%endace%}
 
 ## Couchpotato
 
@@ -57,61 +57,61 @@ Install [couchpotato](https://couchpota.to/#freebsd) freebsd version from git.
 
 Create database dataset couchpotato and mount to ```/var/db/couchpotato```.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pkg update && pkg upgrade
-{% endhighlight shell %}
+{%endace%}
 
 Install required tools
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pkg install python py27-sqlite3 fpc-libcurl docbook-xml git-lite
-{% endhighlight shell %}
+{%endace%}
 
 Use user media, clone to a temp repo in ```/var/db```.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 cd /var/db
 git clone https://github.com/CouchPotato/CouchPotatoServer.git temp
-{% endhighlight shell %}
+{%endace%}
 
 Move the bare repo that was just cloned to the dataset we mounted earlier to ```/var/db/couchpotato```.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 mv temp/.git couchpotato/
 rm -rf temp
-{% endhighlight shell %}
+{%endace%}
 
 Switch to the ```media``` user and reset the repo to HEAD.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 su media
 cd couchpotato
 git reset --hard HEAD
 exit
-{% endhighlight shell %}
+{%endace%}
 
 As root, copy the startup script to ```/usr/local/etc/rc.d``` and make the startup script executable.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 cp couchpotato/init/freebsd /usr/local/etc/rc.d/couchpotato
 chmod 555 /usr/local/etc/rc.d/couchpotato
-{% endhighlight shell %}
+{%endace%}
 
 Read the options at the top of ```/usr/local/etc/rc.d/couchpotato```.
 
 If not using the default install, specify options with startup flags.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 sysrc 'couchpotato_enable=YES'
 sysrc 'couchpotato_user=media'
 sysrc 'couchpotato_dir=/var/db/couchpotato'
-{% endhighlight shell %}
+{%endace%}
 
 Finally, start couchpotato.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 service couchpotato start
-{% endhighlight shell %}
+{%endace%}
 
 Restart the jail, open your browser and go to [http://server:5050/](http://server:5050/).
 
@@ -125,10 +125,10 @@ Create dataset, mount at ```/var/db/emby```
 
 In the jail, update all packages and install ```emby-server```.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pkg update && pkg upgrade
 pkg install emby-server
-{% endhighlight shell %}
+{%endace%}
 
 ### FFMpeg
 
@@ -136,21 +136,21 @@ It's recommended to install ffmpeg from ports so that certain compile time optio
 
 Update the FreeBSD ports tree
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 portsnap fetch extract update
-{% endhighlight shell %}
+{%endace%}
 
 Remove the default ffmpeg package
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pkg delete -f ffmpeg
-{% endhighlight shell %}
+{%endace%}
 
 Reinstall FFMpeg from ports with lame option enabled
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 cd /usr/ports/multimedia/ffmpeg && make config
-{% endhighlight shell %}
+{%endace%}
 
 *   enable the lame option
 *   enable the ass subtitles option
@@ -159,9 +159,9 @@ cd /usr/ports/multimedia/ffmpeg && make config
 
 Compile and install.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 make install clean
-{% endhighlight shell %}
+{%endace%}
 
 ### ImageMagick
 
@@ -171,50 +171,50 @@ It is recommended to recompile the graphics/ImageMagick package from ports with 
 
 Delete the imagemagick pkg.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pkg delete -f imagemagick
-{% endhighlight shell %}
+{%endace%}
 
 Install from ports
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 cd /usr/ports/graphics/ImageMagick && make config
-{% endhighlight shell %}
+{%endace%}
 
 *   Disable the 16BIT_PIXEL option
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 make install clean
-{% endhighlight shell %}
+{%endace%}
 
 ## Emby Start Options
 
 Set the rc script executable.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 chmod 555 /usr/local/etc/rc.d/emby-server
-{% endhighlight shell %}
+{%endace%}
 
 Check the options.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 less /usr/local/etc/rc.d/emby-server
-{% endhighlight shell %}
+{%endace%}
 
 Set emby to start on boot and change the options based on setup.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 sysrc 'emby_server_enable=YES'
 sysrc 'emby_server_user=media'
 sysrc 'emby_server_group=media'
 sysrc 'emby_server_data_dir=/var/db/emby-server'
-{% endhighlight shell %}
+{%endace%}
 
 Start the emby service.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 service emby-server start
-{% endhighlight shell %}
+{%endace%}
 
 ## Pod
 
@@ -222,33 +222,33 @@ service emby-server start
 
 Enter jail.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 jexec pod tcsh
-{% endhighlight shell %}
+{%endace%}
 
 Update.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pkg update && pkg upgrade
-{% endhighlight shell %}
+{%endace%}
 
 ### Requirements
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pkg install bash libxslt wget curl
-{% endhighlight shell %}
+{%endace%}
 
 bash requires fdescfs(5) mounted on /dev/fd, add to boot tasks in FreeNAS UI.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 mount -t fdescfs fdesc /mnt/tank/jails/pod/dev/fd
-{% endhighlight shell %}
+{%endace%}
 
 ### Create User
 
 Create user 'pod'.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 adduser pod
 Username: pod
 Full name: Podcatcher
@@ -276,25 +276,25 @@ OK? (yes/no): yes
 adduser: INFO: Successfully added (pod) to the user database.
 Add another user? (yes/no): no
 Goodbye!
-{% endhighlight shell %}
+{%endace%}
 
 ### Install bashpod
 
 Clone the script.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 su pod
 cd /home/pod
 git clone https://github.com/johnramsden/bashpod.git
-{% endhighlight shell %}
+{%endace%}
 
 ### FreeNAS Task
 
 In order to run from FreeNAS, create a new task that runs the bashpod script.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 jexec -U pod pod /usr/local/bin/bash -c "/home/pod/bashpod/bashpod.sh"
-{% endhighlight shell %}
+{%endace%}
 
 ## Sabnzbd
 
@@ -306,22 +306,22 @@ Create dataset, mount at ```/var/db/sabnzbd```
 
 Enter jail.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 jexec sickrage tcsh
-{% endhighlight shell %}
+{%endace%}
 
 Update and install sabnzbd.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pkg update && pkg upgrade && pkg install sabnzbdplus
-{% endhighlight shell %}
+{%endace%}
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 sysrc 'sabnzbd_enable=YES'
 sysrc 'sabnzbd_user=media'
 sysrc 'sabnzbd_group=media'
 sysrc 'sabnzbd_conf_dir=/var/db/sabnzbd'
-{% endhighlight shell %}
+{%endace%}
 
 Restart jail
 
@@ -333,21 +333,21 @@ Edit config in ````/var/db/sabnzbd````, change host to 0.0.0.0
 
 Enter jail.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 jexec sickrage tcsh
-{% endhighlight shell %}
+{%endace%}
 
 Update.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pkg update && pkg upgrade
-{% endhighlight shell %}
+{%endace%}
 
 Install requirements.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pkg install py27-sqlite3
-{% endhighlight shell %}
+{%endace%}
 
 cd /var/db
 git clone  https://github.com/SickRage/SickRage.git temp
@@ -383,15 +383,15 @@ On FreeNAS with ID 983, nologin
 
 Enter jail.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 jexec syncthing tcsh
-{% endhighlight shell %}
+{%endace%}
 
 Update and install syncthing.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pkg update && pkg upgrade && pkg install syncthing
-{% endhighlight shell %}
+{%endace%}
 
 Add the following to rc.conf:
 

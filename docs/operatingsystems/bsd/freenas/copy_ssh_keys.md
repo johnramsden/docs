@@ -12,13 +12,13 @@ folder: bsd/freenas
 
 To copy ssh keys using ```ssh-copy-id``` off of FreeNAS an ```ssh-agent``` needs to be started . On FreeNAS run.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 sh
 eval `ssh-agent -s`
-{% endhighlight shell %}
+{%endace%}
 
 Then send any keys to a remote server.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 ssh-copy-id <user>@<ip address>
-{% endhighlight shell %}
+{%endace%}

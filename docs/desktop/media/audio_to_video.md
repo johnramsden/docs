@@ -12,6 +12,6 @@ folder: desktop/media
 
 Using [find](/shell_find.html), loop over all mp3s and convert them to mp4 videos; applying an image which will form the video's backdrop.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 find -name "*.mp3" -exec ffmpeg -loop 1 -i ${imagepath} -i {} -c:a aac -strict experimental -b:a 192k -shortest {}.mp4 \;
-{% endhighlight shell %}
+{%endace%}

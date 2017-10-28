@@ -12,24 +12,24 @@ folder: linux/archlinux
 
 Install ```bluez``` and ```bluez-utils```.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pacman -S bluez bluez-utils
-{% endhighlight shell %}
+{%endace%}
 
 Load bluetooth driver (may be already loaded).
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 modprobe btusb
-{% endhighlight shell %}
+{%endace%}
 
 Start, and enable the bluetooth unit
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 systemctl enable --now bluetooth
-{% endhighlight shell %}
+{%endace%}
 
 Add user(s) who will use bluetooth to ```lp``` group
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 gpasswd -a ${USER} lp
-{% endhighlight shell %}
+{%endace%}

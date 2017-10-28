@@ -14,34 +14,34 @@ folder: linux/archlinux
 
 To list explicitly installed packages.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pacman -Qqe > pkglist.txt
-{% endhighlight shell %}
+{%endace%}
 
 ### Regular repo
 
 Remove AUR packages from explicitly installed package list, and save to file ```native.txt```.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 bash -c "comm -12 <(pacman -Slq | sort) <(sort pkglist.txt)"  > native.txt
-{% endhighlight shell %}
+{%endace%}
 
 Install them on new system after selecting wanted packages.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pacman  -S - < native.txt
-{% endhighlight shell %}
+{%endace%}
 
 ### AUR
 
 List aur packages. Dont forget to edit.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pacman -Qmq > aur.txt
-{% endhighlight shell %}
+{%endace%}
 
 On new system, install.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pacaur -S - < aur.txt
-{% endhighlight shell %}
+{%endace%}

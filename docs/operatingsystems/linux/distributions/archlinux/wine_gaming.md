@@ -16,9 +16,9 @@ Install wine staging for much better performance.
 
 Optionally install [wine-mono](https://www.archlinux.org/packages/?name=wine_gecko) and [wine_gecko](https://www.archlinux.org/packages/?name=wine-mono) see [wiki](https://wiki.archlinux.org/index.php/Wine#Installation) for info.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pacman -S wine-staging wine-mono wine_gecko
-{% endhighlight shell %}
+{%endace%}
 
 ### Wine file associations
 
@@ -26,9 +26,9 @@ To avoid having [wine file associations](https://wiki.archlinux.org/index.php/Wi
 
 To prevent them set environment variable ```WINEDLLOVERRIDES```.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 export WINEDLLOVERRIDES="winemenubuilder.exe=d"
-{% endhighlight shell %}
+{%endace%}
 
 ## Dataset
 
@@ -38,16 +38,16 @@ zfs create -o mountpoint=legacy vault/sys/chin/home/john/local/share/wine
 
 Add to fstab:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 vault/sys/chin/home/john/local/share/wine  /home/john/.local/share/wine zfs       rw,relatime,xattr,noacl     0 0
-{% endhighlight shell %}
+{%endace%}
 
 Mount it
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 mkdir /home/john/.local/share/wine
 mount -a
-{% endhighlight shell %}
+{%endace%}
 
 ## Configuration
 
@@ -55,51 +55,51 @@ Always use ```env WINEPREFIX==~/.local/share/wine/<wine bottle>``` when creating
 
 Install dependencies:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pacman -S mpg123 lib32-gst-plugins-base-libs
-{% endhighlight shell %}
+{%endace%}
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pacaur -S ttf-ms-fonts  ttf-tahoma
-{% endhighlight shell %}
+{%endace%}
 
 To create a 32bit bottle use ```WINEARCH=win32```.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 env WINEARCH=win32 WINEPREFIX==~/.local/share/wine/pathofexile winecfg
-{% endhighlight shell %}
+{%endace%}
 
 Enable CSMT, optionallenable emulate virtual desktop and change DPI.
 
 install Microsoft Visual C++ Runtime 2015 and if fonts above weren't installed, corefonts.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 env WINEARCH=win32 WINEPREFIX=${HOME}/.local/share/wine/pathofexile winetricks -q vcrun2015 riched20 usp10
-{% endhighlight shell %}
+{%endace%}
 
 Download steam to ```${HOME}/.local/share/wine/pathofexile``` and run steam.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 env WINEARCH=win32 WINEPREFIX=${HOME}/.local/share/wine/pathofexile wine  ${HOME}/.local/share/wine/pathofexile/SteamSetup.exe
-{% endhighlight shell %}
+{%endace%}
 
 Then run:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 env WINEDEBUG=-all WINEARCH=win32 WINEPREFIX=${HOME}/.local/share/wine/pathofexile wine  "${HOME}/.local/share/wine/pathofexile/drive_c/Program Files/Steam/Steam.exe" -no-cef-sandbox  -no-dwrite -noasync
-{% endhighlight shell %}
+{%endace%}
 
 Get videocard RAM:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 echo $"VRAM: "$(($(grep -P -o -i "(?<=memory:).*(?=kbytes)" /var/log/Xorg.0.log) / 1024))$" Mb"
-{% endhighlight shell %}
+{%endace%}
 
 Set in regedit. Copy the number.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 env WINEARCH=win32 WINEPREFIX=${HOME}/.local/share/wine/pathofexile wine regedit
-{% endhighlight shell %}
+{%endace%}
 
 Go to HKEY_CURRENT_USER>Software>Wine
 In wine folder add key "Direct3D", click add new string to Direct3D folder. Right click>New String, type "VideoMemorySize", add "VideoMemorySize" string, use video memory number

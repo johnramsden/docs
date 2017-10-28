@@ -1,3 +1,5 @@
 {
-    "root": "./docs"
+    "root": "./docs",
+    "plugins": ["ace"],
+    "pluginsConfig": {}
 }

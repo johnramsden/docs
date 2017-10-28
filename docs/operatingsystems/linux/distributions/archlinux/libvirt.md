@@ -18,36 +18,36 @@ Setup [libvirt](https://wiki.archlinux.org/index.php/Libvirt).
 
 To keep my libvirt setup outside of any boot environments I give them their own dataset.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 zfs create -o mountpoint=legacy vault/sys/chin/var/lib/libvirt
 mkdir /var/lib/libvirt
 mount -t zfs vault/sys/chin/var/lib/libvirt /var/lib/libvirt
-{% endhighlight shell %}
+{%endace%}
 
 Add to fstab
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 nano /etc/fstab
-{% endhighlight shell %}
+{%endace%}
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 vault/sys/chin/var/lib/libvirt            /var/lib/libvirt                    zfs       rw,relatime,xattr,noacl     0 0
-{% endhighlight shell %}
+{%endace%}
 
 ### Kernel
 
 Check modules are loaded.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 lsmod | grep kvm
 lsmod | grep virtio
-{% endhighlight shell %}
+{%endace%}
 
 If blank, [load them explicitly](https://wiki.archlinux.org/index.php/Kernel_modules#Manual_module_handling).
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 echo "virtio" > /etc/modules-load.d/virtio.conf
-{% endhighlight shell %}
+{%endace%}
 
 Install the dependencies.
 
@@ -66,9 +66,9 @@ Install the dependencies.
     *   [virt-manager](https://www.archlinux.org/packages/?name=virt-manager)
     *   [virt-viewer](https://www.archlinux.org/packages/?name=virt-viewer)
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pacman -S libvirt qemu-headless ebtables dnsmasq bridge-utils virt-manager virt-viewer ovmf
-{% endhighlight shell %}
+{%endace%}
 
 ### ZVOL Backing Store
 
@@ -78,23 +78,23 @@ I like to use ZFS ZVOL's as my backing store.
 
 Create a dataset for ZVOLs:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 zfs create -o mountpoint=none vault/zvols
-{% endhighlight shell %}
+{%endace%}
 
 ##### User ZVOLs
 
 Create a dataset for user 'john''s ZVOLs
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 zfs create -o mountpoint=none vault/zvols/john
-{% endhighlight shell %}
+{%endace%}
 
 As of [zfsonlinux 0.7.0](https://github.com/zfsonlinux/zfs/releases/tag/zfs-0.7.0) ZFS delegation using ```zfs allow``` works on linux. Delegate permissions giving the abiity to snapshot and create datasets.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 zfs allow john create,mount,mountpoint,snapshot vault/zvols/john
-{% endhighlight shell %}
+{%endace%}
 
 #### Create ZVOL
 
@@ -104,10 +104,10 @@ To let guest do its own caching, use:
 
 Create ZVOL for a new VM. Replace <new VM> with name. Volumes still need to be created by root.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 zfs create -o mountpoint=none vault/zvols/john/libvirt
 zfs create -V 50G vault/zvols/john/libvirt/<new VM> -o primarycache=metadata -o compression=on
-{% endhighlight shell %}
+{%endace%}
 
 ### Authentication
 
@@ -117,15 +117,15 @@ If you want passwordless authentication, as of libvirt 1.2.16, anyone in the ```
 
 Create the group if it doesn't exist.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 groupadd libvirt
-{% endhighlight shell %}
+{%endace%}
 
 Add any users required to it.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 gpasswd -a john libvirt
-{% endhighlight shell %}
+{%endace%}
 
 Make sure to re-login after.
 
@@ -133,9 +133,9 @@ Make sure to re-login after.
 
 Enable libvirtd.service.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 systemctl enable --now libvirtd
-{% endhighlight shell %}
+{%endace%}
 
 To run only a user-session the daemon does not need to be enabled.
 
@@ -143,58 +143,58 @@ To run only a user-session the daemon does not need to be enabled.
 
 Test libvirt system-session:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 virsh -c qemu:///system
-{% endhighlight shell %}
+{%endace%}
 
 Test libvirt system user-session:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 virsh -c qemu:///session
-{% endhighlight shell %}
+{%endace%}
 
 ### UEFI
 
 Add the following to ```/etc/libvirt/qemu.conf```.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 nano /etc/libvirt/qemu.conf
-{% endhighlight shell %}
+{%endace%}
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 nvram = [
     "/usr/share/ovmf/ovmf_code_x64.bin:/usr/share/ovmf/ovmf_vars_x64.bin"
 ]
-{% endhighlight shell %}
+{%endace%}
 
 I have found UEFI may not work if I haven't set the system user to ```user = root``` in ```/etc/libvirt/qemu.conf```.
 
 and restart libvirtd
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 systemctl restart libvirtd
-{% endhighlight shell %}
+{%endace%}
 
 #### User
 
 To use uefi as a user, note networking options are limited, move the nvram to a user readable location and add it to ```~/.config/libvirt/qemu.conf```.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 cp -r /usr/share/ovmf /home/john/.config/libvirt/ovmf
 chown -R john:john /home/john/.config/libvirt/ovmf
-{% endhighlight shell %}
+{%endace%}
 
 Add the following to ```/etc/libvirt/qemu.conf```.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 nano ~/.config/libvirt/qemu.conf
-{% endhighlight shell %}
+{%endace%}
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 nvram = [
     "/home/john/.config/libvirt/ovmf/ovmf_code_x64.bin:/home/john/.config/libvirt/ovmf/ovmf_vars_x64.bin"
 ]
-{% endhighlight shell %}
+{%endace%}
 
 ### Create Guest
 
@@ -210,12 +210,12 @@ If using a user session the block device might need to be changed to be owned by
 
 Temporarily the device can be chown'd, but the owner will not live through reboot. For persistence [add a udev rule](ramsdenj.com/2016/07/21/making-a-zvol-backed-virtualbox-vm-on-linux.html) by creating a new file ```99-local-zvol.rules``` in ```/etc/udev/rules.d/``` that contains the following (replacing the ZVOL path and user):
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 # /etc/udev/rules.d/99-local-zvol.rules
 # Give persistant ownership of ZVOL to user
 KERNEL=="zd*" SUBSYSTEM=="block" ACTION=="add|change" PROGRAM="/lib/udev/zvol_id /dev/%k"
 RESULT=="vault/zvols/john/libvirt/win" OWNER="john" GROUP="john" MODE="0750"
-{% endhighlight shell %}
+{%endace%}
 
 Refresh the rules with ```udevadm control --reload```
 

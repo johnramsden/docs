@@ -16,42 +16,42 @@ First setup [xorg](https://wiki.archlinux.org/index.php/Xorg) and graphics.
 
 Install graphics drivers, my main system is [nvidia](https://wiki.archlinux.org/index.php/NVIDIA).
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pacman -S nvidia lib32-nvidia-utils
-{% endhighlight shell %}
+{%endace%}
 
 ## Xorg
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pacman -S xorg-server
-{% endhighlight shell %}
+{%endace%}
 
 Set dpi in ```~/.Xresources```, I use 192 for my 4k screen.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 nano ~/.Xresources
-{% endhighlight shell %}
+{%endace%}
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 Xft.dpi: 192
-{% endhighlight shell %}
+{%endace%}
 
 ### Nvidia - Tearing Fix
 
 My Nvidia card tears. This removes the tearing.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 nano /etc/X11/xorg.conf.d/20-nvidia.conf
-{% endhighlight shell %}
+{%endace%}
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 Section "Screen"
     Identifier     "Screen0"
     Option         "metamodes" "nvidia-auto-select +0+0 { ForceFullCompositionPipeline = On }"
     Option         "AllowIndirectGLXProtocol" "off"
     Option         "TripleBuffer" "on"
 EndSection
-{% endhighlight shell %}
+{%endace%}
 
 ## Setup a Window Manager or Desktop Environment
 
@@ -61,33 +61,33 @@ Install [KDE Plasma](https://www.archlinux.org/groups/x86_64/plasma/) package as
 
 Choose ```phonon-qt5-gstreamer```, ```libx264```, ```cronie```, ```phonon-qt4-gstreamer```.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pacman -S plasma kde-meta-kdeadmin kde-meta-kdebase kde-meta-kdegraphics kde-meta-kdenetwork kde-meta-kdeutils
-{% endhighlight shell %}
+{%endace%}
 
 I disable baloo since it seems to make my system chug.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 balooctl disable
-{% endhighlight shell %}
+{%endace%}
 
 ## Display Manager
 
 I use sddm, simple and works well. For an onscreen keyboard install [qt5-virtualkeyboard](https://www.archlinux.org/packages/extra/x86_64/qt5-virtualkeyboard/).
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pacman -S sddm
-{% endhighlight shell %}
+{%endace%}
 
 Setup config at ```/etc/sddm.conf```.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 nano /etc/sddm.conf
-{% endhighlight shell %}
+{%endace%}
 
 Tell it to start a desktop file from ```/usr/share/xsessions/```, set dpi, and user.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 # Set DPI based on display
 ServerArguments=-nolisten tcp -dpi 192
 
@@ -99,13 +99,13 @@ User=john
 
 # Current theme name
 Current=breeze
-{% endhighlight shell %}
+{%endace%}
 
 Enable sddm.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 systemctl enable sddm
-{% endhighlight shell %}
+{%endace%}
 
 Reboot into KDE!
 
@@ -121,11 +121,11 @@ Configure startup run ```vncserver```.
 
 Setup a systemd unit to start vnc, note this connects to physical display, [other options]() are available.. Change user.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 nano /etc/systemd/system/x0vncserver.service
-{% endhighlight shell %}
+{%endace%}
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 [Unit]
 Description=Remote desktop service (VNC)
 After=syslog.target network.target
@@ -137,16 +137,16 @@ ExecStart=/usr/bin/sh -c '/usr/bin/x0vncserver -display :0 -rfbport 5900 -passwo
 
 [Install]
 WantedBy=multi-user.target
-{% endhighlight shell %}
+{%endace%}
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 systemctl start x0vncserver
-{% endhighlight shell %}
+{%endace%}
 
 ## Fonts
 
 Install [ttf-google-fonts-git (AUR)](https://aur.archlinux.org/packages/ttf-google-fonts-git/).
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pacaur -S ttf-google-fonts-git
-{% endhighlight shell %}
+{%endace%}

@@ -14,33 +14,33 @@ folder: linux/tuning
 
 Increase inotify max user watches:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 echo "fs.inotify.max_user_watches=524288" >> /etc/sysctl.d/40-max-user-watches.conf
-{% endhighlight shell %}
+{%endace%}
 
 ## Network
 
 Increase [netdev budget](https://access.redhat.com/sites/default/files/attachments/20150325_network_performance_tuning.pdf) for squeezed packets, and netdev_max_backlog.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 echo "net.core.netdev_budget=50000" > /etc/sysctl.d/30-network-tuning.conf
 echo "net.core.netdev_max_backlog = 100000" >> /etc/sysctl.d/30-network-tuning.conf
-{% endhighlight shell %}
+{%endace%}
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 cat /etc/sysctl.d/30-network-tuning.conf
-{% endhighlight shell %}
+{%endace%}
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 net.core.netdev_budget=50000
 net.core.netdev_max_backlog = 100000
-{% endhighlight shell %}
+{%endace%}
 
 ## Reload Sysctls
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 sysctl --system
-{% endhighlight shell %}
+{%endace%}
 
 # References:
 https://github.com/firehol/netdata/issues/1076

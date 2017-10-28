@@ -15,17 +15,17 @@ Creating a mirrored ZFS pool is easy.
 
 To create a single two disk mirror:
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 zpool create -f -o ashift=12 vault mirror \
                 ata-SanDisk_SDSSDXPS480G_152271401093 \
                 ata-SanDisk_SDSSDXPS480G_154501401266
-{% endhighlight shell %}
+{%endace%}
 
 ## Four disk mirror - RAID10
 
 To create a RAID10 style pool, create multiple mirrors. As many mirrors as desired can be added.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 zpool create -f -o ashift=12 vault \
               mirror \
                 ata-SanDisk_SDSSDXPS480G_152271401093 \
@@ -33,11 +33,11 @@ zpool create -f -o ashift=12 vault \
               mirror \
                 ata-SanDisk_SDSSDXPS480G_164277402487 \
                 ata-SanDisk_SDSSDXPS480G_164277402657
-{% endhighlight shell %}
+{%endace%}
 
 This created the following.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 zpool status
 
   pool: vault
@@ -55,4 +55,4 @@ config:
 	    ata-SanDisk_SDSSDXPS480G_164277402657  ONLINE       0     0     0
 
 errors: No known data errors
-{% endhighlight shell %}
+{%endace%}

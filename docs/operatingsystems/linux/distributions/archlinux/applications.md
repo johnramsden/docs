@@ -14,51 +14,51 @@ folder: linux/archlinux
 
 Install syncthing and syncthing-inotify to look for file changes.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pacman -S syncthing syncthing-inotify
 
-{% endhighlight shell %}
+{%endace%}
 
 Start user service.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 systemctl --user enable --now syncthing
-{% endhighlight shell %}
+{%endace%}
 
 Increase max-user-watches.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 nano /etc/sysctl.d/40-max-user-watches.conf
-{% endhighlight shell %}
+{%endace%}
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 fs.inotify.max_user_watches=524288
-{% endhighlight shell %}
+{%endace%}
 
 ## Onboard Virtual Keyboard
 
 Install onboard.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pacman -S onboard
-{% endhighlight shell %}
+{%endace%}
 
 For secondary labels run.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 gsettings set org.onboard.keyboard show-secondary-labels true
-{% endhighlight shell %}
+{%endace%}
 
 ## Conky
 
 Install conky.
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pacman -S conky
-{% endhighlight shell %}
+{%endace%}
 
 I use a script with conky to check email with the perl```Mail::IMAPClient``` and ```IO::Socket::SSL```, on arch needs: [perl-mail-imapclient (AUR)](https://aur.archlinux.org/packages/perl-mail-imapclient/), and [perl-io-socket-ssl](https://www.archlinux.org/packages/extra/any/perl-io-socket-ssl/).
 
-{% highlight shell %}
+{%ace edit=true, lang='sh'%}
 pacaur -S perl-mail-imapclient perl-io-socket-ssl
-{% endhighlight shell %}
+{%endace%}
