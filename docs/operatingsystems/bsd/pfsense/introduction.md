@@ -1,13 +1,6 @@
 ---
 title: pfSense Table of Contents
-sidebar: bsd_sidebar
-sectionName: pfsense
-hide_sidebar: false
-keywords: freebsd, bsd, pfsense
 tags: [ freebsd, pfsense, bsd ]
-permalink: bsd_pfsense.html
-toc: false
-folder: bsd/pfsense
 ---
 
-{% include section_contents_logic.html %}
+This section contains articles related to the FreeBSD based pfSense router operating system.

@@ -1,13 +1,6 @@
 ---
 title: NixOS
-sidebar: linux_sidebar
-hide_sidebar: false
-sectionName: nixos
-keywords: nixos, linux
 tags: [ nixos, linux ]
-permalink: linux_nixos.html
-toc: false
-folder: linux/nixos
 ---
 
-{% include section_contents_logic.html %}
+This section is about the linux distribution NixOS. A specialized Linux distribution that uses a functional package manager called Nix for configuration and management of the NixOS Linux distribution.
