@@ -4,15 +4,18 @@
     *   [Linux](operatingsystems/linux/introduction.md)
         *   [Distributions](operatingsystems/linux/distributions/introduction.md)
             *    [Arch Linux](operatingsystems/linux/distributions/archlinux/introduction.md)
-                *    [Setting up pacaur with the Arch User Repository](operatingsystems/linux/distributions/archlinux/pacaur_setup.md)
+                *    [Common Applications](operatingsystems/linux/distributions/archlinux/applications.md)
+                *    [Setting up pacaur with the Arch User Repository](operatingsystems/linux/distributions/archlinux/aur_setup_pacaur.md)
+                *    [Bluetooth](operatingsystems/linux/distributions/archlinux/bluetooth.md)
+                *    [Graphical Configuration](operatingsystems/linux/distributions/archlinux/graphical_configuration.md)
                 *    [ZFS Dataset Structure](operatingsystems/linux/distributions/archlinux/)
                 *    [User Configuration Management](operatingsystems/linux/distributions/archlinux/)
-                *    [Graphical Configuration](operatingsystems/linux/distributions/archlinux/)
+
                 *    [Post Install Tasks](operatingsystems/linux/distributions/archlinux/)
-                *    [Common Applications](operatingsystems/linux/distributions/archlinux/applications.md)
+
                 *    [Restore Installed Applications](operatingsystems/linux/distributions/archlinux/)
-                *    [Bluetooth](operatingsystems/linux/distributions/archlinux/)
-                *    [Language Setup](operatingsystems/linux/distributions/archlinux/)
+
+                *    [Programming Languages](operatingsystems/linux/distributions/archlinux/programminglanguages/)
                 *    [libvirt](operatingsystems/linux/distributions/archlinux/)
                 *    [Wine Gaming](operatingsystems/linux/distributions/archlinux/)
             *    [NixOS](operatingsystems/linux/distributions/nixos/introduction.md)
