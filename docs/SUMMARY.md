@@ -3,6 +3,9 @@
 *   [Operating Systems](operatingsystems/introduction.md)
     *   [Linux](operatingsystems/linux/introduction.md)
         *   [Distributions](operatingsystems/linux/distributions/introduction.md)
+
+## Arch Linux
+
             *   [Arch Linux](operatingsystems/linux/distributions/archlinux/introduction.md)
                 *   [Common Applications](operatingsystems/linux/distributions/archlinux/applications.md)
                 *   [Setting up pacaur with the Arch User Repository](operatingsystems/linux/distributions/archlinux/aur_setup_pacaur.md)
@@ -47,5 +50,6 @@
     *   [Shell Scripting](systemadministration/shell/introduction.md)
         *   [dd](systemadministration/shell/dd.md)
         *   [find](systemadministration/shell/find.md)
+        *   [rsync](systemadministration/shell/rsync.md)
     *   [ZFS](systemadministration/zfs/introduction.md)
         *   [Mirrors](systemadministration/zfs/mirrors.md)
