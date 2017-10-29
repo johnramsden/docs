@@ -1,8 +1,13 @@
 {
     "root": "./docs",
+
     "plugins": [
       "ace",
       "-sharing"
     ],
-    "pluginsConfig": {}
+    "pluginsConfig": {},
+
+    "styles": {
+        "website": "styles/website.css"
+    }
 }
