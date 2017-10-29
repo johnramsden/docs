@@ -1,8 +1,5 @@
 ---
-title: Documentation and Notes
-keywords: homepage
-hide_sidebar: false
-permalink: index.html
+title: John's Notes and Documentation
 summary: >-
   These notes are a collection of information and documentation I have collected
   on various subjects mostly related to system administration, Linux, and
@@ -13,5 +10,8 @@ summary: >-
 
 
 
-For my convenience I have compiles a collection of information and documentation I have collected on various subjects mostly related to system administration, Linux, and Unix/BSD. If you wish to submit a correction please submit an [issue](https://github.com/johnramsden/docs/issues/new) or [pull request](https://github.com/johnramsden/docs/compare). 
+These notes are a collection of information and documentation I have collected
+on various subjects mostly related to system administration, Linux, and
+Unix/BSD.
 
+If you wish to submit a correction please submit an [issue](https://github.com/johnramsden/docs/issues/new) or [pull request](https://github.com/johnramsden/docs/compare).
