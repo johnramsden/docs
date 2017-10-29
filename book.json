@@ -1,5 +1,8 @@
 {
     "root": "./docs",
-    "plugins": ["ace"],
+    "plugins": [
+      "ace",
+      "-sharing"
+    ],
     "pluginsConfig": {}
 }
