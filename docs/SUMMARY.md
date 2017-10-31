@@ -27,6 +27,7 @@
         *   [Network Bonding](operatingsystems/linux/systemd/network_bonding.md)
     *   [Tuning](operatingsystems/linux/tuning/introduction.md)
         *   [Sysctls](operatingsystems/linux/tuning/sysctls.md)
+        *   [Surface Pro 4 Power Tuning](operatingsystems/linux/tuning/surface_power.md)
 
 ---
 
