@@ -26,6 +26,7 @@
     *   [systemd](operatingsystems/linux/systemd/introduction.md)
         *   [Network Bonding](operatingsystems/linux/systemd/network_bonding.md)
     *   [Tuning](operatingsystems/linux/tuning/introduction.md)
+        *   [Limits](operatingsystems/linux/tuning/limits.md)
         *   [Sysctls](operatingsystems/linux/tuning/sysctls.md)
         *   [Surface Pro 4 Power Tuning](operatingsystems/linux/tuning/surface_power.md)
 
@@ -45,6 +46,8 @@
 ---
 
 *   [Desktop and Userspace](desktop/introduction.md)
+    *   [Gaming](desktop/gaming/introduction.md)
+        *   [Gaming with Wine](desktop/gaming/wine.md)
     *   [Internet](desktop/internet/introduction.md)
         *   [Re-authenticate IRC Nickname](desktop/internet/irc_authenticate_nick.md)
         *   [Lightdm VNC Connection with Password](desktop/internet/lightdm_vnc.md)
