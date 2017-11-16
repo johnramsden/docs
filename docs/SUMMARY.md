@@ -10,6 +10,7 @@
             *   [Common Applications](operatingsystems/linux/distributions/archlinux/applications.md)
             *   [Setting up pacaur with the Arch User Repository](operatingsystems/linux/distributions/archlinux/aur_setup_pacaur.md)
             *   [Bluetooth](operatingsystems/linux/distributions/archlinux/bluetooth.md)
+            *   [Hibernate](operatingsystems/linux/distributions/archlinux/hibernate.md)
             *   [Graphical Configuration](operatingsystems/linux/distributions/archlinux/graphical_configuration.md)
             *   [libvirt](operatingsystems/linux/distributions/archlinux/libvirt.md)
             *   [Post Install Tasks](operatingsystems/linux/distributions/archlinux/post_install.md)
