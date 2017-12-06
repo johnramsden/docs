@@ -30,6 +30,7 @@
         *   [Limits](operatingsystems/linux/tuning/limits.md)
         *   [Sysctls](operatingsystems/linux/tuning/sysctls.md)
         *   [Surface Pro 4 Power Tuning](operatingsystems/linux/tuning/surface_power.md)
+        *   [ZFS Arc Max on Linux](operatingsystems/linux/tuning/zfs_arc_max.md)
 
 ---
 
