@@ -40,6 +40,8 @@ Xft.dpi: 192
 
 My Nvidia card tears. This removes the tearing.
 
+#### Desktop
+
 {%ace edit=true, lang='sh'%}
 nano /etc/X11/xorg.conf.d/20-nvidia.conf
 {%endace%}
@@ -51,6 +53,36 @@ Section "Screen"
     Option         "AllowIndirectGLXProtocol" "off"
     Option         "TripleBuffer" "on"
 EndSection
+{%endace%}
+
+#### Laptop
+
+To fix laptop using [DRM kernel mode setting](https://wiki.archlinux.org/index.php/NVIDIA#DRM_kernel_mode_setting).
+
+[nvidia](https://www.archlinux.org/packages/?name=nvidia) 364.16 adds support for DRM kernel mode setting.
+
+Add the ```nvidia-drm.modeset=1``` kernel parameter, and add ```nvidia```, ```nvidia_modeset```, ```nvidia_uvm``` and ```nvidia_drm``` to mkinitcpio modules.
+
+##### Pacman hook
+
+To update initramfs after an NVIDIA driver upgrade, use a pacman hook:
+
+{%ace edit=true, lang='sh'%}
+/etc/pacman.d/hooks/nvidia.hook
+{%endace%}
+
+{%ace edit=true, lang='sh'%}
+[Trigger]
+Operation=Install
+Operation=Upgrade
+Operation=Remove
+Type=Package
+Target=nvidia
+
+[Action]
+Depends=mkinitcpio
+When=PostTransaction
+Exec=/usr/bin/mkinitcpio -P
 {%endace%}
 
 ## Setup a Window Manager or Desktop Environment
