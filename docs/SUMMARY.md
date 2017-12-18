@@ -14,6 +14,13 @@
             *   [Graphical Configuration](operatingsystems/linux/distributions/archlinux/graphical_configuration.md)
             *   [libvirt](operatingsystems/linux/distributions/archlinux/libvirt.md)
             *   [Post Install Tasks](operatingsystems/linux/distributions/archlinux/post_install.md)
+                *   [Time](operatingsystems/linux/distributions/archlinux/post_install.md#time)
+                *   [Reflector](operatingsystems/linux/distributions/archlinux/post_install.md#configure-reflector)
+                *   [SMTP](operatingsystems/linux/distributions/archlinux/post_install.md#configure-smtp)
+                *   [ZFS Configuration](operatingsystems/linux/distributions/archlinux/post_install.md#zfs-configuration)
+                *   [S.M.A.R.T](operatingsystems/linux/distributions/archlinux/post_install.md#S.M.A.R.T)
+                *   [nfs](operatingsystems/linux/distributions/archlinux/post_install.md#nfs)
+
             *   [Programming Languages](operatingsystems/linux/distributions/archlinux/programminglanguages/introduction.md)
                 *   [nodejs](operatingsystems/linux/distributions/archlinux/programminglanguages/nodejs.md)
                 *   [ruby](operatingsystems/linux/distributions/archlinux/programminglanguages/ruby.md)
