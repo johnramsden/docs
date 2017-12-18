@@ -18,9 +18,8 @@
                 *   [Reflector](operatingsystems/linux/distributions/archlinux/post_install.md#configure-reflector)
                 *   [SMTP](operatingsystems/linux/distributions/archlinux/post_install.md#configure-smtp)
                 *   [ZFS Configuration](operatingsystems/linux/distributions/archlinux/post_install.md#zfs-configuration)
-                *   [S.M.A.R.T](operatingsystems/linux/distributions/archlinux/post_install.md#S.M.A.R.T)
+                *   [smart](operatingsystems/linux/distributions/archlinux/post_install.md#smart)
                 *   [nfs](operatingsystems/linux/distributions/archlinux/post_install.md#nfs)
-
             *   [Programming Languages](operatingsystems/linux/distributions/archlinux/programminglanguages/introduction.md)
                 *   [nodejs](operatingsystems/linux/distributions/archlinux/programminglanguages/nodejs.md)
                 *   [ruby](operatingsystems/linux/distributions/archlinux/programminglanguages/ruby.md)

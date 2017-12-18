@@ -1,14 +1,11 @@
 ---
 title: Post Install on Arch Linux
-sidebar: linux_sidebar
-hide_sidebar: false
 category: [ archlinux, linux ]
 keywords: archlinux, linux, aur, pacaur, zfs
 tags: [ archlinux, linux, aur, postinstall, zfs ]
-permalink: linux_archlinux_post_install.html
-toc: true
-folder: linux/archlinux
 ---
+
+# Post Install on Arch Linux
 
 First [setup AUR](/archlinux_aur_pacaur.html)
 
@@ -366,7 +363,7 @@ zpool scrub vault
 
 [Define a hostid](https://ramsdenj.com/2016/06/23/arch-linux-on-zfs-part-2-installation.html#first-tasks) or problems arise at boot.
 
-## S.M.A.R.T
+## smart
 
 Install [smartmontools](https://www.archlinux.org/packages/?name=smartmontools).
 
