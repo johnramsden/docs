@@ -35,6 +35,7 @@
     *   [Tuning](operatingsystems/linux/tuning/introduction.md)
         *   [Limits](operatingsystems/linux/tuning/limits.md)
         *   [Sysctls](operatingsystems/linux/tuning/sysctls.md)
+        *   [Network Reliability With iwlwifi](operatingsystems/linux/tuning/network_reliability_iwlwifi.md)
         *   [Surface Pro 4 Power Tuning](operatingsystems/linux/tuning/surface_power.md)
         *   [ZFS Arc Max on Linux](operatingsystems/linux/tuning/zfs_arc_max.md)
 
