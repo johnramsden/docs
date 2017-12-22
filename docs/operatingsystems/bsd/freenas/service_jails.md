@@ -1,14 +1,13 @@
 ---
 title: FreeNAS Service jails
-sidebar: bsd_sidebar
-hide_sidebar: false
 category: [ bsd, freenas ]
 keywords: freebsd, bsd, freenas, jail, deluge, sickrage, sabnzbd, emby, couchpotato, syncthing
 tags: [ freebsd, bsd, jail ]
-permalink: bsd_freenas_service_jails.html
-toc: true
-folder: bsd/freenas
 ---
+
+# FreeNAS Service jails
+
+Manual setup of various services in FreeNAS jails. I have found manually set up services to be much more reliable then using FreeNAS' built in plugins.
 
 ## Deluge
 
@@ -325,7 +324,7 @@ sysrc 'sabnzbd_conf_dir=/var/db/sabnzbd'
 
 Restart jail
 
-Edit config in ````/var/db/sabnzbd````, change host to 0.0.0.0
+Edit config in ````/var/db/sabnzbd````, change host to ```0.0.0.0```
 
 ## SickRage
 
@@ -349,6 +348,9 @@ Install requirements.
 pkg install py27-sqlite3
 {%endace%}
 
+Install SickRage.
+
+{%ace edit=true, lang='sh'%}
 cd /var/db
 git clone  https://github.com/SickRage/SickRage.git temp
 mv temp/.git sickrage/
@@ -358,26 +360,40 @@ su media
 cd sickrage/
 git reset --hard HEAD
 ls runscripts/
+{%endace%}
 
 Copy the startup script
+
+{%ace edit=true, lang='sh'%}
 cp /var/db/sickrage/runscripts/init.freebsd /usr/local/etc/rc.d/sickrage
+{%endace%}
 
 Make startup script executable
-chmod 555 /usr/local/etc/rc.d/sickrage
 
+{%ace edit=true, lang='sh'%}
+chmod 555 /usr/local/etc/rc.d/sickrage
+{%endace%}
+
+Add settings to rc.conf
+
+{%ace edit=true, lang='sh'%}
 sysrc 'sickrage_enable=YES'
 sysrc 'sickrage_user=media'
 sysrc 'sickrage_group=media'
 sysrc 'sickrage_dir=/var/db/sickrage'
+{%endace%}
 
+Start SickRage.
+
+{%ace edit=true, lang='sh'%}
 service sickrage start
-service sickrage stop
+{%endace%}
 
 ## Syncthing
 
 ### Create User Syncthing
 
-On FreeNAS with ID 983, nologin
+On FreeNAS with ID ```983```, ```nologin```
 
 ### In Jail
 
@@ -393,12 +409,14 @@ Update and install syncthing.
 pkg update && pkg upgrade && pkg install syncthing
 {%endace%}
 
-Add the following to rc.conf:
+Add the following to ```rc.conf```:
 
+{%ace edit=true, lang='sh'%}
 sysrc 'syncthing_enable=YES'
 sysrc 'syncthing_user=syncthing'
 sysrc 'syncthing_group=syncthing'
 sysrc 'syncthing_dir=/var/db/syncthing'
+{%endace%}
 
 ### Configure
 
@@ -406,24 +424,30 @@ Start syncthing as an initial test:
 
 service syncthing start
 
-Edit vim /var/db/syncthing/config.xml and change the IP address which the GUI will be accessible from. This will enable accessing the GUI from a remote computer:
+Edit vim ```/var/db/syncthing/config.xml``` and change the IP address which the GUI will be accessible from. This will enable accessing the GUI from a remote computer:
 
 Before:
 
+{%ace edit=true, lang='xml'%}
 <gui enabled="true" tls="false">
  <address>127.0.0.1:8384</address>;
  <apikey>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</apikey>;
 </gui>
+{%endace%}
+
 After:
 
+{%ace edit=true, lang='xml' %}
 <gui enabled="true" tls="false">
  <address>0.0.0.0:8384</address>;
  <apikey>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</apikey>;
 </gui>
+{%endace%}
+
 Restart the service for changes to apply:
 
+{%ace edit=true, lang='sh'%}
 service syncthing restart
+{%endace%}
 
-Finally, access the GUI by pointing a browser to the server's address: replace SERVER_URL with your server's IP or hostname
-
-https://SERVER_URL:8384
+Finally, access the GUI by pointing a browser to the server's address and port, ie ```http://SERVER_URL:8384```.
