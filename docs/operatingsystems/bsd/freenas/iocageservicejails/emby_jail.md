@@ -5,18 +5,46 @@ keywords: freebsd, bsd, freenas, jail, emby
 tags: [ freebsd, bsd, jail ]
 ---
 
-## emby jail
+## Emby jail
 
-Create jail
+Setup for Emby service jail with iocage.
+
+### On FreeNAS
+
+Create jail:
 
 {%ace edit=true, lang='sh'%}
-iocage create -r 11.0-RELEASE tag=emby ip4_addr="igb1|170.20.40.36/24" jail_zfs=on vnet=off
+iocage create --release 11.1-RELEASE --name emby \
+          boot="on" vnet=on \
+          ip4_addr="vnet1|172.20.40.21/24" \
+          interfaces="vnet1:bridge1" \
+          defaultrouter="172.20.40.1"
 {%endace%}
 
+On Freenas create datasets:
+
+    * Datasets
+      * Emby Data
+        * ```tank/data/database/emby```
+        * ```tank/data/database/emby/media-metadata```
+      * Media
+        * For all media ```tank/media/Series/...```
+
+
+Nullfs mount datasets in jail:
+
+Emby data:
+
 {%ace edit=true, lang='sh'%}
-iocage set vnet=off emby
-iocage set ip4_addr="igb0|170.20.40.66/24" emby
-iocage set resolver=none emby
+iocage fstab -a emby /mnt/tank/data/database/emby /var/db/emby-server nullfs rw 0 0
+iocage fstab -a emby /mnt/tank/data/database/emby/media-metadata /mnt/emby/media-metadata nullfs rw 0 0
+{%endace%}
+
+Repeat for media:
+
+{%ace edit=true, lang='sh'%}
+iocage fstab -a emby /mnt/tank/data/database/emby /var/db/emby-server nullfs rw 0 0
+iocage fstab -a emby /mnt/tank/data/database/emby/media-metadata /mnt/emby/media-metadata nullfs rw 0 0
 {%endace%}
 
 Start jail and enter.
