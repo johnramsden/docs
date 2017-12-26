@@ -25,10 +25,10 @@ iocage create --release 11.1-RELEASE --name unifi \
 
 On Freenas create datasets:
 
-    * Datasets
-      * tank/data/unifi/data
-      * tank/data/unifi/logs
-      * tank/data/unifi/certs
+*   Datasets
+    *   tank/data/unifi/data
+    *   tank/data/unifi/logs
+    *   tank/data/unifi/certs
 
 
 Nullfs mount datasets in jail:
