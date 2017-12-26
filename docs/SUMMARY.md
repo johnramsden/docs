@@ -48,6 +48,7 @@
     *   [FreeNAS](operatingsystems/bsd/freenas/introduction.md)
         *   [Copy SSH Keys off FreeNAS](operatingsystems/bsd/freenas/copy_ssh_keys.md)
         *   [FreeNAS Service jails](operatingsystems/bsd/freenas/service_jails.md)
+        *   [iocage Service jails](operatingsystems/bsd/freenas/iocage_service_jails.md)
         *   [Wrong Version jail](operatingsystems/bsd/freenas/wrong_version_jail.md)
     *   [pfSense](operatingsystems/bsd/pfsense/introduction.md)
         *   [Sending Specific Traffic Through OpenVPN](operatingsystems/bsd/pfsense/send_traffic_through_vpn.md)
