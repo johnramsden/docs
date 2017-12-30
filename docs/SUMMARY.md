@@ -20,6 +20,8 @@
                 *   [ZFS Configuration](operatingsystems/linux/distributions/archlinux/post_install.md#zfs-configuration)
                 *   [smart](operatingsystems/linux/distributions/archlinux/post_install.md#smart)
                 *   [nfs](operatingsystems/linux/distributions/archlinux/post_install.md#nfs)
+            *   [Package Management](operatingsystems/linux/distributions/archlinux/packagemanagement/introduction.md)
+                *   [aurutils](operatingsystems/linux/distributions/archlinux/packagemanagement/aurutils.md)
             *   [Programming Languages](operatingsystems/linux/distributions/archlinux/programminglanguages/introduction.md)
                 *   [nodejs](operatingsystems/linux/distributions/archlinux/programminglanguages/nodejs.md)
                 *   [ruby](operatingsystems/linux/distributions/archlinux/programminglanguages/ruby.md)
