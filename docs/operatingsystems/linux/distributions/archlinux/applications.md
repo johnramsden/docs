@@ -62,3 +62,23 @@ I use a script with conky to check email with the perl```Mail::IMAPClient``` and
 {%ace edit=true, lang='sh'%}
 pacaur -S perl-mail-imapclient perl-io-socket-ssl
 {%endace%}
+
+## Steam using Flatpak
+
+Add flathub.
+
+{%ace edit=true, lang='sh'%}
+flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+{%endace%}
+
+Install steam for user.
+
+{%ace edit=true, lang='sh'%}
+flatpak install --user flathub com.valvesoftware.Steam
+{%endace%}
+
+Run Steam, data for flatpak will be in ```${HOME}/.var```.
+
+{%ace edit=true, lang='sh'%}
+flatpak run com.valvesoftware.Steam
+{%endace%}
