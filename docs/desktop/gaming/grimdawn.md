@@ -1,13 +1,11 @@
 ---
-title: Gaming with Wine
-sidebar: desktop_sidebar
-hide_sidebar: false
+title: Grim Dawn
 category: [ desktop, gaming ]
 keywords: wine, gaming
 tags: [ wine, gaming ]
 ---
 
-## Gaming with Wine
+## Grim Dawn Using Wine
 
 Install ```winetricks``` and ```wine-staging```
 

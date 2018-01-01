@@ -1,17 +1,19 @@
 
 # Path of Exile
 
-The following describes how to setup Path of Exile using wine on Arch Linux.
+The following describes how to setup Path of Exile.
 
-Prerequisites:
+Prerequisites (Arch only):
 
-*   [Gaming with Wine](/operatingsystems/linux/distributions/archlinux/gaming/wine/introduction.html)
+*   [Gaming with Wine](/operatingsystems/linux/distributions/archlinux/wine.html)
 
 ## Dataset
 
 Create a ZFS dataset for wine bottle.
 
-zfs create -o mountpoint=legacy vault/sys/chin/home/john/local/share/wine
+{%ace edit=true, lang='sh'%}
+zfs create -o mountpoint=legacy vault/sys/$(hostname)/home/john/local/share/wine
+{%endace%}
 
 Add to fstab:
 
