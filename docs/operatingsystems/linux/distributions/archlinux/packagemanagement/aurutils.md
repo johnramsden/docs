@@ -79,6 +79,8 @@ Sync repo.
 
 It's possible to build in a clean chroot (actually using systemd-nspawn container) with `makechrootpkg`.
 
+To install a package to the container use ```pacman --root=/var/lib/aurbuild/x86_64/root -S zfs-linux```.
+
 ### Setup Container
 
 I set up a aurbuild root to be zfs dataset (optional). Could also use btrfs.
