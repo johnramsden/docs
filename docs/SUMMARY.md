@@ -35,6 +35,7 @@
     *   [systemd](operatingsystems/linux/systemd/introduction.md)
         *   [Network Bonding](operatingsystems/linux/systemd/network_bonding.md)
     *   [Tuning](operatingsystems/linux/tuning/introduction.md)
+        *   [CPU Tuning](operatingsystems/linux/tuning/cpu_tuning.md)
         *   [Limits](operatingsystems/linux/tuning/limits.md)
         *   [Sysctls](operatingsystems/linux/tuning/sysctls.md)
         *   [Network Reliability With iwlwifi](operatingsystems/linux/tuning/network_reliability_iwlwifi.md)
