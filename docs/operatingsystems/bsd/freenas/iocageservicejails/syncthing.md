@@ -37,7 +37,7 @@ Syncthing data:
 
 {%ace edit=true, lang='sh'%}
 iocage exec syncthing 'mkdir -p /mnt/syncthing/data'
-iocage fstab --add syncthing '/mnt/tank/data/syncthing /mnt/syncthing/data nullfs rw 0 0'
+iocage fstab --add syncthing '/mnt/tank/data/syncthing/sync /mnt/syncthing/data nullfs rw 0 0'
 {%endace%}
 
 Start jail and enter.
