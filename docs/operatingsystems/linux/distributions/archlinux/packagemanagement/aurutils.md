@@ -3,7 +3,7 @@ title: aurutils
 tags: [ archlinux, linux ]
 ---
 
-# aurutils.
+# aurutils
 
 [Aurutils](https://github.com/AladW/aurutils) is an AUR helper.
 
@@ -95,7 +95,9 @@ Add to fstab.
 
 ## Usage
 
-Attempt a build in a clean chroot of google-chrome.
+To get a list of all current existing AUR packages  so that they can be migrated to `aurutils`, run `pacman -Qmq`.
+
+Attempt a build in a clean chroot of `google-chrome`.
 
 {%ace edit=true, lang='sh'%}
 aursync -c google-chrome
