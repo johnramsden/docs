@@ -7,7 +7,7 @@ tags: [ freebsd, bsd, jail ]
 
 ## pkgrepo jail
 
-Setup for poudriere webui jail with iocage.
+Setup for poudriere package server jail with iocage.
 
 ### On FreeNAS
 
@@ -54,36 +54,10 @@ pkg update && pkg upgrade
 ### Web Server
 
 {%ace edit=true, lang='sh'%}
-pkg install nginx poudriere && sysrc nginx_enable=YES
+pkg install nginx && sysrc nginx_enable=YES
 {%endace%}
 
 Remove all inside server in ```/usr/local/etc/nginx/nginx.conf```, add:
-
-```
-server {
-
-    listen 80 default;
-    server_name server_domain_or_IP;
-    root /usr/local/share/poudriere/html;
-
-    location /data {
-        alias /usr/local/poudriere/data/logs/bulk;
-        autoindex on;
-    }
-
-    location /packages {
-        root /usr/local/poudriere/data;
-        autoindex on;
-    }
-
-}
-```
-
-Edit mimetypes ```/usr/local/etc/nginx/mime.types```, add log:
-
-{%ace edit=true, lang='sh'%}
-text/plain                          txt log;
-{%endace%}
 
 Check config and start nginx:
 
@@ -92,15 +66,10 @@ service nginx configtest
 service nginx start
 {%endace%}
 
-### Repo Only server
-
-Alternately, have no webui.
-
 In jail, nullfs mount packages to same spot. Install nginx.
 
 {%ace edit=true, lang='sh'%}
 server {
-
     listen 80 default;
     server_name pkgrepo.ramsden.network;
     root /usr/local/poudriere/data/packages;
