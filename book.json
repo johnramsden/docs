@@ -3,9 +3,14 @@
 
     "plugins": [
       "ace",
-      "-sharing"
+      "-sharing",
+      "ga"
     ],
-    "pluginsConfig": {},
+    "pluginsConfig": {
+        "ga": {
+            "token": "UA-71913809-2"
+        }
+    },
 
     "styles": {
         "website": "styles/website.css"
