@@ -13,7 +13,7 @@ tags: [ archlinux, linux ]
 * Install [Arch Linux Arm](https://archlinuxarm.org/)
 * Install [base-devel](https://www.archlinux.org/packages/?sort=&q=base-devel)
 
-I used the AUR manager [aurutils](https://aur.archlinux.org/packages/aurutils/))<sup>AUR</sup> to download and setup any AUR packages.
+I used the AUR manager [aurutils](https://aur.archlinux.org/packages/aurutils/)<sup>AUR</sup> to download and setup any AUR packages.
 
 {%ace edit=true, lang='sh'%}
 mkdir -p ~/Downloads  && cd ~/Downloads
