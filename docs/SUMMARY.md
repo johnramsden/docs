@@ -29,6 +29,7 @@
             *   [User Configuration Management](operatingsystems/linux/distributions/archlinux/user_configuration.md)
             *   [Gaming with Wine](operatingsystems/linux/distributions/archlinux/wine.md)
             *   [ZFS Dataset Structure](operatingsystems/linux/distributions/archlinux/zfs_structure.md)
+            *   [Raspberry PI Secure VPN Torrentbox](operatingsystems/linux/distributions/archlinux/raspberry_pi_torrentbox.md)
         *   [NixOS](operatingsystems/linux/distributions/nixos/introduction.md)
             *   [Remotely Accessing Install Media](operatingsystems/linux/distributions/nixos/remote_access.md)
             *   [root on ZFS Install](operatingsystems/linux/distributions/nixos/zfs_install.md)
