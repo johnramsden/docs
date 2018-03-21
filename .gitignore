@@ -7,3 +7,5 @@ node_modules
 .bundle
 vendor
 **/*.sync-conflict*
+
+!/.conflicts/**

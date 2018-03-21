@@ -1,0 +1,111 @@
+0000000000000000000000000000000000000000 ac9c09ca42ebd3de434454c89d25834084968336 John Ramsden <johnramsden@users.noreply.github.com> 1509155123 -0700	checkout: moving from master to gh-pages
+ac9c09ca42ebd3de434454c89d25834084968336 ac9c09ca42ebd3de434454c89d25834084968336 John Ramsden <johnramsden@users.noreply.github.com> 1509155153 -0700	checkout: moving from gh-pages to gitbook
+ac9c09ca42ebd3de434454c89d25834084968336 17daf3c0bfa7334a944be290b2de03d132ba69ac John Ramsden <johnramsden@users.noreply.github.com> 1509155981 -0700	commit: Delete files not needed for gitbook
+17daf3c0bfa7334a944be290b2de03d132ba69ac 0188af7e0a3727d59d0227861931ede5c3ea32ce John Ramsden <johnramsden@users.noreply.github.com> 1509156205 -0700	commit: Move pages to docs folder
+0188af7e0a3727d59d0227861931ede5c3ea32ce 3a8c0b4da07a922a8da4d9397ee67d7a75b6d46a John Ramsden <johnramsden@users.noreply.github.com> 1509158532 -0700	commit (amend): Move pages to docs folder
+3a8c0b4da07a922a8da4d9397ee67d7a75b6d46a b7bf48ee472255229ca114f79a2eaed3f4e364d8 John Ramsden <johnramsden@users.noreply.github.com> 1509158586 -0700	commit: Wrote table of contents
+b7bf48ee472255229ca114f79a2eaed3f4e364d8 124abfb30d48eed84c5f37c2ba31c44c43d1319c John Ramsden <johnramsden@users.noreply.github.com> 1509166285 -0700	commit: Move folders to match new structure
+124abfb30d48eed84c5f37c2ba31c44c43d1319c cf830d32db5052d9982a3d85bf4b695386238fc4 John Ramsden <johnramsden@users.noreply.github.com> 1509167480 -0700	commit: Renamed linux related sections
+cf830d32db5052d9982a3d85bf4b695386238fc4 68e0730424563bf3e654b887cfaa454d59f89feb John Ramsden <johnramsden@users.noreply.github.com> 1509167883 -0700	commit: Renamed BSD related sections
+68e0730424563bf3e654b887cfaa454d59f89feb 0a229518cd3c82e841ede19a6cd671b76ce8336e John Ramsden <johnramsden@users.noreply.github.com> 1509213961 -0700	commit: Rename desktop and systemadministration to new setup
+0a229518cd3c82e841ede19a6cd671b76ce8336e 7fb3111fcd8505b76f2c580297951b929deb26b1 John Ramsden <johnramsden@users.noreply.github.com> 1509226883 -0700	commit: Add arch sections to TOC
+7fb3111fcd8505b76f2c580297951b929deb26b1 b0191128d8918bcac11312db039bbb754574e7ef John Ramsden <johnramsden@users.noreply.github.com> 1509227129 -0700	commit: Finish linux TOC sections
+b0191128d8918bcac11312db039bbb754574e7ef 81fec7e13fe995191890bbf5dbc8e25420aab521 John Ramsden <johnramsden@users.noreply.github.com> 1509227165 -0700	commit (amend): Finish linux TOC sections
+81fec7e13fe995191890bbf5dbc8e25420aab521 d7473ba1d9a2466c08229ac219e72a71a617bc6c John Ramsden <johnramsden@users.noreply.github.com> 1509227628 -0700	commit: Finish BSD TOC sections
+d7473ba1d9a2466c08229ac219e72a71a617bc6c e77ac46e8a9740c3cf9801ec079ee2f2a4bcea81 John Ramsden <johnramsden@users.noreply.github.com> 1509228459 -0700	commit: Finish remaining TOC sections
+e77ac46e8a9740c3cf9801ec079ee2f2a4bcea81 b004d2d7dfe4eb379d0a71fa054c87c01f891804 John Ramsden <johnramsden@users.noreply.github.com> 1509228557 -0700	commit: Remove tags and news folders
+b004d2d7dfe4eb379d0a71fa054c87c01f891804 ac9c09ca42ebd3de434454c89d25834084968336 John Ramsden <johnramsden@users.noreply.github.com> 1509228727 -0700	checkout: moving from gitbook to gh-pages
+ac9c09ca42ebd3de434454c89d25834084968336 ac9c09ca42ebd3de434454c89d25834084968336 John Ramsden <johnramsden@users.noreply.github.com> 1509228749 -0700	checkout: moving from gh-pages to master
+ac9c09ca42ebd3de434454c89d25834084968336 b004d2d7dfe4eb379d0a71fa054c87c01f891804 John Ramsden <johnramsden@users.noreply.github.com> 1509228774 -0700	checkout: moving from master to gitbook
+b004d2d7dfe4eb379d0a71fa054c87c01f891804 6a0f9b7cd817cce5f43273a3eb4530e96abf207f John Ramsden <johnramsden@users.noreply.github.com> 1509230914 -0700	commit: Remove unnecessary front matter and includes
+6a0f9b7cd817cce5f43273a3eb4530e96abf207f da4e122526855c3772d46c04fed17e09c8b36c8d John Ramsden <johnramsden@users.noreply.github.com> 1509231654 -0700	commit: Replaced highlight with ace plugin
+da4e122526855c3772d46c04fed17e09c8b36c8d 3476a83789a08cee7ef5ef452482d66485f02043 John Ramsden <johnramsden@users.noreply.github.com> 1509231842 -0700	commit (amend): Replaced highlight with ace plugin
+3476a83789a08cee7ef5ef452482d66485f02043 81a95ec4082845565c42b6efc2f48e96d2b62fd2 John Ramsden <johnramsden@users.noreply.github.com> 1509235657 -0700	commit: Remove CNAME record file
+81a95ec4082845565c42b6efc2f48e96d2b62fd2 8f51038be219c08d6a491f9df1b350f3d3f8368e John Ramsden <johnramsden@users.noreply.github.com> 1509236193 -0700	commit: Remove social media links
+8f51038be219c08d6a491f9df1b350f3d3f8368e 291da37dcd4407e7ebf189044055a819c74bebf0 John Ramsden <johnramsden@users.noreply.github.com> 1509236552 -0700	commit: Remove 'Published with Gitbook' with css
+291da37dcd4407e7ebf189044055a819c74bebf0 0937ab635014739217eed3f3a02c38c3e4287fc2 John Ramsden <johnramsden@users.noreply.github.com> 1509236949 -0700	commit: Enlarge sidebar to shown entire chapter names
+0937ab635014739217eed3f3a02c38c3e4287fc2 291da37dcd4407e7ebf189044055a819c74bebf0 John Ramsden <johnramsden@users.noreply.github.com> 1509237606 -0700	reset: moving to 291da37dcd4407e7ebf189044055a819c74bebf0 [7726d70ab85122f3a6e37aadd3e482ed77924016]
+291da37dcd4407e7ebf189044055a819c74bebf0 ac9c09ca42ebd3de434454c89d25834084968336 John Ramsden <johnramsden@users.noreply.github.com> 1509237686 -0700	checkout: moving from gitbook to gh-pages
+ac9c09ca42ebd3de434454c89d25834084968336 291da37dcd4407e7ebf189044055a819c74bebf0 John Ramsden <johnramsden@users.noreply.github.com> 1509237735 -0700	checkout: moving from gh-pages to gitbook
+291da37dcd4407e7ebf189044055a819c74bebf0 39f6c40b94bdd76506581460365dd110586affd5 John Ramsden <johnramsden@users.noreply.github.com> 1509238130 -0700	commit: Addee introduction for operating systems
+39f6c40b94bdd76506581460365dd110586affd5 66de423987c9ce7c7888f5896c5b0949df234d64 John Ramsden <johnramsden@users.noreply.github.com> 1509238613 -0700	Fast forward branch gitbook to branch gitbook
+66de423987c9ce7c7888f5896c5b0949df234d64 291da37dcd4407e7ebf189044055a819c74bebf0 John Ramsden <johnramsden@users.noreply.github.com> 1509238658 -0700	rebase -i (start): checkout HEAD~3
+291da37dcd4407e7ebf189044055a819c74bebf0 39f6c40b94bdd76506581460365dd110586affd5 John Ramsden <johnramsden@users.noreply.github.com> 1509238658 -0700	rebase -i: fast-forward
+39f6c40b94bdd76506581460365dd110586affd5 c57c406b78e5477a7dda4723b7bc5d6416ffe70c John Ramsden <johnramsden@users.noreply.github.com> 1509238658 -0700	rebase -i (reword): Added introduction for operating systems and README
+c57c406b78e5477a7dda4723b7bc5d6416ffe70c d4bf9d56761998a4de3e1bcdf13a66303f1fbfbf John Ramsden <johnramsden@users.noreply.github.com> 1509238690 -0700	rebase -i (squash): # This is a combination of 2 commits.
+d4bf9d56761998a4de3e1bcdf13a66303f1fbfbf ebc2930e6ec7ba2600207944f913adb4df6f5a92 John Ramsden <johnramsden@users.noreply.github.com> 1509238690 -0700	rebase -i (squash): Added introduction for operating systems and README
+ebc2930e6ec7ba2600207944f913adb4df6f5a92 ebc2930e6ec7ba2600207944f913adb4df6f5a92 John Ramsden <johnramsden@users.noreply.github.com> 1509238658 -0700	rebase -i (finish): returning to refs/heads/gitbook
+ebc2930e6ec7ba2600207944f913adb4df6f5a92 bffb927b17741c15617e08e5930ff3a87a1c51da John Ramsden <johnramsden@users.noreply.github.com> 1509239857 -0700	commit: Fix README introduction
+bffb927b17741c15617e08e5930ff3a87a1c51da cdec2b4b3200cc0bdc57273c01c597d29d990cc3 John Ramsden <johnramsden@users.noreply.github.com> 1509254476 -0700	commit: Add rsync progress info
+cdec2b4b3200cc0bdc57273c01c597d29d990cc3 cf7b0c85dbb4a837ae035467fa9afac83d91a433 John Ramsden <johnramsden@users.noreply.github.com> 1509255464 -0700	commit: Redo TOC without introductions
+cf7b0c85dbb4a837ae035467fa9afac83d91a433 ac5b027b3ed9a05ef3731b95e76a3895cd68d5b1 John Ramsden <johnramsden@users.noreply.github.com> 1509323045 -0700	commit: Add headers to sidebar
+ac5b027b3ed9a05ef3731b95e76a3895cd68d5b1 cdec2b4b3200cc0bdc57273c01c597d29d990cc3 John Ramsden <johnramsden@users.noreply.github.com> 1509323238 -0700	reset: moving to cdec2b4b3200cc0bdc57273c01c597d29d990cc3 [5c29ecfdeaa44154de01b9b8bc211f2bb46bf31e]
+cdec2b4b3200cc0bdc57273c01c597d29d990cc3 fdac20e165aa48d41e490aff5c177fcad405e73f John Ramsden <johnramsden@users.noreply.github.com> 1509323454 -0700	commit: Seperate sections
+fdac20e165aa48d41e490aff5c177fcad405e73f 0e9f2c75e46a2b7c91eb390a29b9ad721bc2469e John Ramsden <johnramsden@users.noreply.github.com> 1509323577 -0700	commit (amend): Seperate sections
+0e9f2c75e46a2b7c91eb390a29b9ad721bc2469e caad507f2d56945d7bcad3cf01c0e35ed17a7a50 John Ramsden <johnramsden@users.noreply.github.com> 1509414154 -0700	commit: Add Surface Pro 4 Power Tuning
+caad507f2d56945d7bcad3cf01c0e35ed17a7a50 f39839695bf5e296022201744e764416704d2aa9 John Ramsden <johnramsden@users.noreply.github.com> 1509419609 -0700	commit (amend): Add Surface Pro 4 Power Tuning
+f39839695bf5e296022201744e764416704d2aa9 a7e7adce124afc462c128426d1dea642e30290ee John Ramsden <johnramsden@users.noreply.github.com> 1509419738 -0700	commit (amend): Add Surface Pro 4 Power Tuning
+a7e7adce124afc462c128426d1dea642e30290ee d37fc6b77e3b02e7ff297c15b2eb5ffcac36080f John Ramsden <johnramsden@users.noreply.github.com> 1509429900 -0700	commit: Ignore default.nix for github statistics
+d37fc6b77e3b02e7ff297c15b2eb5ffcac36080f 7afb4e8dc6551b308088a4a570d988d5f6a2a702 John Ramsden <johnramsden@users.noreply.github.com> 1509430131 -0700	commit: Set docs files to not be ignored as documentation
+7afb4e8dc6551b308088a4a570d988d5f6a2a702 d37fc6b77e3b02e7ff297c15b2eb5ffcac36080f John Ramsden <johnramsden@users.noreply.github.com> 1509430682 -0700	reset: moving to d37fc6b77e3b02e7ff297c15b2eb5ffcac36080f [e098a67497eff048c3f1cff2277aee6b879e064f]
+d37fc6b77e3b02e7ff297c15b2eb5ffcac36080f 1e3bd9d100c701a0b0687166ef8f978b83f31c5d John Ramsden <johnramsden@users.noreply.github.com> 1510729205 -0800	commit: Add wine gaming, and limits posts
+1e3bd9d100c701a0b0687166ef8f978b83f31c5d a3c7643827240045f520d67143a150789776efbd John Ramsden <johnramsden@users.noreply.github.com> 1510730665 -0800	commit (amend): Add wine gaming, and limits posts
+a3c7643827240045f520d67143a150789776efbd 10ba9f1f067f8f20042e27e9386b6ddb368f843e John Ramsden <johnramsden@users.noreply.github.com> 1510730842 -0800	commit (amend): Add wine gaming, and limits posts
+10ba9f1f067f8f20042e27e9386b6ddb368f843e f2224723ff80a22b108329f564d2c57e64e29236 John Ramsden <johnramsden@users.noreply.github.com> 1510730930 -0800	commit (amend): Add wine gaming, and limits posts
+f2224723ff80a22b108329f564d2c57e64e29236 06175fa249a09b66ae59e966a9f53c306a7525fe John Ramsden <johnramsden@users.noreply.github.com> 1510764946 -0800	commit: Add start instructions for Grim Dawn
+06175fa249a09b66ae59e966a9f53c306a7525fe eeb24c0a995bc7623648b4d6211c1a0838bd8d91 John Ramsden <johnramsden@users.noreply.github.com> 1510765417 -0800	commit (amend): Add start instructions for Grim Dawn
+eeb24c0a995bc7623648b4d6211c1a0838bd8d91 2f42e9ec47b8800de19f70d5192b00f6fcf644b1 John Ramsden <johnramsden@users.noreply.github.com> 1510765525 -0800	commit (amend): Add start instructions for Grim Dawn
+2f42e9ec47b8800de19f70d5192b00f6fcf644b1 ca288afdd84f265861ec475ca2423e32125d4d48 John Ramsden <johnramsden@users.noreply.github.com> 1510862166 -0800	commit: Add hibernate setup instructions
+ca288afdd84f265861ec475ca2423e32125d4d48 a5665c77ea6c3b99f673f48bd3dc5089ae732eda John Ramsden <johnramsden@users.noreply.github.com> 1510862464 -0800	commit (amend): Add hibernate setup instructions
+a5665c77ea6c3b99f673f48bd3dc5089ae732eda 59955b1b9f5eb95075923d8bf05c6225cd7925a0 John Ramsden <johnramsden@users.noreply.github.com> 1512547488 -0800	commit: Add zfs_arc_max configuration
+59955b1b9f5eb95075923d8bf05c6225cd7925a0 50143e9b85bdabf9d133137b4baa85049edc7b60 John Ramsden <johnramsden@users.noreply.github.com> 1512547536 -0800	commit (amend): Add zfs_arc_max configuration
+50143e9b85bdabf9d133137b4baa85049edc7b60 d8fd0ce1f8e8f2dd59c17f931debecc7849b9024 John Ramsden <johnramsden@users.noreply.github.com> 1512549689 -0800	commit (amend): Add zfs_arc_max configuration
+d8fd0ce1f8e8f2dd59c17f931debecc7849b9024 b7e680137b54cd11bfe8c25a0c62c0fc25e6c6a1 John Ramsden <johnramsden@users.noreply.github.com> 1512702554 -0800	commit: Add laptop tearing fix
+b7e680137b54cd11bfe8c25a0c62c0fc25e6c6a1 0989e17c572ab015fa548241adf93e287010e8f3 John Ramsden <johnramsden@users.noreply.github.com> 1512703200 -0800	commit (amend): Add laptop tearing fix
+0989e17c572ab015fa548241adf93e287010e8f3 1c63cb8ec196011818fbcdcff1fb69f7ca6ac43f John Ramsden <johnramsden@users.noreply.github.com> 1512801911 -0800	commit (amend): Add laptop tearing fix
+1c63cb8ec196011818fbcdcff1fb69f7ca6ac43f a67dfa133c8d98626b38cbf3f7a73534643651e4 John Ramsden <johnramsden@users.noreply.github.com> 1513555367 -0800	commit: Add links within Arch Post Setup
+a67dfa133c8d98626b38cbf3f7a73534643651e4 8d0013fb74ab892c8b297f9276ba630a88240dd2 John Ramsden <johnramsden@users.noreply.github.com> 1513555844 -0800	commit: Remove dots from SMART header
+8d0013fb74ab892c8b297f9276ba630a88240dd2 e4c270616a63b5efea96c5ca862b4fe0fc5f5524 John Ramsden <johnramsden@users.noreply.github.com> 1513556153 -0800	commit (amend): Remove dots from SMART header
+e4c270616a63b5efea96c5ca862b4fe0fc5f5524 f2bc046d0da510cbe14075579b62cd2fee1ae04a John Ramsden <johnramsden@users.noreply.github.com> 1513556192 -0800	commit (amend): Remove dots from SMART header
+f2bc046d0da510cbe14075579b62cd2fee1ae04a cea9ed37b04401783661d8e1b5d5fddf7458119e John Ramsden <johnramsden@users.noreply.github.com> 1513643513 -0800	commit: Add network sysctl and boot paramater info
+cea9ed37b04401783661d8e1b5d5fddf7458119e 39a4949e5c611d2ed5d5e1276d899598dc53856d John Ramsden <johnramsden@users.noreply.github.com> 1513644817 -0800	commit (amend): Add network sysctl and boot paramater info
+39a4949e5c611d2ed5d5e1276d899598dc53856d 4e266cb9d8d0d70e7ce7410e768ed08170a65fbb John Ramsden <johnramsden@users.noreply.github.com> 1513929380 -0800	commit: Add code highlighting for freenas services post
+4e266cb9d8d0d70e7ce7410e768ed08170a65fbb 80bcc09d252b8f5e5b748a01c7883a0a151c1619 John Ramsden <johnramsden@users.noreply.github.com> 1514311459 -0800	commit: Add iocage FreeNAS service jails
+80bcc09d252b8f5e5b748a01c7883a0a151c1619 bbbcc9b7e97140772892f55d560089b633c7f9cf John Ramsden <johnramsden@users.noreply.github.com> 1514312494 -0800	commit: Split up iocage FreeNAS service jails
+bbbcc9b7e97140772892f55d560089b633c7f9cf 464856647967956eff304bcc20755babd9dc78ee John Ramsden <johnramsden@users.noreply.github.com> 1514312618 -0800	commit (amend): Split up iocage FreeNAS service jails
+464856647967956eff304bcc20755babd9dc78ee fa0a562470136f3e75c44e3b3b860c3db758200e John Ramsden <johnramsden@users.noreply.github.com> 1514312785 -0800	commit (amend): Split up iocage FreeNAS service jails
+fa0a562470136f3e75c44e3b3b860c3db758200e 6da71f9090530d3a96de4dbcc8ec0ac702bee132 John Ramsden <johnramsden@users.noreply.github.com> 1514312875 -0800	commit (amend): Split up iocage FreeNAS service jails
+6da71f9090530d3a96de4dbcc8ec0ac702bee132 b5d8e74a9412a4bdd5bc667bc918455152c26086 John Ramsden <johnramsden@users.noreply.github.com> 1514313142 -0800	commit (amend): Split up iocage FreeNAS service jails
+b5d8e74a9412a4bdd5bc667bc918455152c26086 88479c188b9995e6160244168b9bccbaf504f24c John Ramsden <johnramsden@users.noreply.github.com> 1514314331 -0800	commit (amend): Split up iocage FreeNAS service jails
+88479c188b9995e6160244168b9bccbaf504f24c 95e9d721aa55d66034d0c93d2d9cc87ceb683a78 John Ramsden <johnramsden@users.noreply.github.com> 1514314380 -0800	commit: Setup emby iocage jail
+95e9d721aa55d66034d0c93d2d9cc87ceb683a78 b285f10a4e711251eb155e5290eda04e9101ebdd John Ramsden <johnramsden@users.noreply.github.com> 1514329665 -0800	commit: Fix bullet points
+b285f10a4e711251eb155e5290eda04e9101ebdd 2204ff0d4148e41f28974a04eb8c4a9c1366c63a John Ramsden <johnramsden@users.noreply.github.com> 1514446462 -0800	commit: Finish jail config for emby
+2204ff0d4148e41f28974a04eb8c4a9c1366c63a 34cbcaf9106d7fbf521ea22dc26f0fc9ae3812bc John Ramsden <johnramsden@users.noreply.github.com> 1514446797 -0800	commit: Remove redundant jail suffix for iocage jails
+34cbcaf9106d7fbf521ea22dc26f0fc9ae3812bc 5e1c6877ec34da2ae1ba2e4f8c0d440355e16c75 John Ramsden <johnramsden@users.noreply.github.com> 1514446964 -0800	commit (amend): Remove redundant jail suffix for iocage jails
+5e1c6877ec34da2ae1ba2e4f8c0d440355e16c75 b15e9fbf641593d883b4a607d528dd0844ef6d58 John Ramsden <johnramsden@users.noreply.github.com> 1514597748 -0800	commit: Section on using aurutils to create local repo
+b15e9fbf641593d883b4a607d528dd0844ef6d58 bf13ae0480271fdce6c4216e4e9efe40605492c8 John Ramsden <johnramsden@users.noreply.github.com> 1514598703 -0800	commit: Install Steam from flatpak
+bf13ae0480271fdce6c4216e4e9efe40605492c8 d71fe60a9bcb10b6638dd3e2a1694eb2f6283de4 John Ramsden <johnramsden@users.noreply.github.com> 1514793655 -0800	commit: Cleanup wine gaming instructions
+d71fe60a9bcb10b6638dd3e2a1694eb2f6283de4 3dcca9ccc1813f57b303d2215ae03cc65c03e0d7 John Ramsden <johnramsden@users.noreply.github.com> 1514793849 -0800	commit (amend): Cleanup wine gaming instructions
+3dcca9ccc1813f57b303d2215ae03cc65c03e0d7 6f58d3ab1ff237121da7d94e9c31e9914fbf8617 John Ramsden <johnramsden@users.noreply.github.com> 1514793954 -0800	commit (amend): Cleanup wine gaming instructions
+6f58d3ab1ff237121da7d94e9c31e9914fbf8617 8bdafb74b1736d909b8a781bffaeba2159379a45 John Ramsden <johnramsden@users.noreply.github.com> 1514800395 -0800	commit (amend): Cleanup wine gaming instructions
+8bdafb74b1736d909b8a781bffaeba2159379a45 02e308f2abf6284de62cdf0197203f6e434f7704 John Ramsden <johnramsden@users.noreply.github.com> 1514800526 -0800	commit (amend): Cleanup wine gaming instructions
+02e308f2abf6284de62cdf0197203f6e434f7704 d6f53cea9ec4a016f5f50d036eec3a074d1dc68b John Ramsden <johnramsden@users.noreply.github.com> 1514801454 -0800	commit: Move gaming to desktop section
+d6f53cea9ec4a016f5f50d036eec3a074d1dc68b 5662b32e5fe356ffad85e02117b442337faf7d04 John Ramsden <johnramsden@users.noreply.github.com> 1514801497 -0800	commit (amend): Move gaming to desktop section
+5662b32e5fe356ffad85e02117b442337faf7d04 58e624f63ca47a2c1f0937dd98dd6012dddb2331 John Ramsden <johnramsden@users.noreply.github.com> 1514801716 -0800	commit (amend): Move gaming to desktop section
+58e624f63ca47a2c1f0937dd98dd6012dddb2331 d69fe633bee59ab1ec43c562c89fff436008d986 John Ramsden <johnramsden@users.noreply.github.com> 1514917995 -0800	commit: Show how to install package in aurutils container
+d69fe633bee59ab1ec43c562c89fff436008d986 f7bd2264caf2ca0600dcb8c45308c0d7467e8afa John Ramsden <johnramsden@users.noreply.github.com> 1515911191 -0800	commit: Remove poe steam setup, fix paths
+f7bd2264caf2ca0600dcb8c45308c0d7467e8afa a7a2da5c2273aff358426235386e5230c34f0975 John Ramsden <johnramsden@users.noreply.github.com> 1515911945 -0800	commit (amend): Remove poe steam setup, fix paths
+a7a2da5c2273aff358426235386e5230c34f0975 39dbed7f5abe9488b4e8423c9dfec7a66cdfdfde John Ramsden <johnramsden@users.noreply.github.com> 1515912185 -0800	commit (amend): Remove poe steam setup, fix paths
+39dbed7f5abe9488b4e8423c9dfec7a66cdfdfde 2548e7173c0df525f8950e460948ffd10cf1f15e John Ramsden <johnramsden@users.noreply.github.com> 1516667748 -0800	commit: Show how to disable turbo on CPU
+2548e7173c0df525f8950e460948ffd10cf1f15e f9f1c1a3b4c00c71f3bc147ff551e16319957dbb John Ramsden <johnramsden@users.noreply.github.com> 1516695701 -0800	commit: Setup syncthing with iocage
+f9f1c1a3b4c00c71f3bc147ff551e16319957dbb 6dc1bd9e0abb636833dccd001ec378a5056872b5 John Ramsden <johnramsden@users.noreply.github.com> 1516777944 -0800	commit: Deluge setup with iocage
+6dc1bd9e0abb636833dccd001ec378a5056872b5 7a97e05264e1ee00c3739f6513fed8122c82dd1a John Ramsden <johnramsden@users.noreply.github.com> 1516951593 -0800	commit: Setup sickrage with iocage
+7a97e05264e1ee00c3739f6513fed8122c82dd1a ad6cd97a1aff8c0d159bffefe992e386994c0d47 John Ramsden <johnramsden@users.noreply.github.com> 1516952577 -0800	commit: Setup sabnzbd with iocage
+ad6cd97a1aff8c0d159bffefe992e386994c0d47 5080aba17968a57ba35a208383386aafc52164b6 John Ramsden <johnramsden@users.noreply.github.com> 1516953870 -0800	commit: Setup couchpotato with iocage
+5080aba17968a57ba35a208383386aafc52164b6 55d7f04255a60caf69f61419b6bc30b4d5239886 John Ramsden <johnramsden@users.noreply.github.com> 1516953937 -0800	commit (amend): Setup couchpotato with iocage
+55d7f04255a60caf69f61419b6bc30b4d5239886 6a364ea33605ad479a789d861b1c2c084e1bc581 John Ramsden <johnramsden@users.noreply.github.com> 1516954008 -0800	commit: Fix syncthing path
+6a364ea33605ad479a789d861b1c2c084e1bc581 9cb95a8e901cb7cc13bad9cd644726e0ba5c8868 John Ramsden <ramsdenj@shaw.ca> 1517865733 -0800	commit: Add note on package migration
+9cb95a8e901cb7cc13bad9cd644726e0ba5c8868 95c2cd55c5c6cd9f9592c254e9e2d4874de7196b John Ramsden <johnramsden@users.noreply.github.com> 1518426590 -0800	commit: Sabnzbd service jail creation
+95c2cd55c5c6cd9f9592c254e9e2d4874de7196b e45198ce93202091958dc1950bf59c1d6e0653b4 John Ramsden <johnramsden@users.noreply.github.com> 1518427945 -0800	commit: Add poudriere webserver jail setup
+e45198ce93202091958dc1950bf59c1d6e0653b4 b270e854168f33794a4c2cca74b94b96af5264a3 John Ramsden <johnramsden@users.noreply.github.com> 1518430375 -0800	commit: Setup bashpod in jail
+b270e854168f33794a4c2cca74b94b96af5264a3 c0155c5c13971b209d197eecd912953e154f594e John Ramsden <johnramsden@users.noreply.github.com> 1518480027 -0800	commit: Add jails to sidebar
