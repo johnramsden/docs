@@ -9,7 +9,6 @@ tags: [ archlinux, linux, aur, postinstall, zfs ]
 
 First [setup AUR](/archlinux_aur_pacaur.html)
 
-
 ## Time
 
 Setup [time](https://wiki.archlinux.org/index.php/time) using [systemd-timesyncd](https://wiki.archlinux.org/index.php/Systemd-timesyncd).

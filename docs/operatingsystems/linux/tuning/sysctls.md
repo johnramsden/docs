@@ -55,6 +55,43 @@ net.ipv4.udp_wmem_min = 16384
 net.ipv4.tcp_max_syn_backlog = 65536
 {%endace%}
 
+## User Namespaces
+
+Enable user namespaces
+
+{%ace edit=true, lang='sh'%}
+echo "kernel.unprivileged_userns_clone=1" >> /etc/sysctl.d/20-unprivileged_userns.conf
+{%endace%}
+
+If using LXC, modify ```/etc/lxc/default.conf``` adding:
+
+{%ace edit=true, lang='sh'%}
+lxc.idmap = u 0 100000 65536
+lxc.idmap = g 0 100000 65536
+{%endace%}
+
+Create both ```/etc/subuid``` and ```/etc/subgid```  mapping uid/gid pairs for each user who shall be able to use unprivileged containers.
+
+The following is for the root user and the user 'john':
+
+{%ace edit=true, lang='sh'%}
+nano /etc/subuid
+{%endace%}
+
+{%ace edit=true, lang='sh'%}
+root:100000:65536
+john:165536:231072
+{%endace%}
+
+{%ace edit=true, lang='sh'%}
+nano /etc/subgid
+{%endace%}
+
+{%ace edit=true, lang='sh'%}
+root:100000:65536
+john:165536:231072
+{%endace%}
+
 ## Reload Sysctls
 
 {%ace edit=true, lang='sh'%}

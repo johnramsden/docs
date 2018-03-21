@@ -51,10 +51,11 @@ iocage fstab --add couchpotato '/mnt/tank/data/database/couchpotato /var/db/couc
 Downloads:
 
 {%ace edit=true, lang='sh'%}
-iocage exec couchpotato 'mkdir -p /media/Downloads/Complete /media/Downloads/Incomplete && chown -R media:media /media/Downloads'
+iocage exec couchpotato 'mkdir -p /media/Downloads/Complete /media/Downloads/Incomplete /media/Torrents && chown -R media:media /media'
 
 iocage fstab --add couchpotato '/mnt/tank/media/Downloads/Complete /media/Downloads/Complete nullfs rw 0 0' && \
 iocage fstab --add couchpotato '/mnt/tank/media/Downloads/Incomplete /media/Downloads/Incomplete nullfs rw 0 0'
+iocage fstab --add couchpotato '/mnt/tank/media/Torrents /media/Torrents nullfs rw 0 0'
 {%endace%}
 
 Setup directories:
