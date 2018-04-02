@@ -61,6 +61,7 @@
             *   [Sabnzbd jail](operatingsystems/bsd/freenas/iocageservicejails/sabnzbd.md)
             *   [Sickrage jail](operatingsystems/bsd/freenas/iocageservicejails/sickrage.md)
             *   [Syncthing jail](operatingsystems/bsd/freenas/iocageservicejails/syncthing.md)
+            *   [Lets Encrypt jail](operatingsystems/bsd/freenas/iocageservicejails/letsencrypt.md)
         *   [Wrong Version jail](operatingsystems/bsd/freenas/wrong_version_jail.md)
     *   [pfSense](operatingsystems/bsd/pfsense/introduction.md)
         *   [Sending Specific Traffic Through OpenVPN](operatingsystems/bsd/pfsense/send_traffic_through_vpn.md)
