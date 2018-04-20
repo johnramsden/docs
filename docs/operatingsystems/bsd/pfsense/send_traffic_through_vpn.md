@@ -83,7 +83,7 @@ Advanced: Set Gateway to VPN.
 ## Check IP
 Check IP on CLI with:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 curl -s checkip.dyndns.org
 {%endace%}
 

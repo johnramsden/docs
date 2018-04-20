@@ -18,17 +18,17 @@ Create an override and set it.
 
 For user:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 nano /etc/systemd/user.conf.d/nofile.conf
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 [Manager]
 DefaultLimitNOFILE=8192
 {%endace%}
 
 For system:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 cp /etc/systemd/user.conf.d/nofile.conf /etc/systemd/system.conf.d/nofile.conf
 {%endace%}

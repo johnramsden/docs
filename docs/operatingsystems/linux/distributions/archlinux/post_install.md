@@ -14,7 +14,7 @@ First [setup AUR](/archlinux_aur_pacaur.html)
 
 Setup [time](https://wiki.archlinux.org/index.php/time) using [systemd-timesyncd](https://wiki.archlinux.org/index.php/Systemd-timesyncd).
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 timedatectl set-ntp true
 timedatectl set-ntp 1
 {%endace%}
@@ -23,17 +23,17 @@ timedatectl set-ntp 1
 
 So you always have fresh mirrors, setup [reflector](https://www.archlinux.org/packages/?name=reflector).
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pacman -S reflector
 {%endace%}
 
 Create service to select the 200 most recently synchronized HTTP or HTTPS mirrors, sort them by download speed, and overwrite the file ```/etc/pacman.d/mirrorlist```.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 nano /etc/systemd/system/reflector.service
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 [Unit]
 Description=Pacman mirrorlist update
 
@@ -44,11 +44,11 @@ ExecStart=/usr/bin/reflector --latest 200 --protocol http --protocol https --sor
 
 Create timer.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 nano /etc/systemd/system/reflector.timer
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 [Unit]
 Description=Run reflector weekly
 
@@ -63,7 +63,7 @@ WantedBy=timers.target
 
 That will run reflector weekly.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 systemctl enable --now reflector.timer
 {%endace%}
 
@@ -71,19 +71,19 @@ systemctl enable --now reflector.timer
 
 I used to use ssmtp but since it's now unmaintained I've started using [Msmtp](https://wiki.archlinux.org/index.php/Msmtp).
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pacman -S msmtp msmtp-mta
 {%endace%}
 
 Setup system default.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 cp /usr/share/doc/msmtp/msmtprc-system.example /etc/msmtprc
 {%endace%}
 
 Example config file
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 # msmtp system wide configuration file
 
 # A system wide configuration file with default account.
@@ -130,19 +130,19 @@ account root : default
 
 Set permissions.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 chmod 600 /etc/msmtprc
 {%endace%}
 
 You can setup a [gpg encrypted passphrase](https://wiki.archlinux.org/index.php/Msmtp#Password_management) if using interactively. The other (not very good option) is setting with 'password' in config.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 
 {%endace%}
 
 Add aliases to ```/etc/aliases```.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 root: root@<yourdomain>
 {%endace%}
 
@@ -150,7 +150,7 @@ If anything private is in /etc/msmtprc, secure the file [as shown](https://wiki.
 
 Create an ssmtp group and set the owner of ```/etc/msmtp``` and the msmtp binary.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 groupadd msmtp
 chown :msmtp /etc/msmtprc
 chown :msmtp /usr/bin/msmtp
@@ -158,18 +158,18 @@ chown :msmtp /usr/bin/msmtp
 
 Make sure only root, and the msmtp group can access ```msmtprc```, then et the SGID bit on the binary
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 chmod 640 /etc/msmtprc
 chmod g+s /usr/bin/msmtp
 {%endace%}
 
 Then add a pacman hook to always set the file permissions after the package has been upgraded:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 nano /usr/local/bin/msmtp-set-permissions
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 #!/bin/sh
 
 chown :msmtp /usr/bin/msmtp
@@ -178,17 +178,17 @@ chmod g+s /usr/bin/msmtp
 
 Make it executable:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 chmod u+x /usr/local/bin/msmtp-set-permissions
 {%endace%}
 
 Now add the pacman hook:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 nano /usr/share/libalpm/hooks/msmtp-set-permissions.hook
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 [Trigger]
 Operation = Install
 Operation = Upgrade
@@ -205,7 +205,7 @@ Exec = /usr/local/bin/msmtp-set-permissions
 
 Send a test mail.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
  echo "Text, more text." | /usr/bin/mail -s SUBJECT email@your.domain.com
 {%endace%}
 
@@ -217,14 +217,14 @@ I always set up snapshotting and replication as one of the first things I do on 
 
 Install [zfs-auto-snapshot (AUR)](https://aur.archlinux.org/packages/zfs-auto-snapshot-git/) and setup snapshotting on all datasets.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pacaur -S zfs-auto-snapshot-git
 systemctl enable --now zfs-auto-snapshot-daily.timer
 {%endace%}
 
 Set all datasets to snapshot and disable any datasets that dont require snapshotting.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 for ds in $(zfs list -H -o name); do
   MP="$(zfs get -H -o value mountpoint $ds )";
   if [ ${MP} == "legacy" ] || [ "${MP}" == "/" ]; then
@@ -239,7 +239,7 @@ done
 
 In one line:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 for ds in $(zfs list -H -o name); do MP="$(zfs get -H -o value mountpoint $ds )"; if [ ${MP} == "legacy" ] || [ "${MP}" == "/" ]; then echo "${ds}: on"; zfs set com.sun:auto-snapshot=true ${ds}; else echo "${ds}: off";zfs set com.sun:auto-snapshot=false ${ds}; fi; done
 {%endace%}
 
@@ -247,14 +247,14 @@ for ds in $(zfs list -H -o name); do MP="$(zfs get -H -o value mountpoint $ds )"
 
 Install [ZnapZend (AUR)](https://aur.archlinux.org/packages/znapzend/) (it's a great tool, I maintain the AUR package).
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pacaur -S znapzend
 systemctl enable --now znapzend
 {%endace%}
 
 Create a config for each dataset thet needs replicating, where SYSTEM will be a name for the dataset at ```${POOL}/replication/${SYSTEM}``` on the remote. Specify the remote user and IP as well. Here is a small script I use for my setup. The grep can be adjusted to exclude any datasets that are unwanted.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 #!/bin/sh
 
 REMOTE_POOL_ROOT="${1}"
@@ -281,7 +281,7 @@ done
 
 On remote I have a pre-znazendzetup script which makes sure the remote location exists.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 #!/bin/sh
 
 # Pre zapzendzetup script. Put in ~/znap_check_dataset on remote and run with
@@ -300,7 +300,7 @@ fi
 
 I would then run, for chin on ```replicator@<server ip>```.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 ./znapcfg "tank/replication/chin" "replicator" "<server ip>"
 {%endace%}
 
@@ -308,18 +308,18 @@ I would then run, for chin on ```replicator@<server ip>```.
 
 Setup a monthly scrub. Easiest way to set this up as install the [systemd-zpool-scrub (AUR)](https://aur.archlinux.org/packages/systemd-zpool-scrub/) package.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pacaur -S systemd-zpool-scrub
 systemctl enable --now zpool-scrub@vault.timer
 {%endace%}
 
 This could also easily set up by just installing a systemd unit containing the following.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 nano /usr/lib/systemd/system/zpool-scrub@.service
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 [Unit]
 Description=Scrub ZFS Pool
 Requires=zfs.target
@@ -335,13 +335,13 @@ ExecStart=/usr/bin/zpool scrub %i
 
 If an SMTP or MTA is configured, setup [The ZFS Event Daemon (ZED)](https://ramsdenj.com/2016/08/29/arch-linux-on-zfs-part-3-followup.html#zed-the-zfs-event-daemon)
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 nano /etc/zfs/zed.d/zed.rc
 {%endace%}
 
 Ad an email and mail program and set verbosity.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 ZED_EMAIL_ADDR="root"
 ZED_EMAIL_PROG="mail"
 ZED_NOTIFY_VERBOSE=1
@@ -349,13 +349,13 @@ ZED_NOTIFY_VERBOSE=1
 
 Start and enable the daemon.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 systemctl enable --now zfs-zed.service
 {%endace%}
 
 Start a scrub and check for an email.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 zpool scrub vault
 {%endace%}
 
@@ -367,7 +367,7 @@ zpool scrub vault
 
 Install [smartmontools](https://www.archlinux.org/packages/?name=smartmontools).
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pacman -S smartmontools
 {%endace%}
 
@@ -377,7 +377,7 @@ Long or short tests can be run on a disk. A short test will check for device pro
 
 Long test example:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 smartctl -t long /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_152271401093
 smartctl -t long /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_154501401266
 smartctl -t long /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_164277402487
@@ -387,7 +387,7 @@ smartctl -t long /dev/disk/by-id/ata-Samsung_SSD_840_EVO_250GB_S1DBNSADA75563M
 
 Veiw results:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 smartctl -H /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_152271401093
 smartctl -H /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_154501401266
 smartctl -H /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_164277402487
@@ -397,7 +397,7 @@ smartctl -H /dev/disk/by-id/ata-Samsung_SSD_840_EVO_250GB_S1DBNSADA75563M
 
 Or, veiw all test results.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 smartctl -l selftest /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_152271401093
 smartctl -l selftest /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_154501401266
 smartctl -l selftest /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_164277402487
@@ -407,7 +407,7 @@ smartctl -l selftest /dev/disk/by-id/ata-Samsung_SSD_840_EVO_250GB_S1DBNSADA7556
 
 Or detailed results.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 smartctl -a /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_152271401093
 smartctl -a /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_154501401266
 smartctl -a /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_164277402487
@@ -421,13 +421,13 @@ The smartd daemon can also run, periodically running tests and will send you a m
 
 Edit the configuration file at ```/etc/smartd.conf```.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 nano /etc/smartd.conf
 {%endace%}
 
 To check for all errors on a disk use the option ```-a``` after the disk ID.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_152271401093 -a -m <email>
 /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_154501401266 -a -m <email>
 /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_164277402487 -a -m <email>
@@ -437,19 +437,19 @@ To check for all errors on a disk use the option ```-a``` after the disk ID.
 
 To test if your mail notification is working run a test, add ```-m <email address> -M test``` to the end of the config. This will run the test on the start of the daemon.:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 DEVICESCAN -m <email address> -M test
 {%endace%}
 
 Start smartd:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 systemctl start smartd
 {%endace%}
 
 My config looks like:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_152271401093 -a -m <email>
 /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_154501401266 -a -m <email>
 /dev/disk/by-id/ata-SanDisk_SDSSDXPS480G_164277402487 -a -m <email>
@@ -460,18 +460,18 @@ My config looks like:
 ## nfs
 
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pacman -S nfs-utils
 systemctl enable --now rpcbind.service nfs-client.target remote-fs.target
 {%endace%}
 
 Rpc has [a bug](https://bugs.archlinux.org/task/50663) caused by glibc, [until it's resolved force rpc.gssd to start](https://wiki.archlinux.org/index.php/NFS#Client).
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 systemctl edit rpc-gssd.service
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 [Unit]
 Requires=network-online.target
 After=network-online.target
@@ -486,23 +486,23 @@ ExecStart=/usr/sbin/rpc.gssd -f
 
 Install [autofs](https://www.archlinux.org/packages/?name=autofs).
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pacman -S autofs
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 nano /etc/autofs/auto.master
 {%endace%}
 
 Add or uncomment the following.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 /net    -hosts   --timeout=60
 {%endace%}
 
 Start and enable.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 systemctl enable --now autofs
 {%endace%}
 
@@ -516,13 +516,13 @@ I like periodically have my users cache directory cleaned. This can easily be do
 
 Create a new file in the ```/etc/tmpfiles.d``` directory.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 nano /etc/tmpfiles.d/home-cache.conf
 {%endace%}
 
 Add a rule that will delete any file older than 10 days.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 # remove files in /home/john/.cache older than 10 days
 D /home/john/.cache 1755 john john 10d
 {%endace%}

@@ -13,7 +13,7 @@ Setup for Duplicity service jail with iocage.
 
 Create jail:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage create --release 11.1-RELEASE --name duplicity \
           boot="on" vnet=on \
           allow_raw_sockets="1" \
@@ -29,14 +29,14 @@ Nullfs mount datasets to backup in jail:
 
 Duplicity data:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage exec duplicity 'mkdir -p /mnt/duplicity/data'
 iocage fstab --add duplicity '/mnt/tank/data/syncthing/sync /mnt/duplicity/data nullfs rw 0 0'
 {%endace%}
 
 Start jail and enter.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage console duplicity
 {%endace%}
 
@@ -44,20 +44,20 @@ iocage console duplicity
 
 In the jail, update all packages and install ```duplicity``` and `py27-boto`.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pkg update && pkg upgrade
 pkg install duplicity py27-boto
 {%endace%}
 
 Create a user with uid `983` to match mounted data.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pw useradd -n duplicity -u 983
 {%endace%}
 
 Add script `/usr/local/scripts/duplicitybak`, put secrets in `/usr/local/scripts/duplicitybak.auth`.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 #!/bin/sh
 
 # on freebsd install duplicity, py27-boto
@@ -90,7 +90,7 @@ unset GS_SECRET_ACCESS_KEY
 
 Secrets in `/usr/local/scripts/duplicitybak.auth`:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 # Create password to use for symetric GPG encryption
 export PASSPHRASE=""
 
@@ -102,12 +102,12 @@ export GS_SECRET_ACCESS_KEY=""
 
 Set executable:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 chmod +x /usr/local/scripts/duplicitybak
 {%endace%}
 
 Now I can be run from a crontab outside of the jail: 
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage exec duplicity /usr/local/scripts/duplicitybak
 {%endace%}

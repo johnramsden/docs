@@ -13,7 +13,7 @@ Setup for Syncthing service jail with iocage.
 
 Create jail:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage create --release 11.1-RELEASE --name syncthing \
           boot="on" vnet=on \
           allow_raw_sockets="1" \
@@ -35,14 +35,14 @@ Nullfs mount datasets in jail:
 
 Syncthing data:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage exec syncthing 'mkdir -p /mnt/syncthing/data'
 iocage fstab --add syncthing '/mnt/tank/data/syncthing/sync /mnt/syncthing/data nullfs rw 0 0'
 {%endace%}
 
 Start jail and enter.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage start syncthing
 iocage console syncthing
 {%endace%}
@@ -51,14 +51,14 @@ iocage console syncthing
 
 In the jail, update all packages and install ```syncthing```.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pkg update && pkg upgrade
 pkg install syncthing
 {%endace%}
 
 Enable the service on boot.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 sysrc 'syncthing_enable=YES'
 sysrc 'syncthing_user=syncthing' && sysrc 'syncthing_group=syncthing'
 sysrc 'syncthing_dir=/var/db/syncthing'
@@ -66,7 +66,7 @@ sysrc 'syncthing_dir=/var/db/syncthing'
 
 Start the syncthing service.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 service syncthing start
 {%endace%}
 
@@ -75,7 +75,7 @@ service syncthing start
 Start syncthing as an initial test:
 
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 service syncthing restart
 {%endace%}
 
@@ -83,7 +83,7 @@ Edit ```/var/db/syncthing/config.xml``` and change the IP address which the GUI 
 
 Before:
 
-{%ace edit=true, lang='xml'%}
+{%ace lang='xml'%}
 <gui enabled="true" tls="false">
  <address>127.0.0.1:8384</address>;
  <apikey>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</apikey>;
@@ -92,7 +92,7 @@ Before:
 
 After:
 
-{%ace edit=true, lang='xml' %}
+{%ace lang='xml' %}
 <gui enabled="true" tls="false">
  <address>0.0.0.0:8384</address>;
  <apikey>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</apikey>;
@@ -101,7 +101,7 @@ After:
 
 Restart the service for changes to apply:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 service syncthing restart
 {%endace%}
 

@@ -14,7 +14,7 @@ folder: linux/archlinux
 
 To list explicitly installed packages.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pacman -Qqe > pkglist.txt
 {%endace%}
 
@@ -22,13 +22,13 @@ pacman -Qqe > pkglist.txt
 
 Remove AUR packages from explicitly installed package list, and save to file ```native.txt```.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 bash -c "comm -12 <(pacman -Slq | sort) <(sort pkglist.txt)"  > native.txt
 {%endace%}
 
 Install them on new system after selecting wanted packages.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pacman  -S - < native.txt
 {%endace%}
 
@@ -36,12 +36,12 @@ pacman  -S - < native.txt
 
 List aur packages. Dont forget to edit.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pacman -Qmq > aur.txt
 {%endace%}
 
 On new system, install.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pacaur -S - < aur.txt
 {%endace%}

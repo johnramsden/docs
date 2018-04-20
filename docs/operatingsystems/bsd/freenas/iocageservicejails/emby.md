@@ -13,7 +13,7 @@ Setup for Emby service jail with iocage.
 
 Create jail:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage create --release 11.1-RELEASE --name emby \
           boot="on" vnet=on \
           allow_raw_sockets="1" \
@@ -34,7 +34,7 @@ On Freenas create datasets:
 
 Create media user/group using uid from freenas:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage exec emby 'pw useradd -n media -u 8675309'
 {%endace%}
 
@@ -42,7 +42,7 @@ Nullfs mount datasets in jail:
 
 Emby data:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage exec emby 'mkdir -p /var/db/emby-server /mnt/emby/media-metadata'
 iocage exec emby 'chown media:media /var/db/emby-server'
 iocage exec emby 'chown media:media /mnt/emby/media-metadata'
@@ -52,14 +52,14 @@ iocage fstab --add emby '/mnt/tank/data/database/emby/media-metadata /mnt/emby/m
 
 Setup directories:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage exec emby 'mkdir -p /media/Series/Series /media/Series/Lectures /media/Series/Documentary /media/Series/Anime /media/Series/Animated /media/Series/Podcasts/Audio /media/Series/Podcasts/Video /media/Naddy /media/Movie/Movies /media/Movie/Sports /mnt/backups'
 iocage exec emby 'chown -R media:media /media && chown -R media:media /mnt/backups'
 {%endace%}
 
 Repeat for media:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage fstab --add emby '/mnt/tank/media/Series/Series /media/Series/Series nullfs rw 0 0'
 iocage fstab --add emby '/mnt/tank/media/Series/Podcasts/Audio /media/Series/Podcasts/Audio nullfs rw 0 0'
 iocage fstab --add emby '/mnt/tank/media/Series/Podcasts/Video /media/Series/Podcasts/Video nullfs rw 0 0'
@@ -75,13 +75,13 @@ iocage fstab --add emby '/mnt/tank/media/Movie/Sports /media/Movie/Sports nullfs
 
 Check fstab:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage fstab --list emby
 {%endace%}
 
 Start jail and enter.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage start emby
 iocage console emby
 {%endace%}
@@ -90,7 +90,7 @@ iocage console emby
 
 In the jail, update all packages and install ```emby-server```.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pkg update && pkg upgrade
 pkg install emby-server
 {%endace%}
@@ -105,19 +105,19 @@ It's recommended to install ffmpeg from ports so that certain compile time optio
 
 Update the FreeBSD ports tree
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 portsnap fetch extract update
 {%endace%}
 
 Remove the default ffmpeg package
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pkg delete -f ffmpeg
 {%endace%}
 
 Reinstall FFMpeg from ports with lame option enabled
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 cd /usr/ports/multimedia/ffmpeg && make config
 {%endace%}
 
@@ -128,7 +128,7 @@ cd /usr/ports/multimedia/ffmpeg && make config
 
 Compile and install.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 make install clean
 {%endace%}
 
@@ -140,19 +140,19 @@ It is recommended to recompile the graphics/ImageMagick package from ports with 
 
 Delete the imagemagick pkg.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pkg delete -f imagemagick
 {%endace%}
 
 Install from ports
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 cd /usr/ports/graphics/ImageMagick && make config
 {%endace%}
 
 *   Disable the 16BIT_PIXEL option
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 make install clean
 {%endace%}
 
@@ -160,19 +160,19 @@ make install clean
 
 Set the rc script executable.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 chmod 555 /usr/local/etc/rc.d/emby-server
 {%endace%}
 
 Check the options.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 less /usr/local/etc/rc.d/emby-server
 {%endace%}
 
 Set emby to start on boot and change the options based on setup.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 sysrc 'emby_server_enable=YES'
 sysrc 'emby_server_user=media' && sysrc 'emby_server_group=media'
 sysrc 'emby_server_data_dir=/var/db/emby-server'
@@ -180,6 +180,6 @@ sysrc 'emby_server_data_dir=/var/db/emby-server'
 
 Start the emby service.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 service emby-server start
 {%endace%}

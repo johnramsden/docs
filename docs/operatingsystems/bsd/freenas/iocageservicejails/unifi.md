@@ -13,7 +13,7 @@ Install unifi controller in jail.
 
 Create jail, OpenJDK requires fdescfs, and procfs.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage create --release 11.1-RELEASE --name unifi \
           allow_raw_sockets="1" \
           mount_linprocfs="1" \
@@ -33,7 +33,7 @@ On Freenas create datasets:
 
 Nullfs mount datasets in jail:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage fstab -a unifi /mnt/tank/data/unifi/data /usr/local/share/java/unifi/data nullfs rw 0 0
 iocage fstab -a unifi /mnt/tank/data/unifi/logs /usr/local/share/java/unifi/logs nullfs rw 0 0
 iocage fstab -a unifi /mnt/tank/data/unifi/certs /usr/local/share/java/unifi/certs nullfs rw 0 0
@@ -41,7 +41,7 @@ iocage fstab -a unifi /mnt/tank/data/unifi/certs /usr/local/share/java/unifi/cer
 
 Start jail.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage start unifi
 {%endace%}
 
@@ -51,26 +51,26 @@ Install ```net-mgmt/unifi5``` (built pkg with poudriere), or use ports.
 
 In jail:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pkg install unifi5
 sysrc unifi_enable=YES
 {%endace%}
 
 Set permissions.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 chown -R unifi /usr/local/share/java/unifi
 {%endace%}
 
 Enable unifi at boot.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 sysrc unifi_enable=YES
 {%endace%}
 
 Unifi just uses the mongod binary, it can be disabled.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 sysrc mongod_enable=NO
 {%endace%}
 
@@ -78,7 +78,7 @@ sysrc mongod_enable=NO
 
 Restart the jail and confirm everything works.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage restart unifi
 {%endace%}
 
@@ -90,6 +90,6 @@ Configure with the wizard.
 
 To SSH into AP, password ubnt.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 ssh ubnt@<ip>
 {%endace%}

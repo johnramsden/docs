@@ -11,19 +11,19 @@ folder: systemadministration
 
 List keys to get your key:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 gpg --list-keys
 {%endace%}
 
 Edit key:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 gpg --edit-key <KEY ID>
 {%endace%}
 
 At prompt, add a new subkey, select signing or encrypting, keysize, and expiry:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 gpg> addkey
 Please select what kind of key you want:
    (3) DSA (sign only)
@@ -52,30 +52,30 @@ Repeat for encrypting key if you need one.
 
 Get your new subkey's ID you want to export.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 gpg --list-keys --with-subkey-fingerprint <KEY ID>
 {%endace%}
 
 Export the subkey, keeping the ```!```, can list multiple keys:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 gpg -a --export-secret-subkeys <subkey id>! [ <subkey id2>!] > temp_directory/subkey.gpg
 {%endace%}
 
 To change the passphrase, import the key into a temporary folder.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 mkdir temp_directory/gpg
 gpg --homedir temp_directory/gpg --import temp_directory/subkey.gpg
 {%endace%}
 
 Edit the key, and change the passphrase.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 gpg --homedir temp_directory/gpg --edit-key <user-id>
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 > passwd
 > save
 {%endace%}
@@ -84,7 +84,7 @@ Note: You will get a warning "error changing passphrase", but it can be ignored.
 
 Now export again as the new, altered subkey.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 gpg --homedir temp_directory/gpg -a --export-secret-subkeys [subkey id]! > temp_directory/subkey.altpass.gpg
 {%endace%}
 
@@ -92,7 +92,7 @@ gpg --homedir temp_directory/gpg -a --export-secret-subkeys [subkey id]! > temp_
 
 Now, on a new system, the subkeys can be imported:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 gpg --import subkey.altpass.gpg
 {%endace%}
 
@@ -100,7 +100,7 @@ Checking ```gpg --list-secret-keys``` will show a ```#``` after sec, meaning the
 
 On new, subkey only system:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 /home/john/.gnupg/pubring.kbx
 -----------------------------
 sec#  rsa4096 2017-05-17 [SC]

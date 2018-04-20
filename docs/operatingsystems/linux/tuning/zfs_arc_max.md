@@ -7,7 +7,7 @@ tags: [ tuning, linux, zfs ]
 
 Check stats with ```arcstat.py```
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 # arcstat.py -h
 Usage: arcstat.py [-hvx] [-f fields] [-o file] [-s string] [interval [count]]
 
@@ -29,12 +29,12 @@ Set arc max in ```/etc/modprobe.d/zfs.conf```, defaults to 50% memory.
 
 For example, 48GiB:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 echo "options zfs zfs_arc_max=51539607552" > /etc/modprobe.d/zfs.conf
 {%endace%}
 
 Rebuild kernel, then reboot.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 mkinitcpio -p linux
 {%endace%}

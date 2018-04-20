@@ -16,7 +16,7 @@ Run ```vncpasswd``` as the user who will connect.
 
 Add the following to ```/etc/lightdm/lightdm.conf```. Where ```john``` is replaced by the user.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 [VNCServer]
 command=/usr/bin/Xvnc -rfbauth /home/john/.vnc/passwd
 enabled=true

@@ -9,7 +9,7 @@ tags: [ tuning, linux, networking ]
 
 Increase inotify max user watches:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 echo "fs.inotify.max_user_watches=524288" >> /etc/sysctl.d/40-max-user-watches.conf
 {%endace%}
 
@@ -19,12 +19,12 @@ Increase [netdev budget](https://access.redhat.com/sites/default/files/attachmen
 
 Add other [optimizations](https://wiki.archlinux.org/index.php/Sysctl#Networking) for better performance.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 [root]# nano /etc/sysctl.d/30-network-tuning.conf
 {%endace%}
 
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 # The maximum size of the receive queue.
 # The received frames will be stored in this queue after taking them from the ring buffer on the NIC.
 # Use high value for high speed cards to prevent loosing packets.
@@ -57,7 +57,7 @@ net.ipv4.tcp_max_syn_backlog = 65536
 
 ## Reload Sysctls
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 sysctl --system
 {%endace%}
 

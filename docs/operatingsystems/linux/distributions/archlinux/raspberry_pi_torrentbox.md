@@ -15,7 +15,7 @@ tags: [ archlinux, linux ]
 
 I used the AUR manager [aurutils](https://aur.archlinux.org/packages/aurutils/)<sup>AUR</sup> to download and setup any AUR packages.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 mkdir -p ~/Downloads  && cd ~/Downloads
 gpg --recv-key 6BC26A17B9B7018A && gpg --lsign 6BC26A17B9B7018A
 git clone https://aur.archlinux.org/aurutils.git
@@ -30,13 +30,13 @@ ipv6 should be [disabled](https://wiki.archlinux.org/index.php/IPv6#Disable_IPv6
 
 Install [openvpn](https://www.archlinux.org/packages/?name=openvpn).
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pacman -S openvpn
 {%endace%}
 
 In order to install openvpn, required scripts need to be [downloaded and renamed](https://wiki.archlinux.org/index.php/Private_Internet_Access#Manual),
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 mkdir -p ~/Downloads/openvpn/certs  && cd ~/Downloads/openvpn/certs
 curl http://www.privateinternetaccess.com/openvpn/openvpn-strong.zip --location --remote-name --remote-header-name
 unzip openvpn-strong.zip
@@ -54,23 +54,23 @@ Replace all `.ovpn` extensions on the files downloaded with `.conf` and remove s
 
 To view the renames first, run.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 for f in *.ovpn; do echo "${f} -->" "  "  "$(echo ${f} | sed -e 's/ //g' -e 's/.ovpn/.conf/')"; done
 {%endace%}
 
 If you're happy do the rename.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 for f in *.ovpn; do mv "${f}" "$(echo ${f} | sed -e 's/ //g' -e 's/.ovpn/.conf/')"; done
 {%endace%}
 
 Move the files to `/etc/openvpn/client`, which is where OpenVPN expects them to be. Make sure they're owned by `root`.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 install -D --owner=root --group=root ./* /etc/openvpn/client
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 ls -la /etc/openvpn/client
 
 total 188
@@ -93,7 +93,7 @@ drwxr-xr-x 4 root root    4096 Feb 26 06:46 ..
 
 The above configs can be used as is, or a custom one can be used. They contain the following. For `/etc/openvpn/client/Netherlands.conf`:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 client
 dev tun
 proto udp
@@ -117,13 +117,13 @@ disable-occ
 
 Copy the config to a new file.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 [root]# cp /etc/openvpn/client/Netherlands.conf /etc/openvpn/client/custompivpn.conf
 {%endace%}
 
 Edit the file, replace the server `remote nl.privateinternetaccess.com 1197` with the PIA servers you want to use. The servers are in the openvpn files. They can all be listed with a `grep` for `privateinternetaccess.com`.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 grep --no-filename privateinternetaccess.com /etc/openvpn/client/*
 
 remote aus-melbourne.privateinternetaccess.com 1197
@@ -177,14 +177,14 @@ To auto-login to the vpn with your PIA user path, add your user and password to 
 
 I created `/etc/openvpn/pia_auth`
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 touch /etc/openvpn/pia_auth
 chown root:root /etc/openvpn/pia_auth && chmod 660 /etc/openvpn/pia_auth
 {%endace%}
 
 So as of now my config consists of the following:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 client
 dev tun
 proto udp
@@ -213,7 +213,7 @@ disable-occ
 
 If you're connected over SSH to your pi, connection to the pi will drop if openvpn is started. This is because the default gateway changes. To make local connections continue to be routed over the same interface that SSH was started on, add a new table using the `ip` command. 
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 ip rule add table 128 from <PI IP ADDRESS>
 ip route add table 128 to <SUBNET>/24 dev <INTERFACE>
 ip route add table 128 default via <GATEWAY>
@@ -221,7 +221,7 @@ ip route add table 128 default via <GATEWAY>
 
 For me this look like the following since the IP address of my pi was `172.20.30.4`, and my interface was `eth0`.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 ip rule add table 128 from 172.20.30.4
 ip route add table 128 to 172.20.30.0/24 dev eth0
 ip route add table 128 default via 172.20.30.1
@@ -229,11 +229,11 @@ ip route add table 128 default via 172.20.30.1
 
 I added these as an `ExecStartPre` to `systemd-networkd.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 systemctl edit systemd-networkd
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 [Service]
 ExecStartPre=-/usr/bin/ip rule add table 128 from 172.20.30.4
 ExecStartPre=-/usr/bin/ip route add table 128 to 172.20.30.0/24 dev eth0
@@ -244,7 +244,7 @@ Now open VPN can be started. A systemd unit exists that lets any client configur
 
 I was concerned about losing connection and not being able to get back into my pi, so the first time I started the service in `tmux` with a five minute kill timer so that if I wasn't able to reconnect I knew that after 5 minutes the service would be stopped and I would be able to get back in.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 systemctl start openvpn-client@custompivpn; \
 sleep 5m; \
 systemctl stop openvpn-client@custompivpn
@@ -258,7 +258,7 @@ To make sure that the VPN is working correctly, and that your IP is changing, ch
 
 I'll be using the `media` user and group for everything torrent related. Create it.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 groupadd --gid 8675309 media
 useradd --system --shell /usr/bin/nologin --gid 8675309 --uid 8675309 media
 {%endace%}
@@ -269,19 +269,19 @@ If mounting [NFS shares](https://wiki.archlinux.org/index.php/NFS#Installation) 
 
 #### NFS Configuration
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pacman -S nfs-utils
 {%endace%}
 
 Enable NFSv4 idmapping
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 echo N > /sys/module/nfs/parameters/nfs4_disable_idmapping
 {%endace%}
 
 Set permanent in `/etc/modprobe.d/nfsd.conf`.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 options nfsd nfs4_disable_idmapping=0
 {%endace%}
 
@@ -291,7 +291,7 @@ options nfsd nfs4_disable_idmapping=0
 
 Add mounts to `/etc/fstab`.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 mkdir -p /media/Downloads/{Complete,Incomplete} /media/Torrents
 chown -R media:media /media/*
 mount lilan.ramsden.network:/mnt/tank/media/Downloads/Complete /media/Downloads/Complete
@@ -301,7 +301,7 @@ mount lilan.ramsden.network:/mnt/tank/media/Torrents /media/Torrents
 
 Generate fstab entries and copy paste nfs mounts into fstab.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 genfstab -U /
 {%endace%}
 
@@ -311,7 +311,7 @@ Using `systemd-resolvd`, DNS can by dynamically updated when OpenVPN starts usin
 
 You can then add the following into your OpenVPN configuration file:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 script-security 2
 setenv PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 up /etc/openvpn/scripts/update-systemd-resolved
@@ -323,27 +323,27 @@ It will then follow `dhcp-option` commands set in OpenVPN.
 
 We can use PIA's DNS servers this way:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 dhcp-option DNS 209.222.18.222
 dhcp-option DNS 209.222.18.218
 {%endace%}
 
 Now, after starting the OpenVPN you should see the following new lines in `/etc/resolv.conf`.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 nameserver 209.222.18.222
 nameserver 209.222.18.218
 {%endace%}
 
 Start and anable OpenVPN.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 systemctl enable --now openvpn-client@custompivpn
 {%endace%}
 
 My final config was the following.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 client
 dev tun
 proto udp
@@ -379,13 +379,13 @@ down-pre
 
 Enable ip forwarding, add the `net.ipv4.ip_forward=1` sysctl.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 echo 'net.ipv4.ip_forward=1' | tee '/etc/sysctl.d/90-openvpn-networking.conf'
 {%endace%}
 
 Reload sysctls.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 sysctl --system
 {%endace%}
 
@@ -393,13 +393,13 @@ Create an [iptables](https://wiki.archlinux.org/index.php/Iptables) rules file i
 
 Start with a filter table in the [iptables-restore](http://www.iptables.info/en/iptables-save-restore-rules.html) syntax.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 *filter
 {%endace%}
 
 Drop all traffic by default.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 --policy INPUT DROP
 --policy FORWARD DROP
 --policy OUTPUT DROP
@@ -409,7 +409,7 @@ Start with input rules.
 
 Only allow established connections and SSH from LAN, (use your LAN subnet).
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 --append INPUT --match conntrack --ctstate RELATED,ESTABLISHED --jump ACCEPT
 --append INPUT --protocol tcp --dport 22 --source 172.20.0.0/16 --jump ACCEPT
 --append INPUT --protocol tcp --dport 22 --source 127.0.0.0/8 --jump ACCEPT
@@ -418,14 +418,14 @@ Only allow established connections and SSH from LAN, (use your LAN subnet).
 
 Open ports deluge needs.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 --append INPUT --protocol tcp --dport 56881:56889 --jump ACCEPT
 --append INPUT --protocol udp --dport 56881:56889 --jump ACCEPT
 {%endace%}
 
 For remote access:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 --append INPUT --protocol tcp --dport 58846 --jump ACCEPT
 {%endace%}
 
@@ -433,46 +433,46 @@ Now output rules.
 
 Allow the loopback interface and ping.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 --append OUTPUT --out-interface lo --jump ACCEPT
 --append OUTPUT --out-interface tun0 --protocol icmp --jump ACCEPT
 {%endace%}
 
 Allow LAN traffic (use your lan subnet).
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 --append OUTPUT --destination 172.20.30.0/24 --jump ACCEPT
 {%endace%}
 
 Allow PIA DNS servers.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 --append OUTPUT --destination 209.222.18.222 --jump ACCEPT
 --append OUTPUT --destination 209.222.18.218 --jump ACCEPT
 {%endace%}
 
 Optionally allow your own DNS server.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 --append OUTPUT --destination 172.20.30.1 --jump ACCEPT
 {%endace%}
 
 Allow the VPN port and the interface.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 --append OUTPUT --protocol udp --match udp --dport 1197 --jump ACCEPT
 --append OUTPUT --out-interface tun0 --jump ACCEPT
 {%endace%}
 
 Finally commit the table.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 COMMIT
 {%endace%}
 
 My final rules looks like the following:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 # /etc/iptables/iptables.rules
 # iptables rules for OpenVPN killswitch
 
@@ -512,7 +512,7 @@ Save the file.
 
 Test starting the VPN and firewall.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 systemctl start iptables openvpn-client@custompivpn; \
 sleep 5m; \
 systemctl stop iptables openvpn-client@custompivpn
@@ -520,13 +520,13 @@ systemctl stop iptables openvpn-client@custompivpn
 
 Check they started successfully.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 systemctl status iptables openvpn-client@custompivpn
 {%endace%}
 
 Try to ping google.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 ping google.com
 {%endace%}
 
@@ -534,7 +534,7 @@ Stop OpenVPN, and try again.
 
 Your connection should be blocked.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 ping google.com
 PING google.com (216.58.216.174) 56(84) bytes of data.
 ping: sendmsg: Operation not permitted
@@ -542,7 +542,7 @@ ping: sendmsg: Operation not permitted
 
 Start and enable the iptables service.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 systemctl enable --now iptables
 {%endace%}
 
@@ -556,19 +556,19 @@ Install [deluge](https://www.archlinux.org/packages/?sort=&q=deluge)
 
 Start and enable the system service, which runs as deluge.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 systemctl enable --now deluged
 {%endace%}
 
 To connect remotely, [create a user](https://wiki.archlinux.org/index.php/Deluge#Create_a_user) in `~deluge/.config/deluge/auth` with `USER:PASSWORD:PERMISSIONS` (10 is admin). For example:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 john:p422WoRd:10
 {%endace%}
 
 Stop deluge and set `"allow_remote": true` in `~deluge/.config/deluge/core.conf`. If `core.conf` doesn't exist, connect to the console.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 sudo -u deluge deluge-console
 {%endace%}
 
@@ -600,7 +600,7 @@ Settings:
 
 Add deluge user to media group:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 gpasswd -a deluge media
 {%endace%}
 

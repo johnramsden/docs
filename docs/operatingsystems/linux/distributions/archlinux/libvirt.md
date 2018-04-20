@@ -18,7 +18,7 @@ Setup [libvirt](https://wiki.archlinux.org/index.php/Libvirt).
 
 To keep my libvirt setup outside of any boot environments I give them their own dataset.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 zfs create -o mountpoint=legacy vault/sys/chin/var/lib/libvirt
 mkdir /var/lib/libvirt
 mount -t zfs vault/sys/chin/var/lib/libvirt /var/lib/libvirt
@@ -26,11 +26,11 @@ mount -t zfs vault/sys/chin/var/lib/libvirt /var/lib/libvirt
 
 Add to fstab
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 nano /etc/fstab
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 vault/sys/chin/var/lib/libvirt            /var/lib/libvirt                    zfs       rw,relatime,xattr,noacl     0 0
 {%endace%}
 
@@ -38,14 +38,14 @@ vault/sys/chin/var/lib/libvirt            /var/lib/libvirt                    zf
 
 Check modules are loaded.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 lsmod | grep kvm
 lsmod | grep virtio
 {%endace%}
 
 If blank, [load them explicitly](https://wiki.archlinux.org/index.php/Kernel_modules#Manual_module_handling).
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 echo "virtio" > /etc/modules-load.d/virtio.conf
 {%endace%}
 
@@ -66,7 +66,7 @@ Install the dependencies.
     *   [virt-manager](https://www.archlinux.org/packages/?name=virt-manager)
     *   [virt-viewer](https://www.archlinux.org/packages/?name=virt-viewer)
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pacman -S libvirt qemu-headless ebtables dnsmasq bridge-utils virt-manager virt-viewer ovmf
 {%endace%}
 
@@ -78,7 +78,7 @@ I like to use ZFS ZVOL's as my backing store.
 
 Create a dataset for ZVOLs:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 zfs create -o mountpoint=none vault/zvols
 {%endace%}
 
@@ -86,13 +86,13 @@ zfs create -o mountpoint=none vault/zvols
 
 Create a dataset for user 'john''s ZVOLs
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 zfs create -o mountpoint=none vault/zvols/john
 {%endace%}
 
 As of [zfsonlinux 0.7.0](https://github.com/zfsonlinux/zfs/releases/tag/zfs-0.7.0) ZFS delegation using ```zfs allow``` works on linux. Delegate permissions giving the abiity to snapshot and create datasets.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 zfs allow john create,mount,mountpoint,snapshot vault/zvols/john
 {%endace%}
 
@@ -104,7 +104,7 @@ To let guest do its own caching, use:
 
 Create ZVOL for a new VM. Replace <new VM> with name. Volumes still need to be created by root.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 zfs create -o mountpoint=none vault/zvols/john/libvirt
 zfs create -V 50G vault/zvols/john/libvirt/<new VM> -o primarycache=metadata -o compression=on
 {%endace%}
@@ -117,13 +117,13 @@ If you want passwordless authentication, as of libvirt 1.2.16, anyone in the ```
 
 Create the group if it doesn't exist.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 groupadd libvirt
 {%endace%}
 
 Add any users required to it.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 gpasswd -a john libvirt
 {%endace%}
 
@@ -133,7 +133,7 @@ Make sure to re-login after.
 
 Enable libvirtd.service.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 systemctl enable --now libvirtd
 {%endace%}
 
@@ -143,13 +143,13 @@ To run only a user-session the daemon does not need to be enabled.
 
 Test libvirt system-session:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 virsh -c qemu:///system
 {%endace%}
 
 Test libvirt system user-session:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 virsh -c qemu:///session
 {%endace%}
 
@@ -157,11 +157,11 @@ virsh -c qemu:///session
 
 Add the following to ```/etc/libvirt/qemu.conf```.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 nano /etc/libvirt/qemu.conf
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 nvram = [
     "/usr/share/ovmf/ovmf_code_x64.bin:/usr/share/ovmf/ovmf_vars_x64.bin"
 ]
@@ -171,7 +171,7 @@ I have found UEFI may not work if I haven't set the system user to ```user = roo
 
 and restart libvirtd
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 systemctl restart libvirtd
 {%endace%}
 
@@ -179,18 +179,18 @@ systemctl restart libvirtd
 
 To use uefi as a user, note networking options are limited, move the nvram to a user readable location and add it to ```~/.config/libvirt/qemu.conf```.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 cp -r /usr/share/ovmf /home/john/.config/libvirt/ovmf
 chown -R john:john /home/john/.config/libvirt/ovmf
 {%endace%}
 
 Add the following to ```/etc/libvirt/qemu.conf```.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 nano ~/.config/libvirt/qemu.conf
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 nvram = [
     "/home/john/.config/libvirt/ovmf/ovmf_code_x64.bin:/home/john/.config/libvirt/ovmf/ovmf_vars_x64.bin"
 ]
@@ -210,7 +210,7 @@ If using a user session the block device might need to be changed to be owned by
 
 Temporarily the device can be chown'd, but the owner will not live through reboot. For persistence [add a udev rule](ramsdenj.com/2016/07/21/making-a-zvol-backed-virtualbox-vm-on-linux.html) by creating a new file ```99-local-zvol.rules``` in ```/etc/udev/rules.d/``` that contains the following (replacing the ZVOL path and user):
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 # /etc/udev/rules.d/99-local-zvol.rules
 # Give persistant ownership of ZVOL to user
 KERNEL=="zd*" SUBSYSTEM=="block" ACTION=="add|change" PROGRAM="/lib/udev/zvol_id /dev/%k"

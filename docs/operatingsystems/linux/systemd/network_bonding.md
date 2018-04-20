@@ -14,11 +14,11 @@ Going from a one interface setup, to two bonded:
 
 Before:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 nano /etc/systemd/network/25-wired.network
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 [Match]
 Name=eno1
 
@@ -29,11 +29,11 @@ Gateway=172.20.20.1
 
 Create the [netdev](https://www.freedesktop.org/software/systemd/man/systemd.netdev.html) bond file ```/etc/systemd/network/25-bond1.netdev```.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 nano /etc/systemd/network/25-bond1.netdev
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 [NetDev]
 Name=bond1
 Kind=bond
@@ -45,11 +45,11 @@ Kind=bond
 
 Create network for bond.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 nano /etc/systemd/network/25-bond1.network
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 [Match]
 Name=bond1
 
@@ -60,11 +60,11 @@ Gateway=172.20.20.1
 
 Select interfaces.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 nano /etc/systemd/network/20-eno1.network
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 [Match]
 Name=eno1
 
@@ -72,11 +72,11 @@ Name=eno1
 Bond=bond1
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 nano /etc/systemd/network/25-enp5s0.network
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 [Match]
 Name=enp5s0
 
@@ -86,19 +86,19 @@ Bond=bond1
 
 Restart network:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 systemctl restart systemd-resolved systemd-networkd
 {%endace%}
 
 Check if functional:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 networkctl
 {%endace%}
 
 Before:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 IDX LINK             TYPE               OPERATIONAL SETUP
   1 lo               loopback           carrier     unmanaged
   2 eno1             ether              routable    configured
@@ -111,7 +111,7 @@ IDX LINK             TYPE               OPERATIONAL SETUP
 
 After:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 IDX LINK             TYPE               OPERATIONAL SETUP
   1 lo               loopback           carrier     unmanaged
   2 bond0            ether              off         unmanaged
@@ -128,11 +128,11 @@ IDX LINK             TYPE               OPERATIONAL SETUP
 
 Status:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 cat /proc/net/bonding/bond1
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 cat /proc/net/bonding/bond1                             john@chin
 Ethernet Channel Bonding Driver: v3.7.1 (April 27, 2011)
 

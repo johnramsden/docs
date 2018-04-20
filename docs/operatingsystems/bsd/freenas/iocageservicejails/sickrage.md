@@ -13,7 +13,7 @@ Setup for sickrage service jail with iocage.
 
 Create jail:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage create --release 11.1-RELEASE --name sickrage \
           boot="on" vnet=on \
           allow_raw_sockets="1" \
@@ -35,7 +35,7 @@ On Freenas create datasets:
 
 Create media user/group using uid from freenas:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage exec sickrage 'pw useradd -n media -u 8675309'
 {%endace%}
 
@@ -43,7 +43,7 @@ Nullfs mount datasets in jail:
 
 Sickrage data:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage exec sickrage 'mkdir -p /var/db/sickrage /mnt/backups'
 iocage exec sickrage 'chown media:media /var/db/sickrage /mnt/backups'
 iocage fstab --add sickrage '/mnt/tank/data/database/sickrage /var/db/sickrage nullfs rw 0 0'
@@ -52,7 +52,7 @@ iocage fstab --add sickrage '/mnt/tank/backups/Lilan/Sickrage /mnt/backups nullf
 
 Downloads:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage exec sickrage 'mkdir -p /media/Downloads/Complete /media/Downloads/Incomplete /media/Torrents'
 iocage exec sickrage 'chown -R media:media /media'
 
@@ -63,13 +63,13 @@ iocage fstab --add sickrage '/mnt/tank/media/Torrents /media/Torrents nullfs rw 
 
 Setup directories:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage exec sickrage 'mkdir -p /media/Series/Series /media/Series/Lectures /media/Series/Documentary /media/Series/Anime /media/Series/Animated /media/Series/Podcasts/Audio /media/Series/Podcasts/Video /media/Naddy /media/Movie/Movies /media/Movie/Sports' && iocage exec sickrage 'chown -R media:media /media'
 {%endace%}
 
 Repeat for media:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage fstab --add sickrage '/mnt/tank/media/Series/Series /media/Series/Series nullfs rw 0 0' && \
 iocage fstab --add sickrage '/mnt/tank/media/Series/Podcasts/Audio /media/Series/Podcasts/Audio nullfs rw 0 0' && \
 iocage fstab --add sickrage '/mnt/tank/media/Series/Podcasts/Video /media/Series/Podcasts/Video nullfs rw 0 0' && \
@@ -84,13 +84,13 @@ iocage fstab --add sickrage '/mnt/tank/media/Movie/Sports /media/Movie/Sports nu
 
 Check fstab:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage fstab --list sickrage
 {%endace%}
 
 Start jail and enter.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage console sickrage
 {%endace%}
 
@@ -98,19 +98,19 @@ iocage console sickrage
 
 Update.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pkg update && pkg upgrade
 {%endace%}
 
 Install requirements.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pkg install py27-sqlite3 git
 {%endace%}
 
 Install SickRage.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 cd /var/db
 git clone  https://github.com/SickRage/SickRage.git temp
 mv temp/.git sickrage/
@@ -123,25 +123,25 @@ git reset --hard HEAD
 
 Copy the startup script
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 mkdir /usr/local/etc/rc.d
 cp /var/db/sickrage/runscripts/init.freebsd /usr/local/etc/rc.d/sickrage
 {%endace%}
 
 Make startup script executable
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 chmod 555 /usr/local/etc/rc.d/sickrage
 {%endace%}
 
 Add settings to rc.conf
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 sysrc 'sickrage_enable=YES' 'sickrage_user=media' 'sickrage_group=media' 'sickrage_dir=/var/db/sickrage'
 {%endace%}
 
 Start SickRage.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 service sickrage start
 {%endace%}

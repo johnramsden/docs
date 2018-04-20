@@ -21,30 +21,30 @@ If that occurs, doing the following can allow attempting to sign in again.
 
 Identify your nick (replacing nick and password of course).
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 /quote NickServ identify $nick $password
 {%endace%}
 
 Turn off enforce.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 /quote NickServ set enforce OFF
 {%endace%}
 
 Release your nick from services:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 /quote NickServ release $nick $password
 {%endace%}
 
 Login again.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 /nick $nick
 {%endace%}
 
 Turn enforce back on
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 /quote NickServ set enforce on
 {%endace%}

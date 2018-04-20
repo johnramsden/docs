@@ -16,13 +16,13 @@ To keep my home orgamized I use [vcsh](https://github.com/RichiH/vcsh/blob/maste
 
 On a new system, install the requirements.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pacaur -S myrepos vcsh
 {%endace%}
 
 Clone an existing myrepos configuration from a users ```$HOME```.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 vcsh clone git@github.com:johnramsden/mr.git
 {%endace%}
 
@@ -30,23 +30,23 @@ To clone a branch:
 
 Clone an existing myrepos configuration from a users ```$HOME```.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 vcsh clone -b branch git@github.com:johnramsden/mr.git
 {%endace%}
 
 Or the [vcsh template](https://github.com/RichiH/vcsh_mr_template) for a new setup.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 vcsh clone git@github.com:RichiH/vcsh_mr_template.git mr
 {%endace%}
 
 It tracks the myrepos config.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 cat ~/.mrconfig
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 [DEFAULT]
 git_gc = git gc "$@"
 jobs = 5
@@ -56,11 +56,11 @@ include = cat ~/.config/mr/config.d/*
 
 and myrepos template config.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 cat ~/.config/mr/available.d/mr.vcsh
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 [$HOME/.config/vcsh/repo.d/mr.git]
 checkout = vcsh clone git://github.com/RichiH/vcsh_mr_template.git mr
 {%endace%}
@@ -73,7 +73,7 @@ After adding a config for all your repos in ```~/.config/mr/available.d/```, sym
 
 To enable the mr config.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 cd ~/.config/mr/config.d
 ln -s ../available.d/mr.vcsh
 {%endace%}
@@ -84,11 +84,11 @@ Now, run ```mr up``` to clone the specified repos.
 
 To start ssh-agent with a systemd unit create ```~/.config/systemd/user/ssh-agent.service```.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 nano ~/.config/systemd/user/ssh-agent.service
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 [Unit]
 Description=SSH key agent
 
@@ -105,6 +105,6 @@ Add ```SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"``` to ```~/.p
 
 Start and anable.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 systemctl --user enable --now ssh-agent
 {%endace%}

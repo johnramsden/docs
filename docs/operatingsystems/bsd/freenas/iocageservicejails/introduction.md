@@ -11,7 +11,7 @@ Creating jails on FreeNAS can [now be done](http://doc.freenas.org/11/jails.html
 
 ## Iocage Setup
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage activate tank
 {%endace%}
 
@@ -21,11 +21,11 @@ iocage activate tank
 
 Create jail
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage create -r 11.0-RELEASE tag=emby ip4_addr="igb1|170.20.40.36/24" jail_zfs=on vnet=off
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage set vnet=off emby
 iocage set ip4_addr="igb0|170.20.40.66/24" emby
 iocage set resolver=none emby
@@ -33,7 +33,7 @@ iocage set resolver=none emby
 
 Start jail and enter.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage start emby
 iocage console emby
 {%endace%}
@@ -46,7 +46,7 @@ Create dataset, mount at ```/var/db/emby```
 
 In the jail, update all packages and install ```emby-server```.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pkg update && pkg upgrade
 pkg install emby-server
 {%endace%}
@@ -57,19 +57,19 @@ It's recommended to install ffmpeg from ports so that certain compile time optio
 
 Update the FreeBSD ports tree
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 portsnap fetch extract update
 {%endace%}
 
 Remove the default ffmpeg package
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pkg delete -f ffmpeg
 {%endace%}
 
 Reinstall FFMpeg from ports with lame option enabled
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 cd /usr/ports/multimedia/ffmpeg && make config
 {%endace%}
 
@@ -80,7 +80,7 @@ cd /usr/ports/multimedia/ffmpeg && make config
 
 Compile and install.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 make install clean
 {%endace%}
 
@@ -92,19 +92,19 @@ It is recommended to recompile the graphics/ImageMagick package from ports with 
 
 Delete the imagemagick pkg.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pkg delete -f imagemagick
 {%endace%}
 
 Install from ports
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 cd /usr/ports/graphics/ImageMagick && make config
 {%endace%}
 
 *   Disable the 16BIT_PIXEL option
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 make install clean
 {%endace%}
 
@@ -112,19 +112,19 @@ make install clean
 
 Set the rc script executable.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 chmod 555 /usr/local/etc/rc.d/emby-server
 {%endace%}
 
 Check the options.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 less /usr/local/etc/rc.d/emby-server
 {%endace%}
 
 Set emby to start on boot and change the options based on setup.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 sysrc 'emby_server_enable=YES'
 sysrc 'emby_server_user=media'
 sysrc 'emby_server_group=media'
@@ -133,7 +133,7 @@ sysrc 'emby_server_data_dir=/var/db/emby-server'
 
 Start the emby service.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 service emby-server start
 {%endace%}
 
@@ -157,7 +157,7 @@ The following sections were done inside the jail.
 
 Install ```deluge``` or ```deluge-cli``` depending on what you want installed. Since this is a headless server I'm only installing the CLI version.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pkg update && pkg upgrade
 pkg install deluge-cli
 {%endace%}
@@ -166,13 +166,13 @@ pkg install deluge-cli
 
 Setup ```/etc/rc.conf```
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 sysrc 'deluged_enable=YES' 'deluged_user=media'
 {%endace%}
 
 #### Start Service
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 service deluged start
 {%endace%}
 
@@ -184,33 +184,33 @@ Install [couchpotato](https://couchpota.to/#freebsd) freebsd version from git.
 
 Create database dataset couchpotato and mount to ```/var/db/couchpotato```.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pkg update && pkg upgrade
 {%endace%}
 
 Install required tools
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pkg install python py27-sqlite3 fpc-libcurl docbook-xml git-lite
 {%endace%}
 
 Use user media, clone to a temp repo in ```/var/db```.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 cd /var/db
 git clone https://github.com/CouchPotato/CouchPotatoServer.git temp
 {%endace%}
 
 Move the bare repo that was just cloned to the dataset we mounted earlier to ```/var/db/couchpotato```.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 mv temp/.git couchpotato/
 rm -rf temp
 {%endace%}
 
 Switch to the ```media``` user and reset the repo to HEAD.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 su media
 cd couchpotato
 git reset --hard HEAD
@@ -219,7 +219,7 @@ exit
 
 As root, copy the startup script to ```/usr/local/etc/rc.d``` and make the startup script executable.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 cp couchpotato/init/freebsd /usr/local/etc/rc.d/couchpotato
 chmod 555 /usr/local/etc/rc.d/couchpotato
 {%endace%}
@@ -228,7 +228,7 @@ Read the options at the top of ```/usr/local/etc/rc.d/couchpotato```.
 
 If not using the default install, specify options with startup flags.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 sysrc 'couchpotato_enable=YES'
 sysrc 'couchpotato_user=media'
 sysrc 'couchpotato_dir=/var/db/couchpotato'
@@ -236,7 +236,7 @@ sysrc 'couchpotato_dir=/var/db/couchpotato'
 
 Finally, start couchpotato.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 service couchpotato start
 {%endace%}
 
@@ -248,25 +248,25 @@ Restart the jail, open your browser and go to [http://server:5050/](http://serve
 
 Enter jail.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 jexec pod tcsh
 {%endace%}
 
 Update.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pkg update && pkg upgrade
 {%endace%}
 
 ### Requirements
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pkg install bash libxslt wget curl
 {%endace%}
 
 bash requires fdescfs(5) mounted on /dev/fd, add to boot tasks in FreeNAS UI.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 mount -t fdescfs fdesc /mnt/tank/jails/pod/dev/fd
 {%endace%}
 
@@ -274,7 +274,7 @@ mount -t fdescfs fdesc /mnt/tank/jails/pod/dev/fd
 
 Create user 'pod'.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 adduser pod
 Username: pod
 Full name: Podcatcher
@@ -308,7 +308,7 @@ Goodbye!
 
 Clone the script.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 su pod
 cd /home/pod
 git clone https://github.com/johnramsden/bashpod.git
@@ -318,7 +318,7 @@ git clone https://github.com/johnramsden/bashpod.git
 
 In order to run from FreeNAS, create a new task that runs the bashpod script.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 jexec -U pod pod /usr/local/bin/bash -c "/home/pod/bashpod/bashpod.sh"
 {%endace%}
 
@@ -332,17 +332,17 @@ Create dataset, mount at ```/var/db/sabnzbd```
 
 Enter jail.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 jexec sickrage tcsh
 {%endace%}
 
 Update and install sabnzbd.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pkg update && pkg upgrade && pkg install sabnzbdplus
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 sysrc 'sabnzbd_enable=YES'
 sysrc 'sabnzbd_user=media'
 sysrc 'sabnzbd_group=media'
@@ -359,19 +359,19 @@ Edit config in ````/var/db/sabnzbd````, change host to 0.0.0.0
 
 Enter jail.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 jexec sickrage tcsh
 {%endace%}
 
 Update.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pkg update && pkg upgrade
 {%endace%}
 
 Install requirements.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pkg install py27-sqlite3
 {%endace%}
 
@@ -409,13 +409,13 @@ On FreeNAS with ID 983, nologin
 
 Enter jail.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 jexec syncthing tcsh
 {%endace%}
 
 Update and install syncthing.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pkg update && pkg upgrade && pkg install syncthing
 {%endace%}
 

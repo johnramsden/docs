@@ -17,7 +17,7 @@ Install from [aur package](https://aur.archlinux.org/packages/aurutils).
 
 [Add](https://wiki.archlinux.org/index.php/Pacman/Package_signing#Adding_unofficial_keys) developer key.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 $ gpg --recv-key 6BC26A17B9B7018A && gpg --lsign 6BC26A17B9B7018A
 {%endace%}
 
@@ -37,11 +37,11 @@ I started with `aurutils devtools parallel vifm`.
 Create a local repository config.
 *Adapted from man page*
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 [root]# nano /etc/pacman.d/custom
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 [options]
 CacheDir = /var/cache/pacman/pkg
 CacheDir = /var/cache/pacman/custom
@@ -54,24 +54,24 @@ Server = file:///var/cache/pacman/custom
 
 Add config to the end of `/etc/pacman.conf`.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 [root]# nano /etc/pacman.conf
 {%endace%}
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 Include = /etc/pacman.d/custom
 {%endace%}
 
 Create repository root and database:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 $ sudo install -d /var/cache/pacman/custom -o $USER
 $ repo-add /var/cache/pacman/custom/custom.db.tar
 {%endace%}
 
 Sync repo.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 [root]# pacman -Syu
 {%endace%}
 
@@ -85,7 +85,7 @@ To install a package to the container use ```pacman --root=/var/lib/aurbuild/x86
 
 I set up a aurbuild root to be zfs dataset (optional). Could also use btrfs.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 [root]# zfs create <system root>/var/lib/aurbuild -o mountpoint=legacy
 [root]# mkdir /var/lib/aurbuild
 [root]# mount -t zfs <system root>/var/lib/aurbuild /var/lib/aurbuild
@@ -99,7 +99,7 @@ To get a list of all current existing AUR packages  so that they can be migrated
 
 Attempt a build in a clean chroot of `google-chrome`.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 aursync -c google-chrome
 {%endace%}
 

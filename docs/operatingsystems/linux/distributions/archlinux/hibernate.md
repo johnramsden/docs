@@ -13,7 +13,7 @@ First set up swap.
 
 For example, with UUID add:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 resume=UUID=8a1aac0b-487d-48d5-a683-417031d5098a
 {%endace%}
 

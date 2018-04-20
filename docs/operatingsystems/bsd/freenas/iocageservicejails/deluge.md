@@ -13,7 +13,7 @@ Setup for Deluge service jail with iocage.
 
 Create jail:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage create --release 11.1-RELEASE --name deluge \
           boot="on" vnet=on \
           allow_raw_sockets="1" \
@@ -35,7 +35,7 @@ On Freenas create datasets:
 
 Create media user/group using uid from freenas:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage exec deluge 'pw useradd -n media -u 8675309'
 {%endace%}
 
@@ -43,7 +43,7 @@ Nullfs mount datasets in jail:
 
 Deluge data:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage exec deluge 'mkdir -p /home/media/.config /media/Downloads/Complete /media/Downloads/Incomplete /media/Torrents' && \
 iocage exec deluge 'chown media:media /home/media/.config /media/Downloads/Complete /media/Downloads/Incomplete /media/Torrents' && \
 iocage fstab --add deluge '/mnt/tank/data/database/deluge /home/media/.config  nullfs rw 0 0' && \
@@ -54,13 +54,13 @@ iocage fstab --add deluge '/mnt/tank/media/Torrents /media/Torrents  nullfs rw 0
 
 Check fstab:
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage fstab --list deluge
 {%endace%}
 
 Start jail and enter.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 iocage console deluge
 {%endace%}
 
@@ -68,7 +68,7 @@ iocage console deluge
 
 Install ```deluge``` or ```deluge-cli``` depending on what you want installed. Since this is a headless server I'm only installing the CLI version.
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 pkg update && pkg upgrade && pkg install deluge-cli
 {%endace%}
 
@@ -76,12 +76,12 @@ pkg update && pkg upgrade && pkg install deluge-cli
 
 Setup ```/etc/rc.conf```
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 sysrc 'deluged_enable=YES' 'deluged_user=media'
 {%endace%}
 
 #### Start Service
 
-{%ace edit=true, lang='sh'%}
+{%ace lang='sh'%}
 service deluged start
 {%endace%}
