@@ -27,6 +27,7 @@
                 *   [ruby](operatingsystems/linux/distributions/archlinux/programminglanguages/ruby.md)
             *   [Restore Installed Applications](operatingsystems/linux/distributions/archlinux/restore_installed_applications.md)
             *   [User Configuration Management](operatingsystems/linux/distributions/archlinux/user_configuration.md)
+            *   [User Namespaces](operatingsystems/linux/distributions/archlinux/user_namespaces.md)
             *   [Gaming with Wine](operatingsystems/linux/distributions/archlinux/wine.md)
             *   [ZFS Dataset Structure](operatingsystems/linux/distributions/archlinux/zfs_structure.md)
             *   [Raspberry PI Secure VPN Torrentbox](operatingsystems/linux/distributions/archlinux/raspberry_pi_torrentbox.md)
