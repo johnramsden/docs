@@ -15,7 +15,7 @@ Create jail:
 
 {%ace lang='sh'%}
 iocage create --release 11.1-RELEASE --name syncthing \
-          boot="on" vnet=on \
+          boot="on" vnet=on bpf=on \
           allow_raw_sockets="1" \
           ip4_addr="vnet1|172.20.40.33/24" \
           interfaces="vnet1:bridge1" \
@@ -53,7 +53,7 @@ In the jail, update all packages and install ```syncthing```.
 
 {%ace lang='sh'%}
 pkg update && pkg upgrade
-pkg install syncthing
+pkg install syncthing ca_root_nss
 {%endace%}
 
 Enable the service on boot.
@@ -61,7 +61,7 @@ Enable the service on boot.
 {%ace lang='sh'%}
 sysrc 'syncthing_enable=YES'
 sysrc 'syncthing_user=syncthing' && sysrc 'syncthing_group=syncthing'
-sysrc 'syncthing_dir=/var/db/syncthing'
+sysrc 'syncthing_home=/var/db/syncthing'
 {%endace%}
 
 Start the syncthing service.

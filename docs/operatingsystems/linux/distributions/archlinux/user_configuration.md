@@ -17,7 +17,7 @@ To keep my home orgamized I use [vcsh](https://github.com/RichiH/vcsh/blob/maste
 On a new system, install the requirements.
 
 {%ace lang='sh'%}
-pacaur -S myrepos vcsh
+aursync --update --temp --chroot myrepos vcsh
 {%endace%}
 
 Clone an existing myrepos configuration from a users ```$HOME```.
@@ -103,8 +103,16 @@ WantedBy=default.target
 
 Add ```SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"``` to ```~/.pam_environment```
 
-Start and anable.
+Start and enable.
 
 {%ace lang='sh'%}
 systemctl --user enable --now ssh-agent
 {%endace%}
+
+## chezmoi
+
+cd ~/.local/share
+git clone --config transfer.fsckobjects=false --config receive.fsckobjects=false --config fetch.fsckobjects=false git://github.com/robbyrussell/oh-my-zsh.git 'oh-my-zsh'
+
+cd ~/.config/oh-my-zsh/custom/plugins
+git clone 'git@github.com:zsh-users/zsh-autosuggestions.git' 'zsh-autosuggestions'

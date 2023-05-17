@@ -1,15 +1,15 @@
 ---
-title: pkgrepo jail
+title: nginx reverse proxy
 category: [ bsd, freenas ]
-keywords: freebsd, bsd, freenas, jail, pkgrepo
+keywords: freebsd, bsd, freenas, jail, nginx
 tags: [ freebsd, bsd, jail ]
 ---
 
-## pkgrepo jail
+## nginx reverse proxy
 
-Setup for poudriere package server jail with iocage.
+Setup for nginx reverse-proxy jail with iocage.
 
-### On FreeNAS
+### On Host
 
 Create jail:
 

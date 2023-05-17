@@ -15,7 +15,7 @@ Create jail:
 
 {%ace lang='sh'%}
 iocage create --release 11.1-RELEASE --name couchpotato \
-          boot="on" vnet=on \
+          boot="on" vnet=on bpf=on \
           allow_raw_sockets="1" \
           ip4_addr="vnet1|172.20.40.31/24" \
           interfaces="vnet1:bridge1" \

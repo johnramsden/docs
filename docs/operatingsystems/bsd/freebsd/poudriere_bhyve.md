@@ -431,7 +431,7 @@ To upgrade releases, ie 11.0 to 11.1:
 Or delete and re-create
 
 {%ace lang='sh'%}
-poudriere jail -d -j freebsd-11~1-amd64
+poudriere jail -d -j freebsd-11-amd64
 poudriere jail -c -j freebsd-11-amd64 -v 11.1-RELEASE
 {%endace%}
 

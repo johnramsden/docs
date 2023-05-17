@@ -103,6 +103,7 @@ On new, subkey only system:
 {%ace lang='sh'%}
 /home/john/.gnupg/pubring.kbx
 -----------------------------
+
 sec#  rsa4096 2017-05-17 [SC]
       <KEY ID>
 uid           [ unknown] John Ramsden (<comment>) <email>
@@ -112,6 +113,7 @@ ssb   rsa4096 2017-09-05 [E] [expires: 2019-09-05]
 {%endace%}
 
 References:
-*   [Arch Wiki - GnuPG](https://wiki.archlinux.org/index.php/GnuPG#Edit_your_key)
-*   [Debian - Subkeys](https://wiki.debian.org/Subkeys)
-*   [void.gr](https://www.void.gr/kargig/blog/2013/12/02/creating-a-new-gpg-key-with-subkeys/)
+
+* [Arch Wiki - GnuPG](https://wiki.archlinux.org/index.php/GnuPG#Edit_your_key)
+* [Debian - Subkeys](https://wiki.debian.org/Subkeys)
+* [void.gr](https://www.void.gr/kargig/blog/2013/12/02/creating-a-new-gpg-key-with-subkeys/)

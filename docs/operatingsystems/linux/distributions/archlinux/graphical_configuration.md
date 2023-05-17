@@ -89,12 +89,12 @@ Exec=/usr/bin/mkinitcpio -P
 
 ### KDE Plasma
 
-Install [KDE Plasma](https://www.archlinux.org/groups/x86_64/plasma/) package as well as some [KDE meta-packages](https://www.archlinux.org/packages/?name=kde-applications-meta). I dont install ```kde-meta-kdeaccessibility```, ```kde-meta-kdeedu```, ```kde-meta-kdegames```, .```kde-meta-kdemultimedia```, ```kde-meta-kdepim```, ```kde-meta-kdesdk```, ```kde-meta-kdewebdev```.
+Install [KDE Plasma](https://www.archlinux.org/groups/x86_64/plasma/) package as well as some [KDE meta-packages](https://www.archlinux.org/packages/?name=kde-applications-meta). I dont install ```kdeaccessibility-meta```, ```kdeedu-meta```, ```kdegames-meta```, .```kdemultimedia-meta```, ```kdepim-meta```, ```kdesdk-meta```, ```kdewebdev-meta```.
 
 Choose ```phonon-qt5-gstreamer```, ```libx264```, ```cronie```, ```phonon-qt4-gstreamer```.
 
 {%ace lang='sh'%}
-pacman -S plasma kde-meta-kdeadmin kde-meta-kdebase kde-meta-kdegraphics kde-meta-kdenetwork kde-meta-kdeutils
+pacman -S plasma kdeadmin-meta kdebase-meta kdegraphics-meta kdenetwork-meta kdeutils-meta
 {%endace%}
 
 I disable baloo since it seems to make my system chug.
@@ -108,13 +108,13 @@ balooctl disable
 I use sddm, simple and works well. For an onscreen keyboard install [qt5-virtualkeyboard](https://www.archlinux.org/packages/extra/x86_64/qt5-virtualkeyboard/).
 
 {%ace lang='sh'%}
-pacman -S sddm
+pacman -S sddm qt5-virtualkeyboard
 {%endace%}
 
-Setup config at ```/etc/sddm.conf```.
+Setup config at ```/etc/sddm.conf.d/sddm.conf```.
 
 {%ace lang='sh'%}
-nano /etc/sddm.conf
+nano /etc/sddm.conf.d/sddm.conf
 {%endace%}
 
 Tell it to start a desktop file from ```/usr/share/xsessions/```, set dpi, and user.
@@ -151,7 +151,7 @@ To access the entire system over vnc, install [tigervnc](https://www.archlinux.o
 
 Configure startup run ```vncserver```.
 
-Setup a systemd unit to start vnc, note this connects to physical display, [other options]() are available.. Change user.
+Setup a systemd unit to start vnc, note this connects to physical display, other options are available. Change user.
 
 {%ace lang='sh'%}
 nano /etc/systemd/system/x0vncserver.service
@@ -180,5 +180,5 @@ systemctl start x0vncserver
 Install [ttf-google-fonts-git (AUR)](https://aur.archlinux.org/packages/ttf-google-fonts-git/).
 
 {%ace lang='sh'%}
-pacaur -S ttf-google-fonts-git
+aursync --update --temp --chroot ttf-google-fonts-git
 {%endace%}

@@ -17,7 +17,7 @@ Create jail, OpenJDK requires fdescfs, and procfs.
 iocage create --release 11.1-RELEASE --name unifi \
           allow_raw_sockets="1" \
           mount_linprocfs="1" \
-          boot="on" vnet=on \
+          boot="on" vnet=on bpf=on \
           ip4_addr="vnet1|172.20.40.20/24" \
           interfaces="vnet1:bridge1" \
           defaultrouter="172.20.40.1"

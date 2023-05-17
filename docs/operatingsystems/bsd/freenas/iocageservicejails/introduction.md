@@ -15,6 +15,14 @@ Creating jails on FreeNAS can [now be done](http://doc.freenas.org/11/jails.html
 iocage activate tank
 {%endace%}
 
+iocage create --release 11.2-RELEASE --name rust \
+          boot=on vnet=on dhcp=on bpf=yes \
+          allow_raw_sockets="1" \
+          ip4_addr="vnet1|172.20.40.42/24" \
+          interfaces="vnet1:bridge1" \
+          defaultrouter="172.20.40.1" \
+          resolver="search ramsden.network;nameserver 172.20.40.1;nameserver 8.8.8.8"
+
 <!--
 
 ### emby

@@ -12,11 +12,10 @@ folder: linux/archlinux
 
 ## syncthing
 
-Install syncthing and syncthing-inotify to look for file changes.
+Install syncthing.
 
 {%ace lang='sh'%}
-pacman -S syncthing syncthing-inotify
-
+pacman -S syncthing
 {%endace%}
 
 Start user service.
@@ -60,7 +59,8 @@ pacman -S conky
 I use a script with conky to check email with the perl```Mail::IMAPClient``` and ```IO::Socket::SSL```, on arch needs: [perl-mail-imapclient (AUR)](https://aur.archlinux.org/packages/perl-mail-imapclient/), and [perl-io-socket-ssl](https://www.archlinux.org/packages/extra/any/perl-io-socket-ssl/).
 
 {%ace lang='sh'%}
-pacaur -S perl-mail-imapclient perl-io-socket-ssl
+pacman -S perl-io-socket-ssl
+aursync --update --temp --chroot perl-mail-imapclient
 {%endace%}
 
 ## Steam using Flatpak

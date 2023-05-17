@@ -136,10 +136,6 @@ chmod 600 /etc/msmtprc
 
 You can setup a [gpg encrypted passphrase](https://wiki.archlinux.org/index.php/Msmtp#Password_management) if using interactively. The other (not very good option) is setting with 'password' in config.
 
-{%ace lang='sh'%}
-
-{%endace%}
-
 Add aliases to ```/etc/aliases```.
 
 {%ace lang='sh'%}
@@ -306,20 +302,14 @@ I would then run, for chin on ```replicator@<server ip>```.
 
 ### Scrub
 
-Setup a monthly scrub. Easiest way to set this up as install the [systemd-zpool-scrub (AUR)](https://aur.archlinux.org/packages/systemd-zpool-scrub/) package.
-
-{%ace lang='sh'%}
-pacaur -S systemd-zpool-scrub
-systemctl enable --now zpool-scrub@vault.timer
-{%endace%}
-
-This could also easily set up by just installing a systemd unit containing the following.
+Setup a monthly scrub with a systemd unit and timercontaining the following.
 
 {%ace lang='sh'%}
 nano /usr/lib/systemd/system/zpool-scrub@.service
 {%endace%}
 
 {%ace lang='sh'%}
+# /etc/systemd/system/zpool-scrub@.service
 [Unit]
 Description=Scrub ZFS Pool
 Requires=zfs.target
@@ -329,6 +319,28 @@ After=zfs.target
 Type=oneshot
 ExecStartPre=-/usr/bin/zpool scrub -s %i
 ExecStart=/usr/bin/zpool scrub %i
+{%endace%}
+
+{%ace lang='sh'%}
+nano /etc/systemd/system/zpool-scrub@.timer
+{%endace%}
+
+{%ace lang='sh'%}
+[Unit]
+Description=Scrub ZFS pool weekly
+
+[Timer]
+OnCalendar=weekly
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+{%endace%}
+
+Enable for pool.
+
+{%ace lang='sh'%}
+systemctl enable --now zpool-scrub@vault.timer
 {%endace%}
 
 ### Enable The ZFS Event Daemon
@@ -463,23 +475,6 @@ My config looks like:
 {%ace lang='sh'%}
 pacman -S nfs-utils
 systemctl enable --now rpcbind.service nfs-client.target remote-fs.target
-{%endace%}
-
-Rpc has [a bug](https://bugs.archlinux.org/task/50663) caused by glibc, [until it's resolved force rpc.gssd to start](https://wiki.archlinux.org/index.php/NFS#Client).
-
-{%ace lang='sh'%}
-systemctl edit rpc-gssd.service
-{%endace%}
-
-{%ace lang='sh'%}
-[Unit]
-Requires=network-online.target
-After=network-online.target
-
-[Service]
-Type=simple
-ExecStart=
-ExecStart=/usr/sbin/rpc.gssd -f
 {%endace%}
 
 ## Autofs

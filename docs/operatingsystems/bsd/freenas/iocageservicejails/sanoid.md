@@ -14,23 +14,32 @@ Setup for Emby service jail with iocage.
 Create jail:
 
 {%ace lang='sh'%}
-iocage create --release 11.2-RELEASE --name emby \
+iocage create --release 11.2-RELEASE --name sanoid \
           boot=on vnet=on dhcp=on bpf=yes \
           allow_raw_sockets="1" \
-          ip4_addr="vnet1|172.20.40.21/24" \
+          ip4_addr="vnet1|172.20.40.45/24" \
           interfaces="vnet1:bridge1" \
           defaultrouter="172.20.40.1" \
           resolver="search ramsden.network;nameserver 172.20.40.1;nameserver 8.8.8.8"
 {%endace%}
 
+iocage restart sanoid
+
 On Freenas create datasets:
 
-*   Datasets
-    *   Emby Data
-        *   ```tank/data/database/emby/emby-server```
-        *   ```tank/data/database/emby/media-metadata```
-    *   Media
-        *   For all media ```tank/media/Series/...```
+`tank/replication`
+
+iocage set jail_zfs=on \
+           jail_zfs_dataset=replication sanoid
+
+iocage console sanoid
+zfs list
+
+pkg update && pkg upgrade && pkg install p5-Config-Inifiles p5-Capture-Tiny pv mbuffer lzop git
+
+git clone https://github.com/jimsalterjrs/sanoid.git
+cd sanoid
+cp sanoid syncoid findoid sleepymutex /usr/local/sbin
 
 Create media user/group using uid from freenas:
 
